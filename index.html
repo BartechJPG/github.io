@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B.jpg — Documentary Photography & Art Direction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Lato:wght@400;700&family=Space+Grotesk:wght@400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #1B1B1B;
+      --orange: #F93B22;
+      --ticker-height: 30px;
+      --logo-size: 45px;
+      --nav-height: 88px;
+      --header-height: calc(var(--ticker-height) + var(--nav-height));
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--orange);
+      font-family: 'Lato', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ─── TICKER ─── */
+    .ticker-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      height: var(--ticker-height);
+      background-color: #ffffff;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .ticker-track {
+      display: flex;
+      white-space: nowrap;
+      animation: ticker-scroll 55s linear infinite;
+    }
+
+    .ticker-text {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--bg);
+      padding-right: 0;
+    }
+
+    .ticker-sep {
+      color: var(--orange);
+      padding: 0 20px;
+    }
+
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: var(--ticker-height);
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: var(--nav-height);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 40px;
+      background-color: var(--bg);
+      box-shadow: none;
+      transition: box-shadow 0.4s ease;
+    }
+
+    nav.scrolled {
+      box-shadow:
+        0 1px 0 rgba(249, 59, 34, 0.07),
+        0 2px 12px rgba(0, 0, 0, 0.35),
+        0 6px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      justify-self: start;
+      grid-column: 1;
+    }
+
+    .nav-logo svg {
+      width: var(--logo-size);
+      height: var(--logo-size);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 72px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--orange);
+      text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      font-size: 1.15rem;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      height: var(--logo-size);
+      display: inline-flex;
+      align-items: center;
+      padding: 0 20px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      background: var(--orange);
+      color: var(--bg);
+    }
+
+    .nav-links a.active,
+    .mobile-nav-links a.active {
+      background: var(--orange);
+      color: var(--bg);
+      opacity: 1;
+    }
+
+    /* ─── NAV RIGHT GROUP ─── */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-shrink: 0;
+      justify-self: end;
+      grid-column: 3;
+    }
+
+    /* ─── BURGER BUTTON ─── */
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      width: 28px;
+      height: var(--logo-size);
+      flex-shrink: 0;
+    }
+
+    .nav-burger span {
+      display: block;
+      width: 100%;
+      height: 4px;
+      background: var(--orange);
+      transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+
+    /* translateY = (gap + height) = 6 + 4 = 10px */
+    .nav-burger.open span:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+    /* ─── MOBILE MENU ─── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 99;
+      background: var(--bg);
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 40px 60px;
+      gap: 12px;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu .lang-switch { align-self: flex-start; }
+
+    .mobile-nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .mobile-nav-links li {
+      border-top: 1px solid rgba(255,60,0,0.15);
+    }
+
+    .mobile-nav-links li:last-child {
+      border-bottom: 1px solid rgba(255,60,0,0.15);
+    }
+
+    .mobile-nav-links a {
+      display: block;
+      padding: 22px 0;
+      color: var(--orange);
+      text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      font-size: 2rem;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      transition: opacity 0.2s ease;
+    }
+
+    .mobile-nav-links a:hover { opacity: 0.6; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .nav-links  { display: none; }
+      .nav-burger { display: flex; }
+      .nav-right .lang-switch { display: none; }
+      nav { padding: 0 24px; }
+      .work-card { flex: 0 0 85%; }
+      .work-grid { padding-left: 24px; padding-right: 24px; scroll-padding-left: 24px; }
+      .work-nav { padding: 0 24px; }
+    }
+
+    .lang-switch {
+      display: flex;
+      align-items: stretch;
+      height: var(--logo-size);
+      border: 1.5px solid var(--orange);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--orange);
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      padding: 0 16px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .lang-btn + .lang-btn {
+      border-left: 1.5px solid var(--orange);
+    }
+
+    .lang-btn.active {
+      background: var(--orange);
+      color: var(--bg);
+    }
+
+    .lang-btn:hover:not(.active) {
+      opacity: 0.65;
+    }
+
+    .lang-sep {
+      display: none;
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      height: 100vh;
+      padding-top: var(--header-height);
+      padding-bottom: calc(56px + 1.4rem * 1.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hero-marquee-wrap {
+      width: 100%;
+    }
+
+    #hero-canvas {
+      display: block;
+      width: 100%;
+    }
+
+    /* ─── GRAIN ─── */
+    #grain-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.045;
+    }
+
+    .hero-subtitle {
+      position: absolute;
+      bottom: var(--ticker-height);
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      font-size: 1.1rem;
+      letter-spacing: 0.01em;
+      color: var(--orange);
+      text-transform: uppercase;
+      white-space: nowrap;
+      text-align: center;
+      animation: subtitle-bounce 1.8s ease-in-out infinite;
+      padding: 0 20px;
+      height: var(--logo-size);
+      display: flex;
+      align-items: center;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    .hero-subtitle.work-active {
+      background: var(--orange);
+      color: var(--bg);
+    }
+
+    @media (max-width: 768px) {
+      .hero-subtitle {
+        font-size: 1rem;
+        white-space: normal;
+        width: calc(100% - 48px);
+        left: 24px;
+        transform: none;
+        bottom: 32px;
+      }
+    }
+
+    /* ─── SCROLL INDICATORS ─── */
+    .scroll-indicator {
+      position: absolute;
+      bottom: var(--ticker-height);
+      width: var(--logo-size);
+      height: var(--logo-size);
+      background: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--bg);
+      animation: scroll-bounce 1.8s ease-in-out infinite;
+      opacity: 1;
+      z-index: 50;
+      text-decoration: none;
+    }
+
+
+    .scroll-indicator.left  { left: 40px; }
+    .scroll-indicator.right { right: 40px; }
+
+    .scroll-indicator svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    @keyframes scroll-bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(6px); }
+    }
+
+    @keyframes subtitle-bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    @media (max-width: 768px) {
+      .scroll-indicator.left  { left: 24px; }
+      .scroll-indicator.right { right: 24px; }
+    }
+
+    /* ─── SHARED SECTION STYLES ─── */
+    .section-inner {
+      padding: 120px 80px;
+    }
+
+    #work,
+    #about,
+    #contact {
+      scroll-margin-top: var(--header-height);
+    }
+
+    /* ─── WORK ─── */
+    #work {
+      background-color: var(--bg);
+    }
+
+    #work .section-inner {
+      padding: 0 0 72px;
+    }
+
+    .work-carousel {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .work-grid {
+      display: flex;
+      gap: 3px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      cursor: grab;
+      padding-left: 40px;
+      padding-right: 40px;
+      scroll-padding-left: 40px;
+    }
+
+    .work-grid::-webkit-scrollbar { display: none; }
+    .work-grid.grabbing { cursor: grabbing; }
+
+    .work-nav {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 40px;
+    }
+
+    .work-nav-btn {
+      width: var(--logo-size);
+      height: var(--logo-size);
+      background: var(--orange);
+      border: none;
+      border-radius: 0;
+      color: var(--bg);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .work-nav-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .work-nav-btn:hover { opacity: 0.8; }
+
+    .work-nav-btn:disabled {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .work-card {
+      flex: 0 0 calc(33.333% - 2px);
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .work-item {
+      background-color: #272727;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      border-radius: 6px;
+      width: 100%;
+    }
+
+    .work-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: grayscale(100%);
+      transition: transform 0.5s ease, filter 0.5s ease;
+    }
+
+    .work-card:hover .work-item img {
+      transform: scale(1.04);
+      filter: grayscale(0%);
+    }
+
+    .work-item-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
+      color: var(--orange);
+      text-transform: uppercase;
+      padding: 0 2px;
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      border-top: 1px solid rgba(255, 60, 0, 0.15);
+    }
+
+    #about .section-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      padding-bottom: 0;
+    }
+
+    .about-profile {
+      width: 100%;
+      display: block;
+      line-height: 0;
+    }
+
+    .about-profile img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .about-label {
+      display: inline-flex;
+      align-items: center;
+      align-self: center;
+      height: var(--logo-size);
+      padding: 0 20px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      font-size: 1.1rem;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      background: var(--orange);
+      color: var(--bg);
+    }
+
+    .about-content {
+      padding-top: 0;
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    .about-body {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      font-size: 1.05rem;
+      letter-spacing: 0em;
+      line-height: 1.75;
+      color: #ffffff;
+      margin-bottom: 32px;
+    }
+
+    .about-body:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      background: var(--orange);
+    }
+
+    #contact .contact-label {
+      background: var(--bg);
+      color: var(--orange);
+    }
+
+    #contact .contact-row {
+      color: var(--bg);
+    }
+
+    #contact a.contact-row:hover {
+      opacity: 0.5;
+    }
+
+    #contact .section-inner {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .contact-label {
+      display: inline-flex;
+      align-items: center;
+      height: var(--logo-size);
+      padding: 0 20px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      font-size: 1.1rem;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      background: var(--orange);
+      color: var(--bg);
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+
+    .contact-row {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--orange);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    a.contact-row:hover {
+      opacity: 0.6;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 32px 80px;
+      border-top: 1px solid rgba(255, 60, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-text {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+      color: var(--orange);
+      opacity: 0.35;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TICKER -->
+  <div class="ticker-bar" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-text">01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span></span>
+      <span class="ticker-text" aria-hidden="true">01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span></span>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo" aria-label="Home">
+      <svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M101.272 2.07495C101.251 1.34169 100.664 0.754053 99.9303 0.733252C67.3188 -0.244417 34.6865 -0.244417 2.07495 0.733252C1.34169 0.754053 0.754053 1.34169 0.733252 2.07495C-0.244417 34.6865 -0.244417 67.3188 0.733252 99.9251C0.754053 100.658 1.34169 101.246 2.07495 101.267C34.6865 102.244 67.3136 102.244 99.9251 101.267C100.658 101.246 101.246 100.658 101.267 99.9251C102.244 67.3136 102.244 34.6813 101.267 2.07495H101.272ZM89.1759 52.4925C78.6296 69.2793 64.4742 76.1074 51.0052 76.1074C37.5363 76.1074 23.3757 69.2793 12.8345 52.4925C12.2625 51.5824 12.2625 50.4228 12.8345 49.5179C23.3809 32.7311 37.5363 25.903 51.0052 25.903C64.4742 25.903 78.6348 32.7311 89.1759 49.5179C89.7479 50.428 89.7479 51.5876 89.1759 52.4925Z" fill="#F93B22"/>
+        <path d="M63.8432 39.2097C63.23 39.8229 62.7379 40.5573 62.4295 41.3651C61.5115 43.752 62.0439 45.2832 63.2666 47.1669L64.2764 48.7201L62.7232 47.7104C60.3254 46.1498 57.2336 46.1498 54.8357 47.7105L53.2824 48.7203L54.2923 47.167C55.8529 44.7692 55.8529 41.6773 54.2924 39.2796L53.2826 37.7263L54.8358 38.7361C56.7195 39.9588 58.2471 40.4949 60.6376 39.5732C61.4491 39.2611 62.1798 38.7727 62.7931 38.1595C63.0281 37.9245 63.0207 37.5352 62.771 37.3223C59.4626 34.4765 55.1113 32.8058 50.3708 32.9711C40.9557 33.3017 33.3069 40.98 33.0057 50.395C32.6714 60.8124 41.1866 69.3277 51.6078 68.9971C61.0228 68.6958 68.701 61.047 69.0316 51.632C69.2006 46.8877 67.5299 42.5364 64.6841 39.228C64.4675 38.9746 64.0819 38.971 63.8469 39.206L63.8432 39.2097Z" fill="#F93B22"/>
+      </svg>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#work"    data-i18n="nav.work">portfolio</a></li>
+      <li><a href="#about"   data-i18n="nav.about">about</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">contact</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <div class="lang-switch" aria-label="Language switcher">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <span class="lang-sep">/</span>
+        <button class="lang-btn" data-lang="pl">PL</button>
+      </div>
+      <button class="nav-burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <ul class="mobile-nav-links">
+      <li><a href="#work"    data-i18n="nav.work">portfolio</a></li>
+      <li><a href="#about"   data-i18n="nav.about">about</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">contact</a></li>
+    </ul>
+    <div class="lang-switch" aria-label="Language switcher">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <span class="lang-sep">/</span>
+      <button class="lang-btn" data-lang="pl">PL</button>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-marquee-wrap">
+      <canvas id="hero-canvas" aria-label="B.JPG / PHOTOGRAPHY / DESIGN"></canvas>
+    </div>
+    <p class="hero-subtitle" data-i18n="hero.subtitle">MY WORKS</p>
+    <a href="#work" class="scroll-indicator left" aria-label="Scroll to works">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="4,7 10,13 16,7"/>
+      </svg>
+    </a>
+    <a href="#work" class="scroll-indicator right" aria-label="Scroll to works">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="4,7 10,13 16,7"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="section-inner">
+      <div class="work-carousel">
+      <div class="work-grid" id="work-grid">
+
+        <a href="shipyard.html" class="work-card">
+          <div class="work-item"><img src="Shipyard.jpg" alt="Shipyard"></div>
+          <span class="work-item-title">Shipyard</span>
+        </a>
+
+        <a href="clay-factory.html" class="work-card">
+          <div class="work-item"><img src="ClayFactory.jpg" alt="Clay Factory"></div>
+          <span class="work-item-title">Clay Factory</span>
+        </a>
+
+        <a href="poultry-market.html" class="work-card">
+          <div class="work-item"><img src="ChickenMarket.jpg" alt="Poultry Market"></div>
+          <span class="work-item-title">Poultry Market</span>
+        </a>
+
+        <a href="biker.html" class="work-card">
+          <div class="work-item"><img src="Biker.jpg" alt="Biker"></div>
+          <span class="work-item-title">Biker</span>
+        </a>
+
+      </div>
+      <div class="work-nav">
+        <button class="work-nav-btn" id="work-prev" aria-label="Previous">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="13,4 7,10 13,16"/>
+          </svg>
+        </button>
+        <button class="work-nav-btn" id="work-next" aria-label="Next">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="7,4 13,10 7,16"/>
+          </svg>
+        </button>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <span class="about-label" data-i18n="about.heading">ABOUT</span>
+      <div class="about-content">
+        <p class="about-body" data-i18n="about.body1">
+          I'm a photographer and designer from Poland. I hold a Master's degree in Graphic Design from the Academy of Fine Arts in Katowice. Throughout my professional career, I have worked as a design advisor for multiple brands such as Lamborghini, Pfizer, Moncler, and Deutsche Telekom. My personal design work has been displayed at multiple exhibitions. Always inspired by documentary films and the work of photojournalists, in recent years I have shifted my focus toward capturing cultures, their traditions, and professions that are slowly disappearing.
+        </p>
+      </div>
+    </div>
+    <div class="about-profile">
+      <img src="Profile image" alt="Bartek R.">
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <span class="contact-label" data-i18n="nav.contact">contact</span>
+      <div class="contact-details">
+        <a href="mailto:bartech.jpg@gmail.com" class="contact-row">EMAIL: bartech.jpg@gmail.com</a>
+        <span class="contact-row">PHONE/WHATSAPP: (+48) 530 741 809</span>
+        <a href="https://instagram.com/bartech.jpg" target="_blank" class="contact-row" style="text-decoration:underline">INSTAGRAM</a>
+        <a href="https://substack.com/@bartechjpg" target="_blank" class="contact-row" style="text-decoration:underline">SUBSTACK</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-text" data-i18n="footer.rights">© 2026 Bartech. All rights reserved.</span>
+    <span class="footer-text" data-i18n="footer.tagline">Documentary Photography &amp; Art Direction</span>
+  </footer>
+
+  <canvas id="grain-canvas" aria-hidden="true"></canvas>
+
+  <script>
+    // ── Language switcher / i18n ──────────────────────────────────────────────
+    (function () {
+      const T = {
+        en: {
+          'nav.work':        'portfolio',
+          'nav.about':       'about',
+          'nav.contact':     'contact',
+          'hero.subtitle':   'MY WORKS',
+          'work.label':      'Selected Work',
+          'about.heading':   'ABOUT',
+          'about.label':     'About',
+          'about.body1':     'I\'m a photographer and designer from Poland. I hold a Master\'s degree in Graphic Design from the Academy of Fine Arts in Katowice. Throughout my professional career, I have worked as a design advisor for multiple brands such as Lamborghini, Pfizer, Moncler, and Deutsche Telekom. My personal design work has been displayed at multiple exhibitions. Always inspired by documentary films and the work of photojournalists, in recent years I have shifted my focus toward capturing cultures, their traditions, and professions that are slowly disappearing.',
+          'contact.heading': 'LET\'S<br>TALK.',
+          'footer.rights':   '© 2026 Bartech. All rights reserved.',
+          'footer.tagline':  'Documentary Photography &amp; Art Direction',
+          'ticker':          'Documentary Photography &amp; Art Direction',
+        },
+        pl: {
+          'nav.work':        'portfolio',
+          'nav.about':       'o mnie',
+          'nav.contact':     'kontakt',
+          'hero.subtitle':   'MOJE PRACE',
+          'work.label':      'Wybrane Prace',
+          'about.heading':   'O MNIE',
+          'about.label':     'O mnie',
+          'about.body1':     'Jestem fotografem i projektantem z Polski. Posiadam tytuł magistra projektowania graficznego Akademii Sztuk Pięknych w Katowicach. W trakcie swojej kariery zawodowej pracowałem jako doradca ds. designu dla takich marek jak Lamborghini, Pfizer, Moncler i Deutsche Telekom. Moje osobiste prace projektowe były prezentowane na wielu wystawach. Zawsze zainspirowany filmami dokumentalnymi i pracą fotoreporterów, w ostatnich latach skupiłem się na dokumentowaniu kultur, tradycji oraz zawodów, które powoli odchodzą w zapomnienie.',
+          'contact.heading': 'POROZMAWIAJMY.',
+          'footer.rights':   '© 2026 Bartech. Wszelkie prawa zastrzeżone.',
+          'footer.tagline':  'Fotografia Dokumentalna &amp; Reżyseria Artystyczna',
+          'ticker':          'Fotografia Dokumentalna &amp; Reżyseria Artystyczna',
+        }
+      };
+
+      function buildTicker(t) {
+        const sep = '<span class="ticker-sep">/</span>';
+        return (`01.05.2026${sep}Kraków, Poland${sep}${t['ticker']}${sep}`).repeat(6);
+      }
+
+      function applyLang(lang) {
+        const t = T[lang];
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          el.innerHTML = t[el.dataset.i18n] ?? el.innerHTML;
+        });
+        document.querySelectorAll('.ticker-text').forEach(el => {
+          el.innerHTML = buildTicker(t);
+        });
+        document.documentElement.lang = lang;
+        document.title = T[lang]['footer.tagline'].replace(/&amp;/g, '&')
+                       .replace('Documentary Photography', 'B.jpg — Documentary Photography')
+                       .replace('Fotografia Dokumentalna', 'B.jpg — Fotografia Dokumentalna');
+      }
+
+      function playKeyClick() {
+        try {
+          const ctx = new (window.AudioContext || window.webkitAudioContext)();
+          const t   = ctx.currentTime;
+
+          // — Click transient —
+          const bufLen = Math.floor(ctx.sampleRate * 0.003);
+          const buf    = ctx.createBuffer(1, bufLen, ctx.sampleRate);
+          const data   = buf.getChannelData(0);
+          for (let i = 0; i < bufLen; i++) data[i] = Math.random() * 2 - 1;
+
+          const click  = ctx.createBufferSource();
+          click.buffer = buf;
+
+          const cg     = ctx.createGain();
+          cg.gain.setValueAtTime(0.4, t);
+          cg.gain.exponentialRampToValueAtTime(0.001, t + 0.003);
+
+          click.connect(cg); cg.connect(ctx.destination);
+          click.start(t); click.stop(t + 0.004);
+
+          // — Key thud —
+          const osc    = ctx.createOscillator();
+          osc.type     = 'sine';
+          osc.frequency.setValueAtTime(220, t);
+          osc.frequency.exponentialRampToValueAtTime(80, t + 0.05);
+
+          const og     = ctx.createGain();
+          og.gain.setValueAtTime(0.25, t);
+          og.gain.exponentialRampToValueAtTime(0.001, t + 0.06);
+
+          osc.connect(og); og.connect(ctx.destination);
+          osc.start(t); osc.stop(t + 0.065);
+
+        } catch (e) { /* audio not available */ }
+      }
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          playKeyClick();
+          const lang = btn.dataset.lang;
+          // Sync active state across every lang button (nav + mobile)
+          document.querySelectorAll('.lang-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.lang === lang);
+          });
+          applyLang(lang);
+        });
+      });
+    }());
+
+    // ── Mobile burger menu ────────────────────────────────────────────────────
+    (function () {
+      const burger = document.querySelector('.nav-burger');
+      const menu   = document.getElementById('mobile-menu');
+
+      function openMenu() {
+        menu.classList.add('open');
+        burger.classList.add('open');
+        burger.setAttribute('aria-expanded', 'true');
+        burger.setAttribute('aria-label', 'Close menu');
+        menu.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu() {
+        menu.classList.remove('open');
+        burger.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        burger.setAttribute('aria-label', 'Open menu');
+        menu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      burger.addEventListener('click', () => {
+        menu.classList.contains('open') ? closeMenu() : openMenu();
+      });
+
+      // Close when any mobile link is clicked
+      menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+      });
+    }());
+
+    (function () {
+      const canvas = document.getElementById('grain-canvas');
+      const ctx    = canvas.getContext('2d');
+      const off    = document.createElement('canvas');
+      const octx   = off.getContext('2d');
+      const SCALE  = 2;
+
+      function resize() {
+        canvas.width = off.width  = Math.ceil(window.innerWidth  / SCALE);
+        canvas.height = off.height = Math.ceil(window.innerHeight / SCALE);
+        seed();
+      }
+
+      function seed() {
+        const img = octx.createImageData(off.width, off.height);
+        const d = img.data;
+        for (let i = 0; i < d.length; i += 4) {
+          const v = Math.random() * 255 | 0;
+          d[i] = d[i + 1] = d[i + 2] = v;
+          d[i + 3] = 255;
+        }
+        octx.putImageData(img, 0, 0);
+        ctx.globalAlpha = 0.45;
+        ctx.drawImage(off, 0, 0);
+      }
+
+      resize();
+      window.addEventListener('resize', resize);
+      setInterval(seed, 80);
+    }());
+
+  // ── WebGL hero: two-pass blur → grain-displace ───────────────────────────────
+  (function () {
+    'use strict';
+
+    const TEXT     = 'B.JPG / PHOTOGRAPHY / DESIGN / ';
+    const DURATION = 38;
+
+    const canvas = document.getElementById('hero-canvas');
+    const gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false });
+    if (!gl) return;
+
+    const tc   = document.createElement('canvas');
+    const tctx = tc.getContext('2d');
+
+    // ── SVG filter for corner rounding (blur + alpha threshold) ──────────
+    const _ns  = 'http://www.w3.org/2000/svg';
+    const _svg = document.createElementNS(_ns, 'svg');
+    _svg.setAttribute('style', 'position:absolute;width:0;height:0;overflow:hidden');
+    const _flt  = document.createElementNS(_ns, 'filter');
+    _flt.setAttribute('id', 'hero-round');
+    const _blur = document.createElementNS(_ns, 'feGaussianBlur');
+    _blur.setAttribute('in', 'SourceGraphic');
+    _blur.setAttribute('result', 'b');
+    const _mat  = document.createElementNS(_ns, 'feColorMatrix');
+    _mat.setAttribute('in', 'b');
+    _mat.setAttribute('type', 'matrix');
+    _mat.setAttribute('values', '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 50 -25');
+    _flt.appendChild(_blur); _flt.appendChild(_mat);
+    _svg.appendChild(_flt);
+    document.body.appendChild(_svg);
+
+    // ── Shared vertex shader ──────────────────────────────────────────────
+    const VS = `
+      attribute vec2 a_pos;
+      varying vec2 v_uv;
+      void main() {
+        v_uv = vec2(a_pos.x * .5 + .5, a_pos.y * .5 + .5);
+        gl_Position = vec4(a_pos, 0., 1.);
+      }`;
+
+    // ── Pass 1: symmetric multi-tap blur → FBO ────────────────────────────
+    const FS_BLUR = `
+      precision mediump float;
+      uniform sampler2D u_text;
+      uniform vec2 u_px;
+      varying vec2 v_uv;
+      void main() {
+        vec4 c = vec4(0.0);
+        vec2 p;
+        p=vec2( 7., 0.)*u_px; c+=(texture2D(u_text,v_uv+p)+texture2D(u_text,v_uv-p))*0.055;
+        p=vec2( 0., 7.)*u_px; c+=(texture2D(u_text,v_uv+p)+texture2D(u_text,v_uv-p))*0.055;
+        p=vec2( 5., 5.)*u_px; c+=(texture2D(u_text,v_uv+p)+texture2D(u_text,v_uv-p))*0.040;
+        p=vec2(-5., 5.)*u_px; c+=(texture2D(u_text,v_uv+p)+texture2D(u_text,v_uv-p))*0.040;
+        p=vec2(17., 0.)*u_px; c+=(texture2D(u_text,v_uv+p)+texture2D(u_text,v_uv-p))*0.038;
+        p=vec2( 0.,17.)*u_px; c+=(texture2D(u_text,v_uv+p)+texture2D(u_text,v_uv-p))*0.038;
+        p=vec2(12.,12.)*u_px; c+=(texture2D(u_text,v_uv+p)+texture2D(u_text,v_uv-p))*0.028;
+        p=vec2(-12.,12.)*u_px;c+=(texture2D(u_text,v_uv+p)+texture2D(u_text,v_uv-p))*0.028;
+        p=vec2(30., 0.)*u_px; c+=(texture2D(u_text,v_uv+p)+texture2D(u_text,v_uv-p))*0.018;
+        p=vec2( 0.,30.)*u_px; c+=(texture2D(u_text,v_uv+p)+texture2D(u_text,v_uv-p))*0.018;
+        p=vec2(21.,21.)*u_px; c+=(texture2D(u_text,v_uv+p)+texture2D(u_text,v_uv-p))*0.012;
+        p=vec2(-21.,21.)*u_px;c+=(texture2D(u_text,v_uv+p)+texture2D(u_text,v_uv-p))*0.012;
+        gl_FragColor = c;
+      }`;
+
+    // ── Pass 2: grain-displace blurred FBO, composite with original text ──
+    const FS_COMP = `
+      precision mediump float;
+      uniform sampler2D u_blurred;
+      uniform sampler2D u_text;
+      uniform sampler2D u_grain;
+      uniform vec2 u_px;
+      uniform vec2 u_tile;
+      varying vec2 v_uv;
+      void main() {
+        // Grain displacement — tile factor set per-frame to keep cell size constant in pixels
+        vec2 gc   = fract(v_uv * u_tile);
+        vec2 gn   = texture2D(u_grain, gc).rg - texture2D(u_grain, fract(gc + 0.5)).rg;
+        vec2 gOff = gn * u_px * 65.0;
+        vec4 grainyGlow = texture2D(u_blurred, v_uv + gOff) * 0.9;
+        // Subtle blur on the letters only (grain/glow paths are unaffected)
+        vec2 b = u_px * 2.5;
+        vec4 original = texture2D(u_text, v_uv) * 0.4
+                      + (texture2D(u_text, v_uv + vec2(b.x, 0.)) + texture2D(u_text, v_uv - vec2(b.x, 0.))) * 0.15
+                      + (texture2D(u_text, v_uv + vec2(0., b.y)) + texture2D(u_text, v_uv - vec2(0., b.y))) * 0.15;
+        // Composite original text ON TOP of glow — glow only shows through where text is transparent
+        gl_FragColor = clamp(grainyGlow * (1.0 - original.a) + original, 0., 1.);
+      }`;
+
+    // ── Compile ───────────────────────────────────────────────────────────
+    function mkShader(type, src) {
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src); gl.compileShader(s); return s;
+    }
+    function mkProg(fsSrc) {
+      const p = gl.createProgram();
+      gl.attachShader(p, mkShader(gl.VERTEX_SHADER, VS));
+      gl.attachShader(p, mkShader(gl.FRAGMENT_SHADER, fsSrc));
+      gl.bindAttribLocation(p, 0, 'a_pos');
+      gl.linkProgram(p);
+      return p;
+    }
+    const progBlur = mkProg(FS_BLUR);
+    const progComp = mkProg(FS_COMP);
+
+    // Fullscreen quad
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(0);
+    gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+
+    // ── Textures: 0=text, 1=grain, 2=FBO/blurred ─────────────────────────
+    function mkTex(unit, wrap, filter) {
+      gl.activeTexture(gl.TEXTURE0 + unit);
+      const t = gl.createTexture();
+      gl.bindTexture(gl.TEXTURE_2D, t);
+      const f = filter || gl.LINEAR;
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, wrap || gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, wrap || gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, f);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, f);
+      return t;
+    }
+    mkTex(0);
+    mkTex(1, gl.REPEAT);
+    const fboTex = mkTex(2);
+
+    gl.useProgram(progBlur);
+    gl.uniform1i(gl.getUniformLocation(progBlur, 'u_text'), 0);
+    const uPxBlur = gl.getUniformLocation(progBlur, 'u_px');
+
+    gl.useProgram(progComp);
+    gl.uniform1i(gl.getUniformLocation(progComp, 'u_blurred'), 2);
+    gl.uniform1i(gl.getUniformLocation(progComp, 'u_text'),    0);
+    gl.uniform1i(gl.getUniformLocation(progComp, 'u_grain'),   1);
+    const uPxComp   = gl.getUniformLocation(progComp, 'u_px');
+    const uTileComp = gl.getUniformLocation(progComp, 'u_tile');
+
+    // ── Framebuffer ───────────────────────────────────────────────────────
+    const fbo = gl.createFramebuffer();
+
+    function resizeFBO(w, h) {
+      gl.activeTexture(gl.TEXTURE2);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+      gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, fboTex, 0);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    }
+
+    // ── Grain noise (~15 fps refresh) ─────────────────────────────────────
+    const GN   = 256;
+    const gBuf = new Uint8Array(GN * GN * 4);
+    function refreshGrain() {
+      for (let i = 0; i < gBuf.length; i++) gBuf[i] = Math.random() * 256 | 0;
+      gl.activeTexture(gl.TEXTURE1);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, GN, GN, 0, gl.RGBA, gl.UNSIGNED_BYTE, gBuf);
+    }
+
+    // ── Layout ────────────────────────────────────────────────────────────
+    let fontSize = 0, tileW = 0, speed = 0, scrollOffset = 0;
+
+    function resize() {
+      fontSize = Math.min(440, Math.max(180, window.innerWidth * 0.28));
+      _blur.setAttribute('stdDeviation', (fontSize * 0.007).toFixed(1));
+      const canH = Math.ceil(fontSize + 240);
+      // Measure tile width with current font before canvas resize clears context state
+      tctx.font = `400 ${fontSize}px Anton, sans-serif`;
+      if ('letterSpacing' in tctx) tctx.letterSpacing = `${-0.02 * fontSize}px`;
+      tileW = tctx.measureText(TEXT).width + fontSize * 0.4;
+      speed = tileW / DURATION;
+      const w = Math.ceil(window.innerWidth);
+      tc.width = canvas.width  = w;
+      tc.height = canvas.height = canH;
+      gl.viewport(0, 0, w, canH);
+      gl.useProgram(progBlur); gl.uniform2f(uPxBlur, 1/w, 1/canH);
+      gl.useProgram(progComp); gl.uniform2f(uPxComp, 1/w, 1/canH);
+      // Scale grain with font size so it looks proportionally identical at every screen size
+      const tileX = w / (fontSize * 1.02);
+      gl.uniform2f(uTileComp, tileX, tileX * (2.5 / 3.5));
+      resizeFBO(w, canH);
+    }
+
+    // ── Text drawing ──────────────────────────────────────────────────────
+    function drawText() {
+      tctx.clearRect(0, 0, tc.width, tc.height);
+      tctx.fillStyle = '#F93B22';
+      tctx.font = `400 ${fontSize}px Anton, sans-serif`;
+      if ('letterSpacing' in tctx) tctx.letterSpacing = `${-0.02 * fontSize}px`;
+      const baseline = tc.height * 0.5 + fontSize * 0.35;
+      let x = -(scrollOffset % tileW);
+      if (x > 0) x -= tileW;
+      tctx.filter = 'url(#hero-round)';
+      while (x < tc.width) { tctx.fillText(TEXT, x, baseline); x += tileW; }
+      tctx.filter = 'none';
+    }
+
+    // ── Render loop ───────────────────────────────────────────────────────
+    let lastTs = 0;
+
+    function render(ts) {
+      const dt = lastTs ? Math.min((ts - lastTs) * 0.001, 0.05) : 0;
+      lastTs = ts;
+      scrollOffset = (scrollOffset + speed * dt) % tileW;
+
+      // Upload scrolled text to texture unit 0
+      drawText();
+      gl.activeTexture(gl.TEXTURE0);
+      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+      gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tc);
+
+
+      // Pass 1: blur text → FBO
+      gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+      gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.useProgram(progBlur);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
+      // Pass 2: grain-displace blur + composite original → screen
+      gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.useProgram(progComp);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+      requestAnimationFrame(render);
+    }
+
+    // ── Init ──────────────────────────────────────────────────────────────
+    document.fonts.ready.then(() => {
+      resize();
+      refreshGrain();
+      requestAnimationFrame(render);
+    });
+    window.addEventListener('resize', resize);
+  }());
+
+  </script>
+
+  <script>
+    // Work carousel nav buttons
+    (function () {
+      const grid  = document.getElementById('work-grid');
+      const prev  = document.getElementById('work-prev');
+      const next  = document.getElementById('work-next');
+      const items = grid.querySelectorAll('.work-card');
+      const total = items.length;
+      let current = 0;
+
+      function padLeft() {
+        return parseInt(getComputedStyle(grid).paddingLeft) || 40;
+      }
+
+      function targetFor(index) {
+        // Exact scroll position so item[index] aligns with scroll-padding-left
+        return Math.max(0, items[index].offsetLeft - padLeft());
+      }
+
+      function updateButtons() {}
+
+      function goTo(index) {
+        current = (index % total + total) % total;
+        const maxScroll = grid.scrollWidth - grid.clientWidth;
+        const target = Math.min(targetFor(current), maxScroll);
+        grid.scrollTo({ left: target, behavior: 'smooth' });
+      }
+
+      prev.addEventListener('click', () => goTo(current - 1));
+      next.addEventListener('click', () => goTo(current + 1));
+
+      // Sync index and buttons when user drags manually
+      grid.addEventListener('scroll', () => {
+        const pl = padLeft();
+        let closest = 0, closestDist = Infinity;
+        for (let i = 0; i < total; i++) {
+          const dist = Math.abs(grid.scrollLeft - (items[i].offsetLeft - pl));
+          if (dist < closestDist) { closestDist = dist; closest = i; }
+        }
+        current = closest;
+        updateButtons();
+      }, { passive: true });
+
+      updateButtons();
+    }());
+  </script>
+
+  <script>
+    // Drag-to-scroll for work carousel
+    (function () {
+      const grid = document.querySelector('.work-grid');
+      let isDown = false, startX, scrollLeft;
+
+      grid.addEventListener('mousedown', e => {
+        isDown = true;
+        grid.classList.add('grabbing');
+        startX = e.pageX - grid.offsetLeft;
+        scrollLeft = grid.scrollLeft;
+      });
+      grid.addEventListener('mouseleave', () => { isDown = false; grid.classList.remove('grabbing'); });
+      grid.addEventListener('mouseup',    () => { isDown = false; grid.classList.remove('grabbing'); });
+      grid.addEventListener('mousemove',  e => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - grid.offsetLeft;
+        grid.scrollLeft = scrollLeft - (x - startX) * 1.2;
+      });
+    }());
+  </script>
+
+  <script>
+    (function () {
+      const sections = ['work', 'about', 'contact'];
+      const allLinks = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
+
+      function setActive(id) {
+        allLinks.forEach(a => {
+          const href = a.getAttribute('href');
+          a.classList.toggle('active', href === '#' + id);
+        });
+      }
+
+      function clearActive() {
+        allLinks.forEach(a => a.classList.remove('active'));
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      }, {
+        rootMargin: `-${getComputedStyle(document.documentElement).getPropertyValue('--header-height').trim()} 0px -55% 0px`,
+        threshold: 0
+      });
+
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+
+      // Clear active when scrolled back to hero
+      const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) clearActive(); });
+      }, { threshold: 0.3 });
+      const hero = document.getElementById('hero');
+      if (hero) heroObserver.observe(hero);
+
+    }());
+  </script>
+
+  <script>
+    // Scroll "portfolio" links to show MY WORKS label
+    (function () {
+      document.querySelectorAll('a[href="#work"]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          var subtitle = document.querySelector('.hero-subtitle');
+          var navH     = document.querySelector('nav').offsetHeight;
+          var tickerH  = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--ticker-height')) || 30;
+          var target   = subtitle.getBoundingClientRect().top + window.scrollY - navH - tickerH - 120;
+          window.scrollTo({ top: target, behavior: 'smooth' });
+        });
+      });
+    }());
+  </script>
+
+  <script>
+    // Nav shadow on scroll
+    (function () {
+      var navEl = document.querySelector('nav');
+      function updateNav() {
+        navEl.classList.toggle('scrolled', window.scrollY > 10);
+      }
+      window.addEventListener('scroll', updateNav, { passive: true });
+      updateNav();
+    }());
+  </script>
+
+  <script>
+    (function () {
+      var els      = document.querySelectorAll('.scroll-indicator');
+      var subtitle = document.querySelector('.hero-subtitle');
+      var workEl   = document.getElementById('work');
+
+      // Sync bounce animations to the same phase
+      var dur = 1800;
+      var delay = -(Date.now() % dur) / 1000 + 's';
+      for (var i = 0; i < els.length; i++) {
+        els[i].style.animationDelay = delay;
+      }
+      if (subtitle) subtitle.style.animationDelay = delay;
+
+      function update() {
+        // Fade arrows + pause subtitle bounce
+        var opacity = Math.max(0, 1 - window.scrollY / 220);
+        for (var j = 0; j < els.length; j++) {
+          els[j].style.setProperty('opacity', opacity, 'important');
+          els[j].style.pointerEvents = opacity < 0.05 ? 'none' : '';
+        }
+        if (subtitle) {
+          subtitle.style.animationPlayState = opacity < 0.05 ? 'paused' : 'running';
+        }
+
+        // Orange background on "PORTFOLIO" when work section is in view
+        if (subtitle && workEl) {
+          var workTop = workEl.getBoundingClientRect().top;
+          subtitle.classList.toggle('work-active', workTop <= window.innerHeight * 0.8);
+        }
+      }
+
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    }());
+  </script>
+
+</body>
+</html>
