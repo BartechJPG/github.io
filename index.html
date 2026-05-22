@@ -510,6 +510,26 @@
       padding: 0 2px;
     }
 
+    /* ─── WORK IN PROGRESS CARDS ─── */
+    .work-in-progress {
+      cursor: default;
+    }
+
+    .work-in-progress .work-item {
+      cursor: default;
+    }
+
+    .work-in-progress .work-item img {
+      filter: none;
+      transform: none;
+      transition: none;
+    }
+
+    .work-in-progress:hover .work-item img {
+      filter: none;
+      transform: none;
+    }
+
     /* ─── ABOUT ─── */
     #about {
       border-top: 1px solid rgba(255, 60, 0, 0.15);
@@ -635,7 +655,7 @@
 
     /* ─── FOOTER ─── */
     footer {
-      padding: 32px 80px;
+      padding: 32px 40px;
       border-top: 1px solid rgba(255, 60, 0, 0.1);
       display: flex;
       justify-content: space-between;
@@ -732,20 +752,20 @@
           <span class="work-item-title">Shipyard</span>
         </a>
 
-        <a href="clay-factory.html" class="work-card">
-          <div class="work-item"><img src="ClayFactory.jpg" alt="Clay Factory"></div>
-          <span class="work-item-title">Clay Factory</span>
-        </a>
+        <div class="work-card work-in-progress">
+          <div class="work-item"><img src="PlaceholderProject.jpg" alt="Work in progress"></div>
+          <span class="work-item-title">Work in progress</span>
+        </div>
 
-        <a href="poultry-market.html" class="work-card">
-          <div class="work-item"><img src="ChickenMarket.jpg" alt="Poultry Market"></div>
-          <span class="work-item-title">Poultry Market</span>
-        </a>
+        <div class="work-card work-in-progress">
+          <div class="work-item"><img src="PlaceholderProject.jpg" alt="Work in progress"></div>
+          <span class="work-item-title">Work in progress</span>
+        </div>
 
-        <a href="biker.html" class="work-card">
-          <div class="work-item"><img src="Biker.jpg" alt="Biker"></div>
-          <span class="work-item-title">Biker</span>
-        </a>
+        <div class="work-card work-in-progress">
+          <div class="work-item"><img src="PlaceholderProject.jpg" alt="Work in progress"></div>
+          <span class="work-item-title">Work in progress</span>
+        </div>
 
       </div>
       <div class="work-nav">
@@ -775,7 +795,7 @@
       </div>
     </div>
     <div class="about-profile">
-      <img src="Profile image" alt="Bartek R.">
+      <img src="ProfilePhoto.png" alt="Bartek R.">
     </div>
   </section>
 
@@ -826,7 +846,7 @@
           'work.label':      'Wybrane Prace',
           'about.heading':   'O MNIE',
           'about.label':     'O mnie',
-          'about.body1':     'Jestem fotografem i projektantem z Polski. Posiadam tytuł magistra projektowania graficznego Akademii Sztuk Pięknych w Katowicach. W trakcie swojej kariery zawodowej pracowałem jako doradca ds. designu dla takich marek jak Lamborghini, Pfizer, Moncler i Deutsche Telekom. Moje osobiste prace projektowe były prezentowane na wielu wystawach. Zawsze zainspirowany filmami dokumentalnymi i pracą fotoreporterów, w ostatnich latach skupiłem się na dokumentowaniu kultur, tradycji oraz zawodów, które powoli odchodzą w zapomnienie.',
+          'about.body1':     'Jestem fotografem i projektantem z Polski. Posiadam tytuł magistra projektowania graficznego Akademii Sztuk Pięknych w Katowicach. W trakcie swojej kariery zawodowej pracowałem jako doradca ds. designu dla takich marek jak Lamborghini, Pfizer, Moncler i Deutsche Telekom. Moje osobiste prace projektowe były prezentowane na wielu wystawach. Od zawsze mocno zainspirowany filmami dokumentalnymi i pracą fotoreporterów, w ostatnich latach skupiłem się na dokumentowaniu kultur, tradycji oraz zawodów, które powoli odchodzą w zapomnienie.',
           'contact.heading': 'POROZMAWIAJMY.',
           'footer.rights':   '© 2026 Bartech. Wszelkie prawa zastrzeżone.',
           'footer.tagline':  'Fotografia Dokumentalna &amp; Reżyseria Artystyczna',
@@ -1206,49 +1226,79 @@
   </script>
 
   <script>
-    // Work carousel nav buttons
+    // Infinite-loop work carousel
     (function () {
-      const grid  = document.getElementById('work-grid');
-      const prev  = document.getElementById('work-prev');
-      const next  = document.getElementById('work-next');
-      const items = grid.querySelectorAll('.work-card');
-      const total = items.length;
-      let current = 0;
+      const grid = document.getElementById('work-grid');
+      const prev = document.getElementById('work-prev');
+      const next = document.getElementById('work-next');
+      const orig = Array.from(grid.querySelectorAll('.work-card'));
+      const N    = orig.length; // 4
 
-      function padLeft() {
-        return parseInt(getComputedStyle(grid).paddingLeft) || 40;
+      function makeClones() {
+        return orig.map(el => {
+          const c = el.cloneNode(true);
+          c.setAttribute('aria-hidden', 'true');
+          c.setAttribute('tabindex', '-1');
+          return c;
+        });
+      }
+      makeClones().forEach(c => grid.insertBefore(c, orig[0])); // prepend
+      makeClones().forEach(c => grid.appendChild(c));            // append
+      // Layout: [N prepend clones | N real items | N append clones]
+      const items = Array.from(grid.querySelectorAll('.work-card'));
+
+      function pl()     { return parseInt(getComputedStyle(grid).paddingLeft) || 0; }
+      function posAt(i) { return Math.max(0, items[i].offsetLeft - pl()); }
+      function spacing() {
+        return N > 1 ? (posAt(2*N-1) - posAt(N)) / (N-1) : posAt(N+1) - posAt(N);
       }
 
-      function targetFor(index) {
-        // Exact scroll position so item[index] aligns with scroll-padding-left
-        return Math.max(0, items[index].offsetLeft - padLeft());
+      let intended = N; // start at first real item
+
+      function snapTo(i) {
+        grid.style.scrollSnapType = 'none';
+        grid.scrollLeft = posAt(i);
+        intended = i;
+        requestAnimationFrame(() => requestAnimationFrame(() => { grid.style.scrollSnapType = ''; }));
       }
-
-      function updateButtons() {}
-
-      function goTo(index) {
-        current = (index % total + total) % total;
-        const maxScroll = grid.scrollWidth - grid.clientWidth;
-        const target = Math.min(targetFor(current), maxScroll);
-        grid.scrollTo({ left: target, behavior: 'smooth' });
+      function slideTo(i) {
+        intended = i;
+        grid.scrollTo({ left: posAt(i), behavior: 'smooth' });
       }
-
-      prev.addEventListener('click', () => goTo(current - 1));
-      next.addEventListener('click', () => goTo(current + 1));
-
-      // Sync index and buttons when user drags manually
-      grid.addEventListener('scroll', () => {
-        const pl = padLeft();
-        let closest = 0, closestDist = Infinity;
-        for (let i = 0; i < total; i++) {
-          const dist = Math.abs(grid.scrollLeft - (items[i].offsetLeft - pl));
-          if (dist < closestDist) { closestDist = dist; closest = i; }
+      function recentre() {
+        const sp = spacing();
+        if (intended < N) {
+          grid.style.scrollSnapType = 'none';
+          grid.scrollLeft += N * sp;
+          intended        += N;
+          requestAnimationFrame(() => requestAnimationFrame(() => { grid.style.scrollSnapType = ''; }));
+        } else if (intended >= 2*N) {
+          grid.style.scrollSnapType = 'none';
+          grid.scrollLeft -= N * sp;
+          intended        -= N;
+          requestAnimationFrame(() => requestAnimationFrame(() => { grid.style.scrollSnapType = ''; }));
         }
-        current = closest;
-        updateButtons();
-      }, { passive: true });
+      }
 
-      updateButtons();
+      requestAnimationFrame(() => snapTo(N)); // init at real item 1
+
+      prev.addEventListener('click', () => { if (intended > 0) slideTo(intended - 1); });
+      next.addEventListener('click', () => { if (intended < items.length - 1) slideTo(intended + 1); });
+
+      let loopTimer;
+      grid.addEventListener('scroll', () => {
+        clearTimeout(loopTimer);
+        loopTimer = setTimeout(() => {
+          const p = pl();
+          let best = intended, bd = Infinity;
+          for (let i = 0; i < items.length; i++) {
+            const d = Math.abs(grid.scrollLeft - (items[i].offsetLeft - p));
+            if (d < bd) { bd = d; best = i; }
+          }
+          intended = best;
+          recentre();
+        }, 150);
+      }, { passive: true });
     }());
   </script>
 
