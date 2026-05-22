@@ -107,6 +107,7 @@
       padding: 0 40px 60px; gap: 12px;
     }
     .mobile-menu.open { display: flex; }
+    .mobile-menu .lang-switch { align-self: flex-start; }
     .mobile-nav-links { list-style: none; display: flex; flex-direction: column; }
     .mobile-nav-links li { border-top: 1px solid rgba(255,60,0,0.15); }
     .mobile-nav-links li:last-child { border-bottom: 1px solid rgba(255,60,0,0.15); }
@@ -272,7 +273,7 @@
 
     /* ─── FOOTER ─── */
     footer {
-      padding: 32px 80px;
+      padding: 32px 40px;
       border-top: 1px solid rgba(255, 60, 0, 0.1);
       display: flex;
       justify-content: space-between;
@@ -308,9 +309,9 @@
     </a>
 
     <ul class="nav-links">
-      <li><a href="index.html#work" class="active">portfolio</a></li>
-      <li><a href="index.html#about">about</a></li>
-      <li><a href="index.html#contact">contact</a></li>
+      <li><a href="index.html#work" class="active" data-i18n="nav.work">portfolio</a></li>
+      <li><a href="index.html#about" data-i18n="nav.about">about</a></li>
+      <li><a href="index.html#contact" data-i18n="nav.contact">contact</a></li>
     </ul>
 
     <div class="nav-right">
@@ -328,9 +329,9 @@
   <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <ul class="mobile-nav-links">
-      <li><a href="index.html#work" class="active">portfolio</a></li>
-      <li><a href="index.html#about">about</a></li>
-      <li><a href="index.html#contact">contact</a></li>
+      <li><a href="index.html#work" class="active" data-i18n="nav.work">portfolio</a></li>
+      <li><a href="index.html#about" data-i18n="nav.about">about</a></li>
+      <li><a href="index.html#contact" data-i18n="nav.contact">contact</a></li>
     </ul>
     <div class="lang-switch" aria-label="Language switcher">
       <button class="lang-btn active" data-lang="en">EN</button>
@@ -341,7 +342,7 @@
 
   <section class="project-hero">
     <div class="project-title-area">
-      <div class="project-breadcrumb"><a href="index.html#work">Portfolio</a><span class="project-breadcrumb-sep"> / </span><span class="project-breadcrumb-current">Shipyard</span></div>
+      <div class="project-breadcrumb"><a href="index.html#work" data-i18n="nav.portfolio">Portfolio</a><span class="project-breadcrumb-sep"> / </span><span class="project-breadcrumb-current">Shipyard</span></div>
       <h1 class="project-title">Shipyard</h1>
     </div>
   </section>
@@ -357,30 +358,87 @@
   <div class="project-info">
     <div class="project-meta">
       <div class="project-meta-item">
-        <span class="project-meta-label">Year</span>
-        <span class="project-meta-value">2024</span>
+        <span class="project-meta-label" data-i18n="meta.date.label">Date</span>
+        <span class="project-meta-value" data-i18n="meta.date.value">January 2026</span>
       </div>
       <div class="project-meta-item">
-        <span class="project-meta-label">Category</span>
-        <span class="project-meta-value">Documentary</span>
+        <span class="project-meta-label" data-i18n="meta.category.label">Category</span>
+        <span class="project-meta-value" data-i18n="meta.category.value">Documentary</span>
       </div>
       <div class="project-meta-item">
-        <span class="project-meta-label">Location</span>
-        <span class="project-meta-value">Poland</span>
+        <span class="project-meta-label" data-i18n="meta.location.label">Location</span>
+        <span class="project-meta-value" data-i18n="meta.location.value">Dhaka, Bangladesh</span>
       </div>
     </div>
-    <p class="project-description">
-      A series documenting the daily rhythm of workers at a traditional shipyard. Shot over several visits, the project captures the physicality of manual labour against the industrial backdrop of steel and water — the weight of machinery, the precision of skilled hands, and the quiet moments between shifts.
+    <p class="project-description" data-i18n="project.description">
+      A series documenting the daily rhythm of workers at a traditional shipyard.
     </p>
   </div>
 
   <!-- FOOTER -->
   <footer>
-    <span class="footer-text">© 2026 Bartech. All rights reserved.</span>
-    <span class="footer-text">Documentary Photography &amp; Art Direction</span>
+    <span class="footer-text" data-i18n="footer.rights">© 2026 Bartech. All rights reserved.</span>
+    <span class="footer-text" data-i18n="footer.tagline">Documentary Photography &amp; Art Direction</span>
   </footer>
 
   <canvas id="grain-canvas" aria-hidden="true"></canvas>
+
+  <script>
+  // ── Language switcher / i18n ─────────────────────────────────────────────
+  (function () {
+    const T = {
+      en: {
+        'nav.work':        'portfolio',
+        'nav.about':       'about',
+        'nav.contact':     'contact',
+        'nav.portfolio':   'Portfolio',
+        'meta.date.label':     'Date',
+        'meta.date.value':     'January 2026',
+        'meta.category.label': 'Category',
+        'meta.category.value': 'Documentary',
+        'meta.location.label': 'Location',
+        'meta.location.value': 'Dhaka, Bangladesh',
+        'project.description': 'The shipyard occupies a particular place in the geography of Dhaka — a city in permanent motion, always building and dismantling itself. Located along the banks of the Buriganga, these yards are among the last places where labour remains entirely physical, where the body is the primary tool and skill is passed down through proximity rather than instruction.<br><br>I visited the shipyard on several occasions over the course of a few weeks. Each time, I arrived in the early morning, when the light was still low and the workers were already deep in their tasks — cutting steel, welding frames, hauling timber across muddy ground. The pace was relentless, but there was also a kind of rhythm to it, a choreography shaped by necessity and repetition.<br><br>What drew me to this place was not spectacle. It was the ordinary. The way a man pauses to wipe sweat from his face before returning to the grinder. The way two workers move around each other in a narrow passage without a word, their bodies having memorised the space. The way light falls differently each morning, turning rust into something almost warm.<br><br>Bangladesh\'s shipbuilding industry is one of the largest in the world by volume, yet it remains largely invisible to outside eyes. The workers here dismantle ocean-going vessels that have crossed hemispheres, strip them down to raw material, and use those materials to build new vessels for the rivers. It is a circular economy conducted entirely by hand.<br><br>Many of the men I photographed had come to Dhaka from rural districts — Barisal, Faridpur, Mymensingh. For them, the shipyard represents stability, however precarious. A daily wage. A place to sleep nearby. The possibility of sending money home.<br><br>I did not photograph suffering. I photographed work. There is a distinction worth making. These men are not victims of their circumstances so much as they are navigating them with considerable skill and dignity. My intention was to show that — the competence, the concentration, the pride that comes from doing something difficult well.<br><br>The photographs were made over a compressed period, which meant building trust quickly. I worked without an assistant, carrying only what I could manage alone. Many of the images were made at close range, which required patience and a willingness to be present without always raising the camera.<br><br>There is something about the shipyard that resists easy metaphor. It is simply what it is — a place of work, of noise and heat and effort. But in being exactly that, it becomes something else too: a record of how a significant portion of the world\'s labour actually takes place, away from screens and offices and the economy of attention.<br><br>This project is part of a longer investigation into disappearing or underrepresented forms of manual work across South and Southeast Asia. The shipyard was a beginning.',
+        'footer.rights':  '© 2026 Bartech. All rights reserved.',
+        'footer.tagline': 'Documentary Photography &amp; Art Direction',
+      },
+      pl: {
+        'nav.work':        'portfolio',
+        'nav.about':       'o mnie',
+        'nav.contact':     'kontakt',
+        'nav.portfolio':   'Portfolio',
+        'meta.date.label':     'Data',
+        'meta.date.value':     'Styczeń 2026',
+        'meta.category.label': 'Kategoria',
+        'meta.category.value': 'Dokumentalna',
+        'meta.location.label': 'Lokalizacja',
+        'meta.location.value': 'Dhaka, Bangladesz',
+        'project.description': 'Stocznia zajmuje szczególne miejsce w geografii Dhaki — miasta w nieustannym ruchu, które wciąż się buduje i rozbiera. Położone wzdłuż brzegów Burigangi stocznie należą do ostatnich miejsc, gdzie praca pozostaje w całości fizyczna, gdzie ciało jest podstawowym narzędziem, a umiejętności przekazywane są przez bliskość, nie przez instrukcje.<br><br>Odwiedziłem stocznię kilkakrotnie na przestrzeni kilku tygodni. Za każdym razem przychodziłem wczesnym rankiem, kiedy światło było jeszcze niskie, a robotnicy byli już pochłonięci swoją pracą — cięli stal, spawali ramy, przenosili drewno po błotnistym gruncie. Tempo było nieustępliwe, ale towarzyszył mu pewien rytm, choreografia ukształtowana przez konieczność i powtarzalność.<br><br>Przyciągnęło mnie tu nie widowisko. Przyciągnęła mnie codzienność. Sposób, w jaki mężczyzna zatrzymuje się, by otrzeć pot z twarzy, zanim wróci do szlifierki. Sposób, w jaki dwóch robotników mija się w wąskim przejściu bez słowa, ich ciała zapamiętały już tę przestrzeń. Sposób, w jaki światło pada inaczej każdego ranka, zamieniając rdzę w coś niemal ciepłego.<br><br>Bangladeski przemysł stoczniowy jest jednym z największych na świecie pod względem wolumenu, a mimo to pozostaje w dużej mierze niewidoczny dla zewnętrznych oczu. Robotnicy rozbierają tu oceaniczne statki, które przemierzały półkule, demontują je do surowego materiału i z tych materiałów budują nowe jednostki na rzeki. To gospodarka obiegu zamkniętego prowadzona wyłącznie rękami.<br><br>Wielu mężczyzn, których fotografowałem, przybyło do Dhaki z wiejskich dystryktów — Barisal, Faridpur, Mymensingh. Dla nich stocznia oznacza stabilność, choćby i niepewną. Dzienna płaca. Miejsce do spania w pobliżu. Możliwość wysyłania pieniędzy do domu.<br><br>Nie fotografowałem cierpienia. Fotografowałem pracę. To rozróżnienie warto poczynić. Ci mężczyźni nie są ofiarami swoich okoliczności — raczej poruszają się w nich z niezwykłą sprawnością i godnością. Moją intencją było pokazanie właśnie tego — kompetencji, skupienia, dumy płynącej z dobrego wykonania trudnej rzeczy.<br><br>Zdjęcia powstawały w krótkim, intensywnym czasie, co oznaczało szybkie budowanie zaufania. Pracowałem bez asystenta, niosąc tylko tyle, ile mogłem sam unieść. Wiele zdjęć zostało wykonanych z bliskiej odległości, co wymagało cierpliwości i gotowości do bycia obecnym bez ciągłego podnoszenia aparatu.<br><br>Jest coś w stoczni, co opiera się łatwej metaforze. Jest po prostu tym, czym jest — miejscem pracy, hałasu, gorąca i wysiłku. Ale będąc dokładnie tym, staje się też czymś innym: zapisem tego, jak znaczna część światowej pracy naprawdę się odbywa, z dala od ekranów, biur i ekonomii uwagi.<br><br>Ten projekt jest częścią dłuższego badania zanikających lub niedoreprezentowanych form pracy ręcznej w Azji Południowej i Południowo-Wschodniej. Stocznia była początkiem.',
+        'footer.rights':  '© 2026 Bartech. Wszelkie prawa zastrzeżone.',
+        'footer.tagline': 'Fotografia Dokumentalna &amp; Reżyseria Artystyczna',
+      }
+    };
+
+    function applyLang(lang) {
+      const t = T[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        el.innerHTML = t[el.dataset.i18n] ?? el.innerHTML;
+      });
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      localStorage.setItem('lang', lang);
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+    });
+
+    const saved = localStorage.getItem('lang') || 'en';
+    applyLang(saved);
+  }());
+  </script>
 
   <script>
   !function(){var c=document.getElementById('grain-canvas'),x=c.getContext('2d'),o=document.createElement('canvas'),p=o.getContext('2d');function r(){c.width=o.width=Math.ceil(innerWidth/2);c.height=o.height=Math.ceil(innerHeight/2);s()}function s(){var d=p.createImageData(o.width,o.height),a=d.data;for(var i=0;i<a.length;i+=4){var v=Math.random()*255|0;a[i]=a[i+1]=a[i+2]=v;a[i+3]=255}p.putImageData(d,0,0);x.globalAlpha=.45;x.drawImage(o,0,0)}r();addEventListener('resize',r);setInterval(s,80)}();
