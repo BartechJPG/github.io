@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biker — B.jpg</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Lato:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #F1EFE3;
+      --fg: #222222;
+      --logo-size: 45px;
+      --nav-height: 88px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: 'Lato', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-height); display: grid;
+      grid-template-columns: 1fr auto 1fr; align-items: center;
+      padding: 0 40px; background-color: var(--bg);
+      box-shadow: none; transition: box-shadow 0.4s ease;
+    }
+    nav.scrolled {
+      box-shadow:
+        0 1px 0 rgba(34, 34, 34, 0.07),
+        0 2px 12px rgba(0, 0, 0, 0.08),
+        0 6px 32px rgba(0, 0, 0, 0.05);
+    }
+    .nav-logo {
+      display: flex; align-items: center; text-decoration: none;
+      flex-shrink: 0; justify-self: start; grid-column: 1;
+      color: var(--fg);
+    }
+    .nav-logo svg { width: var(--logo-size); height: var(--logo-size); }
+    .nav-links { display: flex; gap: 72px; list-style: none; }
+    .nav-links a {
+      color: var(--fg); text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 400;
+      font-size: 1.15rem; letter-spacing: 0.01em; text-transform: uppercase;
+      height: var(--logo-size); display: inline-flex; align-items: center;
+      padding: 0 20px; transition: background 0.2s ease, color 0.2s ease;
+    }
+    .nav-links a:hover { background: var(--fg); color: var(--bg); }
+    .nav-links a.active { background: var(--fg); color: var(--bg); }
+
+    /* ─── NAV RIGHT ─── */
+    .nav-right {
+      display: flex; align-items: center; gap: 24px;
+      flex-shrink: 0; justify-self: end; grid-column: 3;
+    }
+
+    /* ─── BURGER ─── */
+    .nav-burger {
+      display: none; flex-direction: column; justify-content: center;
+      gap: 6px; background: none; border: none; cursor: pointer;
+      padding: 0; width: 28px; height: var(--logo-size); flex-shrink: 0;
+    }
+    .nav-burger span {
+      display: block; width: 100%; height: 4px; background: var(--fg);
+      transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+    .nav-burger.open span:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+    /* ─── MOBILE MENU ─── */
+    .mobile-menu {
+      display: none; position: fixed; top: var(--nav-height);
+      left: 0; right: 0; bottom: 0; z-index: 99; background: var(--bg);
+      flex-direction: column; justify-content: center;
+      padding: 0 40px 60px; gap: 12px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu .lang-switch { align-self: flex-start; }
+    .mobile-nav-links { list-style: none; display: flex; flex-direction: column; }
+    .mobile-nav-links li { border-top: 1px solid rgba(34, 34, 34, 0.15); }
+    .mobile-nav-links li:last-child { border-bottom: 1px solid rgba(34, 34, 34, 0.15); }
+    .mobile-nav-links a {
+      display: block; padding: 22px 0; color: var(--fg); text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 400;
+      font-size: 2rem; letter-spacing: 0.01em; text-transform: uppercase;
+    }
+    .mobile-nav-links a.active {
+      background: var(--fg); color: var(--bg); padding-left: 20px;
+    }
+
+    /* ─── LANG SWITCH ─── */
+    .lang-switch {
+      display: flex; align-items: stretch; height: var(--logo-size);
+      border: 1.5px solid var(--fg); flex-shrink: 0; overflow: hidden;
+    }
+    .lang-btn {
+      background: transparent; border: none; color: var(--fg);
+      font-family: 'Lato', sans-serif; font-weight: 700; font-size: 1rem;
+      letter-spacing: 0.04em; cursor: pointer; padding: 0 16px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .lang-btn + .lang-btn { border-left: 1.5px solid var(--fg); }
+    .lang-btn.active { background: var(--fg); color: var(--bg); }
+    .lang-btn:hover:not(.active) { opacity: 0.5; }
+    .lang-sep { display: none; }
+
+    /* ─── PROJECT PAGE ─── */
+    .project-main {
+      padding-top: calc(var(--nav-height) + 48px);
+      padding-bottom: 80px;
+    }
+    .project-title {
+      display: flex; align-items: center; height: var(--logo-size);
+      padding: 0 20px; margin-bottom: 12px;
+      font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem;
+      font-weight: 400; letter-spacing: 0.01em; text-transform: uppercase;
+      background: var(--fg); color: var(--bg);
+    }
+    .project-viewer { width: 100%; padding: 0 40px; box-sizing: border-box; display: flex; align-items: center; gap: 20px; }
+    .arrow-btn { flex-shrink: 0; width: var(--logo-size); height: var(--logo-size); background: var(--fg); border: none; color: var(--bg); font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: opacity 0.2s; }
+    .arrow-btn:hover { opacity: 0.7; }
+    .project-image-wrap { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; }
+    .project-image-wrap img { display: block; max-width: 100%; max-height: 75vh; margin: 0 auto; object-fit: contain; cursor: zoom-in; }
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,0.92); align-items: center; justify-content: center; cursor: zoom-out; }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 95vw; max-height: 95vh; object-fit: contain; }
+    .project-caption { text-align: center; font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg); opacity: 0.45; margin: 12px 0 0; padding: 0 40px; }
+    .project-text {
+      max-width: 680px; margin: 56px auto 0; padding: 0 24px;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .project-text p {
+      font-family: 'Lato', sans-serif; font-size: 1rem;
+      line-height: 1.75; color: var(--fg); opacity: 0.85;
+    }
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .nav-links  { display: none; }
+      .nav-burger { display: flex; }
+      .nav-right .lang-switch { display: none; }
+      nav { padding: 0 24px; }
+      .project-viewer { padding: 0 24px; }
+      .project-caption { padding: 0 24px; width: 100%; }
+    }
+
+    /* ─── GRAIN ─── */
+    #grain-canvas {
+      position: fixed; inset: 0; width: 100vw; height: 100vh;
+      z-index: 9999; pointer-events: none; opacity: 0.045;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 32px 40px;
+      border-top: 1px solid rgba(34, 34, 34, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-text {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 400;
+      font-size: 1rem; letter-spacing: 0em;
+      color: var(--fg); opacity: 0.35;
+    }
+    @media (max-width: 768px) {
+      footer { padding: 32px 24px; flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo" aria-label="Home">
+      <svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M101.272 2.07495C101.251 1.34169 100.664 0.754053 99.9303 0.733252C67.3188 -0.244417 34.6865 -0.244417 2.07495 0.733252C1.34169 0.754053 0.754053 1.34169 0.733252 2.07495C-0.244417 34.6865 -0.244417 67.3188 0.733252 99.9251C0.754053 100.658 1.34169 101.246 2.07495 101.267C34.6865 102.244 67.3136 102.244 99.9251 101.267C100.658 101.246 101.246 100.658 101.267 99.9251C102.244 67.3136 102.244 34.6813 101.267 2.07495H101.272ZM89.1759 52.4925C78.6296 69.2793 64.4742 76.1074 51.0052 76.1074C37.5363 76.1074 23.3757 69.2793 12.8345 52.4925C12.2625 51.5824 12.2625 50.4228 12.8345 49.5179C23.3809 32.7311 37.5363 25.903 51.0052 25.903C64.4742 25.903 78.6348 32.7311 89.1759 49.5179C89.7479 50.428 89.7479 51.5876 89.1759 52.4925Z" fill="currentColor"/>
+        <path d="M63.8432 39.2097C63.23 39.8229 62.7379 40.5573 62.4295 41.3651C61.5115 43.752 62.0439 45.2832 63.2666 47.1669L64.2764 48.7201L62.7232 47.7104C60.3254 46.1498 57.2336 46.1498 54.8357 47.7105L53.2824 48.7203L54.2923 47.167C55.8529 44.7692 55.8529 41.6773 54.2924 39.2796L53.2826 37.7263L54.8358 38.7361C56.7195 39.9588 58.2471 40.4949 60.6376 39.5732C61.4491 39.2611 62.1798 38.7727 62.7931 38.1595C63.0281 37.9245 63.0207 37.5352 62.771 37.3223C59.4626 34.4765 55.1113 32.8058 50.3708 32.9711C40.9557 33.3017 33.3069 40.98 33.0057 50.395C32.6714 60.8124 41.1866 69.3277 51.6078 68.9971C61.0228 68.6958 68.701 61.047 69.0316 51.632C69.2006 46.8877 67.5299 42.5364 64.6841 39.228C64.4675 38.9746 64.0819 38.971 63.8469 39.206L63.8432 39.2097Z" fill="currentColor"/>
+      </svg>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html#work" class="active">projects</a></li>
+      <li><a href="index.html#about">about</a></li>
+      <li><a href="index.html#contact">contact</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <div class="lang-switch" aria-label="Language switcher">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <span class="lang-sep">/</span>
+        <button class="lang-btn" data-lang="pl">PL</button>
+      </div>
+      <button class="nav-burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <ul class="mobile-nav-links">
+      <li><a href="index.html#work" class="active">projects</a></li>
+      <li><a href="index.html#about">about</a></li>
+      <li><a href="index.html#contact">contact</a></li>
+    </ul>
+    <div class="lang-switch" aria-label="Language switcher">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <span class="lang-sep">/</span>
+      <button class="lang-btn" data-lang="pl">PL</button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main class="project-main">
+
+    <div class="project-viewer">
+      <button class="arrow-btn" aria-label="Previous image">&#8592;</button>
+      <div class="project-image-wrap">
+        <h1 class="project-title">Project Name, City</h1>
+        <img src="Biker.jpg" alt="Project Name, City">
+      </div>
+      <button class="arrow-btn" aria-label="Next image">&#8594;</button>
+    </div>
+    <p class="project-caption">Placeholder caption — location, year</p>
+
+    <div class="project-text">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-text">Bartech.jpg | est. 2020</span>
+    <span class="footer-text">Documentary Photography &amp; Art Direction</span>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" aria-hidden="true"><img src="" alt=""></div>
+
+  <canvas id="grain-canvas" aria-hidden="true"></canvas>
+
+  <script>
+  !function(){var c=document.getElementById('grain-canvas'),x=c.getContext('2d'),o=document.createElement('canvas'),p=o.getContext('2d');function r(){c.width=o.width=Math.ceil(innerWidth/2);c.height=o.height=Math.ceil(innerHeight/2);s()}function s(){var d=p.createImageData(o.width,o.height),a=d.data;for(var i=0;i<a.length;i+=4){var v=Math.random()*255|0;a[i]=a[i+1]=a[i+2]=v;a[i+3]=255}p.putImageData(d,0,0);x.globalAlpha=.45;x.drawImage(o,0,0)}r();addEventListener('resize',r);setInterval(s,80)}();
+  !function(){var n=document.querySelector('nav');function u(){n.classList.toggle('scrolled',scrollY>10)}addEventListener('scroll',u,{passive:true});u()}();
+  !function(){var b=document.querySelector('.nav-burger'),m=document.getElementById('mobile-menu');function o(){m.classList.add('open');b.classList.add('open');b.setAttribute('aria-expanded','true');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}function c(){m.classList.remove('open');b.classList.remove('open');b.setAttribute('aria-expanded','false');m.setAttribute('aria-hidden','true');document.body.style.overflow=''}b.addEventListener('click',function(){m.classList.contains('open')?c():o()});m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',c)})}();
+  !function(){var lb=document.getElementById('lightbox'),lbImg=lb.querySelector('img');function open(src){lbImg.src=src;lb.classList.add('open');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}function close(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');document.body.style.overflow=''}document.querySelector('.project-image-wrap img').addEventListener('click',function(){open(this.src)});lb.addEventListener('click',close);document.addEventListener('keydown',function(e){if(e.key==='Escape')close()})}();
+  !function(){var img=document.querySelector('.project-image-wrap img'),title=document.querySelector('.project-title');function sync(){if(img&&title)title.style.width=img.offsetWidth+'px';}if(img){img.addEventListener('load',sync);if(img.complete)sync();}window.addEventListener('resize',sync);}();
+  </script>
+
+</body>
+</html>

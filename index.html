@@ -6,7 +6,7 @@
   <title>B.jpg — Documentary Photography & Art Direction</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Lato:wght@400;700&family=Space+Grotesk:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Lato:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after {
       margin: 0;
@@ -15,12 +15,11 @@
     }
 
     :root {
-      --bg: #1B1B1B;
-      --orange: #F93B22;
-      --ticker-height: 30px;
+      --bg: #F1EFE3;
+      --orange: #222222;
       --logo-size: 45px;
       --nav-height: 88px;
-      --header-height: calc(var(--ticker-height) + var(--nav-height));
+      --header-height: var(--nav-height);
     }
 
     html {
@@ -34,50 +33,10 @@
       overflow-x: hidden;
     }
 
-    /* ─── TICKER ─── */
-    .ticker-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 200;
-      height: var(--ticker-height);
-      background-color: #ffffff;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-    }
-
-    .ticker-track {
-      display: flex;
-      white-space: nowrap;
-      animation: ticker-scroll 55s linear infinite;
-    }
-
-    .ticker-text {
-      font-family: 'Lato', sans-serif;
-      font-weight: 700;
-      font-size: 0.68rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--bg);
-      padding-right: 0;
-    }
-
-    .ticker-sep {
-      color: var(--orange);
-      padding: 0 20px;
-    }
-
-    @keyframes ticker-scroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
     /* ─── NAV ─── */
     nav {
       position: fixed;
-      top: var(--ticker-height);
+      top: 0;
       left: 0;
       right: 0;
       z-index: 100;
@@ -234,15 +193,6 @@
     .mobile-nav-links a:hover { opacity: 0.6; }
 
     /* ─── RESPONSIVE ─── */
-    @media (max-width: 768px) {
-      .nav-links  { display: none; }
-      .nav-burger { display: flex; }
-      .nav-right .lang-switch { display: none; }
-      nav { padding: 0 24px; }
-      .work-card { flex: 0 0 85%; }
-      .work-grid { padding-left: 24px; padding-right: 24px; scroll-padding-left: 24px; }
-      .work-nav { padding: 0 24px; }
-    }
 
     .lang-switch {
       display: flex;
@@ -284,25 +234,42 @@
     }
 
     /* ─── HERO ─── */
-    #hero {
-      height: 100vh;
-      padding-top: var(--header-height);
-      padding-bottom: calc(56px + 1.4rem * 1.2);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    /* ─── PARALLAX STAGE ─── */
+    .parallax-stage {
+      height: 350vh;
       position: relative;
     }
 
-    .hero-marquee-wrap {
-      width: 100%;
+    .parallax-panel {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--bg);
     }
 
     #hero-canvas {
-      display: block;
+      position: absolute;
+      top: 50%;
+      left: 0;
       width: 100%;
+      display: block;
+      transform: translateY(-50%);
+      z-index: 0;
     }
+
+    /* Growing image frame — starts below viewport, JS animates width + bottom */
+    .reveal-frame {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      overflow: hidden;
+      width: 33.333vw;
+      height: auto;
+    }
+
 
     /* ─── GRAIN ─── */
     #grain-canvas {
@@ -341,16 +308,6 @@
       color: var(--bg);
     }
 
-    @media (max-width: 768px) {
-      .hero-subtitle {
-        font-size: 1rem;
-        white-space: normal;
-        width: calc(100% - 48px);
-        left: 24px;
-        transform: none;
-        bottom: 32px;
-      }
-    }
 
     /* ─── SCROLL INDICATORS ─── */
     .scroll-indicator {
@@ -388,10 +345,6 @@
       50%       { transform: translateX(-50%) translateY(6px); }
     }
 
-    @media (max-width: 768px) {
-      .scroll-indicator.left  { left: 24px; }
-      .scroll-indicator.right { right: 24px; }
-    }
 
     /* ─── SHARED SECTION STYLES ─── */
     .section-inner {
@@ -404,141 +357,92 @@
       scroll-margin-top: var(--header-height);
     }
 
-    /* ─── WORK ─── */
-    #work {
-      background-color: var(--bg);
-    }
-
-    #work .section-inner {
-      padding: 0 0 72px;
-    }
-
-    .work-carousel {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
+    /* ─── CAROUSEL INSIDE FRAME ─── */
     .work-grid {
       display: flex;
       gap: 3px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
+      height: auto;
+      overflow-x: hidden;
+      scroll-snap-type: none;
       scrollbar-width: none;
-      cursor: grab;
-      padding-left: 40px;
-      padding-right: 40px;
-      scroll-padding-left: 40px;
+      cursor: default;
+      padding: 0 10vw 0 37.5vw;
     }
 
     .work-grid::-webkit-scrollbar { display: none; }
-    .work-grid.grabbing { cursor: grabbing; }
-
-    .work-nav {
-      display: flex;
-      justify-content: space-between;
-      padding: 0 40px;
-    }
-
-    .work-nav-btn {
-      width: var(--logo-size);
-      height: var(--logo-size);
-      background: var(--orange);
-      border: none;
-      border-radius: 0;
-      color: var(--bg);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.25s ease;
-      flex-shrink: 0;
-    }
-
-    .work-nav-btn svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .work-nav-btn:hover { opacity: 0.8; }
-
-    .work-nav-btn:disabled {
-      opacity: 0;
-      pointer-events: none;
-    }
 
     .work-card {
-      flex: 0 0 calc(33.333% - 2px);
+      flex: 0 0 25vw;
       scroll-snap-align: start;
       display: flex;
       flex-direction: column;
-      gap: 12px;
       text-decoration: none;
       color: inherit;
+      transition: opacity 0.6s ease;
     }
 
     .work-item {
-      background-color: #272727;
       overflow: hidden;
       cursor: pointer;
       position: relative;
-      border-radius: 6px;
       width: 100%;
+      aspect-ratio: 3 / 2;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.08);
     }
 
     .work-item img {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
+      object-fit: cover;
+      object-position: 50% 50%;
       filter: grayscale(100%);
-      transition: transform 0.5s ease, filter 0.5s ease;
-    }
-
-    .work-card:hover .work-item img {
-      transform: scale(1.04);
-      filter: grayscale(0%);
     }
 
     .work-item-title {
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 400;
-      font-size: 0.95rem;
+      font-size: 0.72rem;
       letter-spacing: 0.06em;
       color: var(--orange);
       text-transform: uppercase;
-      padding: 0 2px;
+      padding: 12px 2px 0;
     }
 
     /* ─── WORK IN PROGRESS CARDS ─── */
-    .work-in-progress {
-      cursor: default;
-    }
 
-    .work-in-progress .work-item {
+    .work-in-progress {
+      pointer-events: none;
       cursor: default;
     }
 
     .work-in-progress .work-item img {
-      filter: none;
-      transform: none;
-      transition: none;
+      filter: grayscale(100%) blur(16px) brightness(0.65);
     }
 
-    .work-in-progress:hover .work-item img {
-      filter: none;
-      transform: none;
+    .work-in-progress .work-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      opacity: 0.35;
+      mix-blend-mode: overlay;
+    }
+
+    .work-in-progress .work-item-title {
+      opacity: 0.45;
     }
 
     /* ─── ABOUT ─── */
     #about {
-      border-top: 1px solid rgba(255, 60, 0, 0.15);
     }
 
     #about .section-inner {
       display: flex;
       flex-direction: column;
       gap: 40px;
+      padding-top: 60px;
       padding-bottom: 0;
     }
 
@@ -576,12 +480,12 @@
     }
 
     .about-body {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Lato', sans-serif;
       font-weight: 400;
       font-size: 1.05rem;
       letter-spacing: 0em;
       line-height: 1.75;
-      color: #ffffff;
+      color: #222222;
       margin-bottom: 32px;
     }
 
@@ -663,36 +567,51 @@
     }
 
     .footer-text {
-      font-family: 'Lato', sans-serif;
-      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
       font-size: 1rem;
-      letter-spacing: -0.02em;
+      letter-spacing: 0em;
       color: var(--orange);
       opacity: 0.35;
+    }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+      .nav-right .lang-switch { display: none; }
+
+      .parallax-panel { padding-top: var(--header-height); }
+      .work-nav { bottom: 24px; padding: 0 24px; }
+      .work-item-title { text-align: center; }
+      .work-card { flex: 0 0 72vw; }
+      .work-grid { padding: 0 14vw 0 14vw; }
+      .mobile-nav-links a { padding-left: 16px; padding-right: 16px; }
+
+      #about .section-inner  { padding-left: 24px; padding-right: 24px; }
+      .about-content { width: 100%; padding: 0; }
+      .about-body { font-size: 0.9rem; }
+
+      #contact .section-inner { padding-left: 24px; padding-right: 24px; }
+
+      footer { flex-direction: column; gap: 6px; padding: 24px; text-align: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- TICKER -->
-  <div class="ticker-bar" aria-hidden="true">
-    <div class="ticker-track">
-      <span class="ticker-text">01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span></span>
-      <span class="ticker-text" aria-hidden="true">01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span></span>
-    </div>
-  </div>
-
   <!-- NAV -->
   <nav>
-    <a href="#hero" class="nav-logo" aria-label="Home">
+    <a href="#" class="nav-logo" aria-label="Home" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
       <svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M101.272 2.07495C101.251 1.34169 100.664 0.754053 99.9303 0.733252C67.3188 -0.244417 34.6865 -0.244417 2.07495 0.733252C1.34169 0.754053 0.754053 1.34169 0.733252 2.07495C-0.244417 34.6865 -0.244417 67.3188 0.733252 99.9251C0.754053 100.658 1.34169 101.246 2.07495 101.267C34.6865 102.244 67.3136 102.244 99.9251 101.267C100.658 101.246 101.246 100.658 101.267 99.9251C102.244 67.3136 102.244 34.6813 101.267 2.07495H101.272ZM89.1759 52.4925C78.6296 69.2793 64.4742 76.1074 51.0052 76.1074C37.5363 76.1074 23.3757 69.2793 12.8345 52.4925C12.2625 51.5824 12.2625 50.4228 12.8345 49.5179C23.3809 32.7311 37.5363 25.903 51.0052 25.903C64.4742 25.903 78.6348 32.7311 89.1759 49.5179C89.7479 50.428 89.7479 51.5876 89.1759 52.4925Z" fill="#F93B22"/>
-        <path d="M63.8432 39.2097C63.23 39.8229 62.7379 40.5573 62.4295 41.3651C61.5115 43.752 62.0439 45.2832 63.2666 47.1669L64.2764 48.7201L62.7232 47.7104C60.3254 46.1498 57.2336 46.1498 54.8357 47.7105L53.2824 48.7203L54.2923 47.167C55.8529 44.7692 55.8529 41.6773 54.2924 39.2796L53.2826 37.7263L54.8358 38.7361C56.7195 39.9588 58.2471 40.4949 60.6376 39.5732C61.4491 39.2611 62.1798 38.7727 62.7931 38.1595C63.0281 37.9245 63.0207 37.5352 62.771 37.3223C59.4626 34.4765 55.1113 32.8058 50.3708 32.9711C40.9557 33.3017 33.3069 40.98 33.0057 50.395C32.6714 60.8124 41.1866 69.3277 51.6078 68.9971C61.0228 68.6958 68.701 61.047 69.0316 51.632C69.2006 46.8877 67.5299 42.5364 64.6841 39.228C64.4675 38.9746 64.0819 38.971 63.8469 39.206L63.8432 39.2097Z" fill="#F93B22"/>
+        <path d="M101.272 2.07495C101.251 1.34169 100.664 0.754053 99.9303 0.733252C67.3188 -0.244417 34.6865 -0.244417 2.07495 0.733252C1.34169 0.754053 0.754053 1.34169 0.733252 2.07495C-0.244417 34.6865 -0.244417 67.3188 0.733252 99.9251C0.754053 100.658 1.34169 101.246 2.07495 101.267C34.6865 102.244 67.3136 102.244 99.9251 101.267C100.658 101.246 101.246 100.658 101.267 99.9251C102.244 67.3136 102.244 34.6813 101.267 2.07495H101.272ZM89.1759 52.4925C78.6296 69.2793 64.4742 76.1074 51.0052 76.1074C37.5363 76.1074 23.3757 69.2793 12.8345 52.4925C12.2625 51.5824 12.2625 50.4228 12.8345 49.5179C23.3809 32.7311 37.5363 25.903 51.0052 25.903C64.4742 25.903 78.6348 32.7311 89.1759 49.5179C89.7479 50.428 89.7479 51.5876 89.1759 52.4925Z" fill="#222222"/>
+        <path d="M63.8432 39.2097C63.23 39.8229 62.7379 40.5573 62.4295 41.3651C61.5115 43.752 62.0439 45.2832 63.2666 47.1669L64.2764 48.7201L62.7232 47.7104C60.3254 46.1498 57.2336 46.1498 54.8357 47.7105L53.2824 48.7203L54.2923 47.167C55.8529 44.7692 55.8529 41.6773 54.2924 39.2796L53.2826 37.7263L54.8358 38.7361C56.7195 39.9588 58.2471 40.4949 60.6376 39.5732C61.4491 39.2611 62.1798 38.7727 62.7931 38.1595C63.0281 37.9245 63.0207 37.5352 62.771 37.3223C59.4626 34.4765 55.1113 32.8058 50.3708 32.9711C40.9557 33.3017 33.3069 40.98 33.0057 50.395C32.6714 60.8124 41.1866 69.3277 51.6078 68.9971C61.0228 68.6958 68.701 61.047 69.0316 51.632C69.2006 46.8877 67.5299 42.5364 64.6841 39.228C64.4675 38.9746 64.0819 38.971 63.8469 39.206L63.8432 39.2097Z" fill="#222222"/>
       </svg>
     </a>
 
     <ul class="nav-links">
-      <li><a href="#work"    data-i18n="nav.work">portfolio</a></li>
+      <li><a href="#work"    data-i18n="nav.work">projects</a></li>
       <li><a href="#about"   data-i18n="nav.about">about</a></li>
       <li><a href="#contact" data-i18n="nav.contact">contact</a></li>
     </ul>
@@ -712,7 +631,7 @@
   <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <ul class="mobile-nav-links">
-      <li><a href="#work"    data-i18n="nav.work">portfolio</a></li>
+      <li><a href="#work"    data-i18n="nav.work">projects</a></li>
       <li><a href="#about"   data-i18n="nav.about">about</a></li>
       <li><a href="#contact" data-i18n="nav.contact">contact</a></li>
     </ul>
@@ -723,66 +642,43 @@
     </div>
   </div>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-marquee-wrap">
+  <!-- PARALLAX CAROUSEL STAGE -->
+  <div class="parallax-stage" id="work">
+    <div class="parallax-panel" id="parallax-panel">
+
+      <!-- Background text animation -->
       <canvas id="hero-canvas" aria-label="B.JPG / PHOTOGRAPHY / DESIGN"></canvas>
+
+      <!-- Growing image frame -->
+      <div class="reveal-frame" id="reveal-frame">
+        <div class="work-grid" id="work-grid">
+
+          <a href="shipyard.html" class="work-card">
+            <div class="work-item"><img src="images/1. Shipyard/15.jpg" alt="Shipyard"></div>
+            <span class="work-item-title">Shipyards, Dhaka</span>
+          </a>
+
+          <a href="clayfactory.html" class="work-card work-in-progress">
+            <div class="work-item"><img src="ClayFactory.jpg" alt="Clay Factory"></div>
+            <span class="work-item-title">work in progress</span>
+          </a>
+
+          <a href="biker.html" class="work-card work-in-progress">
+            <div class="work-item"><img src="Biker.jpg" alt="Biker"></div>
+            <span class="work-item-title">work in progress</span>
+          </a>
+
+          <a href="chickenmarket.html" class="work-card work-in-progress">
+            <div class="work-item"><img src="ChickenMarket.jpg" alt="Chicken Market"></div>
+            <span class="work-item-title">work in progress</span>
+          </a>
+
+        </div>
+      </div>
+
+
     </div>
-    <p class="hero-subtitle" data-i18n="hero.subtitle">MY WORKS</p>
-    <a href="#work" class="scroll-indicator left" aria-label="Scroll to works">
-      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="4,7 10,13 16,7"/>
-      </svg>
-    </a>
-    <a href="#work" class="scroll-indicator right" aria-label="Scroll to works">
-      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="4,7 10,13 16,7"/>
-      </svg>
-    </a>
-  </section>
-
-  <!-- WORK -->
-  <section id="work">
-    <div class="section-inner">
-      <div class="work-carousel">
-      <div class="work-grid" id="work-grid">
-
-        <a href="shipyard.html" class="work-card">
-          <div class="work-item"><img src="Shipyard.jpg" alt="Shipyard"></div>
-          <span class="work-item-title">Shipyard</span>
-        </a>
-
-        <div class="work-card work-in-progress">
-          <div class="work-item"><img src="PlaceholderProject.jpg" alt="Work in progress"></div>
-          <span class="work-item-title">Work in progress</span>
-        </div>
-
-        <div class="work-card work-in-progress">
-          <div class="work-item"><img src="PlaceholderProject.jpg" alt="Work in progress"></div>
-          <span class="work-item-title">Work in progress</span>
-        </div>
-
-        <div class="work-card work-in-progress">
-          <div class="work-item"><img src="PlaceholderProject.jpg" alt="Work in progress"></div>
-          <span class="work-item-title">Work in progress</span>
-        </div>
-
-      </div>
-      <div class="work-nav">
-        <button class="work-nav-btn" id="work-prev" aria-label="Previous">
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="13,4 7,10 13,16"/>
-          </svg>
-        </button>
-        <button class="work-nav-btn" id="work-next" aria-label="Next">
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="7,4 13,10 7,16"/>
-          </svg>
-        </button>
-      </div>
-      </div>
-    </div>
-  </section>
+  </div>
 
   <!-- ABOUT -->
   <section id="about">
@@ -814,7 +710,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <span class="footer-text" data-i18n="footer.rights">© 2026 Bartech. All rights reserved.</span>
+    <span class="footer-text" data-i18n="footer.rights">Bartech.jpg | est. 2020</span>
     <span class="footer-text" data-i18n="footer.tagline">Documentary Photography &amp; Art Direction</span>
   </footer>
 
@@ -825,7 +721,7 @@
     (function () {
       const T = {
         en: {
-          'nav.work':        'portfolio',
+          'nav.work':        'projects',
           'nav.about':       'about',
           'nav.contact':     'contact',
           'hero.subtitle':   'MY WORKS',
@@ -834,12 +730,12 @@
           'about.label':     'About',
           'about.body1':     'I\'m a photographer and designer from Poland. I hold a Master\'s degree in Graphic Design from the Academy of Fine Arts in Katowice. Throughout my professional career, I have worked as a design advisor for multiple brands such as Lamborghini, Pfizer, Moncler, and Deutsche Telekom. My personal design work has been displayed at multiple exhibitions. Always inspired by documentary films and the work of photojournalists, in recent years I have shifted my focus toward capturing cultures, their traditions, and professions that are slowly disappearing.',
           'contact.heading': 'LET\'S<br>TALK.',
-          'footer.rights':   '© 2026 Bartech. All rights reserved.',
+          'footer.rights':   'Bartech.jpg | est. 2020',
           'footer.tagline':  'Documentary Photography &amp; Art Direction',
           'ticker':          'Documentary Photography &amp; Art Direction',
         },
         pl: {
-          'nav.work':        'portfolio',
+          'nav.work':        'projekty',
           'nav.about':       'o mnie',
           'nav.contact':     'kontakt',
           'hero.subtitle':   'MOJE PRACE',
@@ -848,7 +744,7 @@
           'about.label':     'O mnie',
           'about.body1':     'Jestem fotografem i projektantem z Polski. Posiadam tytuł magistra projektowania graficznego Akademii Sztuk Pięknych w Katowicach. W trakcie swojej kariery zawodowej pracowałem jako doradca ds. designu dla takich marek jak Lamborghini, Pfizer, Moncler i Deutsche Telekom. Moje osobiste prace projektowe były prezentowane na wielu wystawach. Od zawsze mocno zainspirowany filmami dokumentalnymi i pracą fotoreporterów, w ostatnich latach skupiłem się na dokumentowaniu kultur, tradycji oraz zawodów, które powoli odchodzą w zapomnienie.',
           'contact.heading': 'POROZMAWIAJMY.',
-          'footer.rights':   '© 2026 Bartech. Wszelkie prawa zastrzeżone.',
+          'footer.rights':   'Bartech.jpg | est. 2020',
           'footer.tagline':  'Fotografia Dokumentalna &amp; Reżyseria Artystyczna',
           'ticker':          'Fotografia Dokumentalna &amp; Reżyseria Artystyczna',
         }
@@ -1172,7 +1068,7 @@
     // ── Text drawing ──────────────────────────────────────────────────────
     function drawText() {
       tctx.clearRect(0, 0, tc.width, tc.height);
-      tctx.fillStyle = '#F93B22';
+      tctx.fillStyle = '#222222';
       tctx.font = `400 ${fontSize}px Anton, sans-serif`;
       if ('letterSpacing' in tctx) tctx.letterSpacing = `${-0.02 * fontSize}px`;
       const baseline = tc.height * 0.5 + fontSize * 0.35;
@@ -1187,31 +1083,32 @@
     let lastTs = 0;
 
     function render(ts) {
-      const dt = lastTs ? Math.min((ts - lastTs) * 0.001, 0.05) : 0;
-      lastTs = ts;
-      scrollOffset = (scrollOffset + speed * dt) % tileW;
-
-      // Upload scrolled text to texture unit 0
-      drawText();
-      gl.activeTexture(gl.TEXTURE0);
-      gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-      gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tc);
-
-
-      // Pass 1: blur text → FBO
-      gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
-      gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
-      gl.useProgram(progBlur);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-
-      // Pass 2: grain-displace blur + composite original → screen
-      gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
-      gl.useProgram(progComp);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-
+      // Schedule next frame first — loop survives even if an error occurs below
       requestAnimationFrame(render);
+      try {
+        const dt = lastTs ? Math.min((ts - lastTs) * 0.001, 0.05) : 0;
+        lastTs = ts;
+        scrollOffset = (scrollOffset + speed * dt) % tileW;
+
+        // Upload scrolled text to texture unit 0
+        drawText();
+        gl.activeTexture(gl.TEXTURE0);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tc);
+
+        // Pass 1: blur text → FBO
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+        gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.useProgram(progBlur);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
+        // Pass 2: grain-displace blur + composite original → screen
+        gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.useProgram(progComp);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      } catch (e) { /* keep looping */ }
     }
 
     // ── Init ──────────────────────────────────────────────────────────────
@@ -1220,20 +1117,31 @@
       refreshGrain();
       requestAnimationFrame(render);
     });
-    window.addEventListener('resize', resize);
+
+    // Animate grain (same cadence as the overlay grain canvas)
+    setInterval(refreshGrain, 80);
+
+    // Reset lastTs when tab regains focus to avoid a huge dt spike
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) lastTs = 0;
+    });
+
+    window.addEventListener('resize', () => { resize(); refreshGrain(); });
+
+    // Recover from WebGL context loss (common on mobile when switching tabs)
+    canvas.addEventListener('webglcontextlost', e => e.preventDefault());
+    canvas.addEventListener('webglcontextrestored', () => { resize(); refreshGrain(); requestAnimationFrame(render); });
+    // Fallback: re-trigger if fonts were slow and nothing rendered in 2 s
+    setTimeout(() => { if (!lastTs) { resize(); refreshGrain(); requestAnimationFrame(render); } }, 2000);
   }());
 
   </script>
 
   <script>
-    // Infinite-loop work carousel
+    // Carousel clone setup — clones needed so scroll-driven position works across wrap
     (function () {
       const grid = document.getElementById('work-grid');
-      const prev = document.getElementById('work-prev');
-      const next = document.getElementById('work-next');
       const orig = Array.from(grid.querySelectorAll('.work-card'));
-      const N    = orig.length; // 4
-
       function makeClones() {
         return orig.map(el => {
           const c = el.cloneNode(true);
@@ -1242,139 +1150,78 @@
           return c;
         });
       }
-      makeClones().forEach(c => grid.insertBefore(c, orig[0])); // prepend
-      makeClones().forEach(c => grid.appendChild(c));            // append
-      // Layout: [N prepend clones | N real items | N append clones]
-      const items = Array.from(grid.querySelectorAll('.work-card'));
+      // Clones removed — padding on the grid creates empty margin space instead
+    }());
+  </script>
 
-      function pl()     { return parseInt(getComputedStyle(grid).paddingLeft) || 0; }
-      function posAt(i) { return Math.max(0, items[i].offsetLeft - pl()); }
-      function spacing() {
-        return N > 1 ? (posAt(2*N-1) - posAt(N)) / (N-1) : posAt(N+1) - posAt(N);
-      }
 
-      let intended = N; // start at first real item
+  <script>
+    (function () {
+      const allLinks  = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
+      const stage     = document.getElementById('work');
+      const aboutEl   = document.getElementById('about');
+      const contactEl = document.getElementById('contact');
+      const HEADER_H  = parseInt(
+        getComputedStyle(document.documentElement).getPropertyValue('--header-height')
+      ) || 88;
 
-      function snapTo(i) {
-        grid.style.scrollSnapType = 'none';
-        grid.scrollLeft = posAt(i);
-        intended = i;
-        requestAnimationFrame(() => requestAnimationFrame(() => { grid.style.scrollSnapType = ''; }));
-      }
-      function slideTo(i) {
-        intended = i;
-        grid.scrollTo({ left: posAt(i), behavior: 'smooth' });
-      }
-      function recentre() {
-        const sp = spacing();
-        if (intended < N) {
-          grid.style.scrollSnapType = 'none';
-          grid.scrollLeft += N * sp;
-          intended        += N;
-          requestAnimationFrame(() => requestAnimationFrame(() => { grid.style.scrollSnapType = ''; }));
-        } else if (intended >= 2*N) {
-          grid.style.scrollSnapType = 'none';
-          grid.scrollLeft -= N * sp;
-          intended        -= N;
-          requestAnimationFrame(() => requestAnimationFrame(() => { grid.style.scrollSnapType = ''; }));
+      let lastActive = null;
+
+      function update() {
+        const scrollY = window.scrollY;
+        const windowH = window.innerHeight;
+        let active    = null;
+
+        // Portfolio: any meaningful scroll into the parallax work stage
+        if (stage) {
+          const rawUnclamped = (scrollY - stage.offsetTop) / (stage.scrollHeight - windowH);
+          if (rawUnclamped > 0.05 && rawUnclamped <= 1.0) active = 'work';
         }
+
+        // About / Contact: check viewport midpoint against section bounds
+        const mid = scrollY + HEADER_H + windowH * 0.35;
+        if (aboutEl && mid >= aboutEl.offsetTop && mid < aboutEl.offsetTop + aboutEl.offsetHeight) {
+          active = 'about';
+        }
+        if (contactEl && mid >= contactEl.offsetTop && mid < contactEl.offsetTop + contactEl.offsetHeight) {
+          active = 'contact';
+        }
+
+        if (active === lastActive) return;
+        lastActive = active;
+        allLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + active));
       }
 
-      requestAnimationFrame(() => snapTo(N)); // init at real item 1
-
-      prev.addEventListener('click', () => { if (intended > 0) slideTo(intended - 1); });
-      next.addEventListener('click', () => { if (intended < items.length - 1) slideTo(intended + 1); });
-
-      let loopTimer;
-      grid.addEventListener('scroll', () => {
-        clearTimeout(loopTimer);
-        loopTimer = setTimeout(() => {
-          const p = pl();
-          let best = intended, bd = Infinity;
-          for (let i = 0; i < items.length; i++) {
-            const d = Math.abs(grid.scrollLeft - (items[i].offsetLeft - p));
-            if (d < bd) { bd = d; best = i; }
-          }
-          intended = best;
-          recentre();
-        }, 150);
-      }, { passive: true });
+      window.addEventListener('scroll', update, { passive: true });
+      update();
     }());
   </script>
 
   <script>
-    // Drag-to-scroll for work carousel
+    // Scroll "about" links so the ABOUT label sits just below the nav bar
     (function () {
-      const grid = document.querySelector('.work-grid');
-      let isDown = false, startX, scrollLeft;
-
-      grid.addEventListener('mousedown', e => {
-        isDown = true;
-        grid.classList.add('grabbing');
-        startX = e.pageX - grid.offsetLeft;
-        scrollLeft = grid.scrollLeft;
-      });
-      grid.addEventListener('mouseleave', () => { isDown = false; grid.classList.remove('grabbing'); });
-      grid.addEventListener('mouseup',    () => { isDown = false; grid.classList.remove('grabbing'); });
-      grid.addEventListener('mousemove',  e => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - grid.offsetLeft;
-        grid.scrollLeft = scrollLeft - (x - startX) * 1.2;
+      document.querySelectorAll('a[href="#about"]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          var section  = document.getElementById('about');
+          var navH     = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 88;
+          // section-inner has 60px padding-top; land 16px below the nav bar
+          var target = section.offsetTop + 60 - navH - 16;
+          window.scrollTo({ top: target, behavior: 'smooth' });
+        });
       });
     }());
   </script>
 
   <script>
-    (function () {
-      const sections = ['work', 'about', 'contact'];
-      const allLinks = document.querySelectorAll('.nav-links a, .mobile-nav-links a');
-
-      function setActive(id) {
-        allLinks.forEach(a => {
-          const href = a.getAttribute('href');
-          a.classList.toggle('active', href === '#' + id);
-        });
-      }
-
-      function clearActive() {
-        allLinks.forEach(a => a.classList.remove('active'));
-      }
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        });
-      }, {
-        rootMargin: `-${getComputedStyle(document.documentElement).getPropertyValue('--header-height').trim()} 0px -55% 0px`,
-        threshold: 0
-      });
-
-      sections.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) observer.observe(el);
-      });
-
-      // Clear active when scrolled back to hero
-      const heroObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => { if (entry.isIntersecting) clearActive(); });
-      }, { threshold: 0.3 });
-      const hero = document.getElementById('hero');
-      if (hero) heroObserver.observe(hero);
-
-    }());
-  </script>
-
-  <script>
-    // Scroll "portfolio" links to show MY WORKS label
+    // Scroll "portfolio" links to the fully-open carousel position
     (function () {
       document.querySelectorAll('a[href="#work"]').forEach(function (link) {
         link.addEventListener('click', function (e) {
           e.preventDefault();
-          var subtitle = document.querySelector('.hero-subtitle');
-          var navH     = document.querySelector('nav').offsetHeight;
-          var tickerH  = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--ticker-height')) || 30;
-          var target   = subtitle.getBoundingClientRect().top + window.scrollY - navH - tickerH - 120;
+          var stage  = document.getElementById('work');
+          // Land at 42% — clearly inside dwell so all cards are visible
+          var target = stage.offsetTop + 0.42 * (stage.scrollHeight - window.innerHeight);
           window.scrollTo({ top: target, behavior: 'smooth' });
         });
       });
@@ -1428,6 +1275,110 @@
       window.addEventListener('scroll', update, { passive: true });
       update();
     }());
+  </script>
+
+  <script>
+  // ── Parallax carousel reveal ──────────────────────────────────────────────
+  (function () {
+    const stage      = document.getElementById('work');
+    const frame      = document.getElementById('reveal-frame');
+    const heroCanvas = document.getElementById('hero-canvas');
+    const grid       = document.getElementById('work-grid');
+    const isMobile = window.innerWidth < 768;
+    const MIN_W = isMobile ? 60 : 25, MAX_W = 100;
+    const allCards = Array.from(grid.querySelectorAll('.work-card'));
+    const MIN_SLIVER_VH = 5;
+    const GROW_END  = 0.38;
+    const DWELL_END = 1.0;
+    // Measured fresh each frame — cards may have zero height at script-run time on mobile
+    // (images not yet loaded / layout not yet committed), so we can't cache this as a const.
+    function cardHVH() {
+      const h = allCards[0].offsetHeight;
+      return h ? (h / window.innerHeight * 100) : (isMobile ? 50 : 15);
+    }
+
+    function ease(t) { return -(Math.cos(Math.PI * t) - 1) / 2; }
+
+    // Grid always locked — scroll position set programmatically, no snap needed
+    grid.style.overflowX      = 'hidden';
+    grid.style.scrollSnapType = 'none';
+    grid.dataset.parallaxLocked = '1';
+
+    const anchorCard = allCards[0];                    // first card (card1, after padding)
+    const lastCard   = allCards[allCards.length - 1]; // last card (card4, before padding)
+
+    let ticking = false;
+
+    function update() {
+      const scrollY  = window.scrollY;
+      const stageH   = stage.scrollHeight;
+      const stageTop = stage.offsetTop;
+      const raw = Math.max(0, Math.min(1, (scrollY - stageTop) / (stageH - window.innerHeight)));
+
+      // Phase 1: grow from bottom (raw 0 → GROW_END)
+      const growRaw = Math.min(1, raw / GROW_END);
+      const growP   = ease(growRaw);
+      const chv = cardHVH();
+      const minB = -(chv - MIN_SLIVER_VH);
+      const maxB = (100 - chv) / 2;
+      frame.style.width  = (MIN_W + (MAX_W - MIN_W) * growP) + 'vw';
+      // No height clipping — frame is always full card height, starts below viewport
+      frame.style.bottom = (minB + (maxB - minB) * growP) + 'vh';
+
+      if (heroCanvas) {
+        heroCanvas.style.opacity = Math.max(0, 1 - growRaw * 1.6).toString();
+      }
+
+      const fullyOpen = raw >= GROW_END;
+
+      // Margin: 10% of viewport inset on the entering side, exiting on the other
+      const marginPx = 0.10 * window.innerWidth;
+
+      // Phase 3: horizontal carousel pan (raw GROW_END → DWELL_END)
+      // scrollLeft starts with first card 10% inset from left, ends with last card 10% inset from right
+      // Grid scroll:
+      // Grow: scrollLeft = anchorCard.offsetLeft × (1−growP) keeps card 0 fixed at
+      // 50vw center throughout grow (paddingLeft=37.5vw cancels the frame expansion).
+      // Dwell: pan from scrollLeft=0 (end of grow) to scrollEnd to reveal cards 2 & 3.
+      const isRevealed = raw >= GROW_END && raw <= DWELL_END + 0.05;
+      if (raw < GROW_END) {
+        grid.scrollLeft = anchorCard.offsetLeft * (1 - growP);
+      } else if (isRevealed) {
+        const dwellP    = Math.max(0, Math.min(1, (raw - GROW_END) / (DWELL_END - GROW_END)));
+        const scrollEnd = lastCard.offsetLeft + lastCard.offsetWidth - (window.innerWidth - marginPx);
+        grid.scrollLeft = ease(dwellP) * scrollEnd;
+      }
+      // Past DWELL_END: leave scrollLeft where the pan stopped (no snap-back)
+
+      // One-by-one reveal — no sliding:
+      // paddingLeft=37.5vw + scrollLeft=37.5×(1−growP) keeps card 0 centered as frame grows.
+      // Card 0: always fully in frame → growRaw ≥ 0.
+      // Card 1: fits when growP ≥ 2/3 → growRaw ≥ 0.59.
+      // Cards 2 & 3: can't fit during grow; appear geometrically as dwell pan brings them in.
+      allCards.forEach(function(card, i) {
+        var visible;
+        if (i === 0) {
+          visible = growRaw >= 0;
+        } else if (i === 1) {
+          visible = growRaw >= 0.59;
+        } else {
+          // Ready at dwell start — already opacity:1 before the pan begins,
+          // so horizontal scrolling uncovers them rather than triggering a late appearance
+          visible = raw >= GROW_END;
+        }
+        card.style.opacity = visible ? '1' : '0';
+      });
+
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+
+    window.addEventListener('load', update);
+    update();
+  }());
   </script>
 
 </body>

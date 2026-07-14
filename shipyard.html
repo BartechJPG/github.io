@@ -6,52 +6,30 @@
   <title>Shipyard — B.jpg</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Lato:wght@400;700&family=Space+Grotesk:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Lato:wght@400;700&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg: #1B1B1B;
-      --orange: #F93B22;
-      --ticker-height: 30px;
+      --bg: #F1EFE3;
+      --fg: #222222;
       --logo-size: 45px;
       --nav-height: 88px;
-      --header-height: calc(var(--ticker-height) + var(--nav-height));
     }
 
     html { scroll-behavior: smooth; }
 
     body {
       background-color: var(--bg);
-      color: var(--orange);
+      color: var(--fg);
       font-family: 'Lato', sans-serif;
       overflow-x: hidden;
-    }
-
-    /* ─── TICKER ─── */
-    .ticker-bar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      height: var(--ticker-height); background-color: #ffffff;
-      overflow: hidden; display: flex; align-items: center;
-    }
-    .ticker-track {
-      display: flex; white-space: nowrap;
-      animation: ticker-scroll 55s linear infinite;
-    }
-    .ticker-text {
-      font-family: 'Lato', sans-serif; font-weight: 700;
-      font-size: 0.68rem; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--bg);
-    }
-    .ticker-sep { color: var(--orange); padding: 0 20px; }
-    @keyframes ticker-scroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      min-height: 100vh;
     }
 
     /* ─── NAV ─── */
     nav {
-      position: fixed; top: var(--ticker-height); left: 0; right: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       height: var(--nav-height); display: grid;
       grid-template-columns: 1fr auto 1fr; align-items: center;
       padding: 0 40px; background-color: var(--bg);
@@ -59,25 +37,26 @@
     }
     nav.scrolled {
       box-shadow:
-        0 1px 0 rgba(249, 59, 34, 0.07),
-        0 2px 12px rgba(0, 0, 0, 0.35),
-        0 6px 32px rgba(0, 0, 0, 0.2);
+        0 1px 0 rgba(34, 34, 34, 0.07),
+        0 2px 12px rgba(0, 0, 0, 0.08),
+        0 6px 32px rgba(0, 0, 0, 0.05);
     }
     .nav-logo {
       display: flex; align-items: center; text-decoration: none;
       flex-shrink: 0; justify-self: start; grid-column: 1;
+      color: var(--fg);
     }
     .nav-logo svg { width: var(--logo-size); height: var(--logo-size); }
     .nav-links { display: flex; gap: 72px; list-style: none; }
     .nav-links a {
-      color: var(--orange); text-decoration: none;
+      color: var(--fg); text-decoration: none;
       font-family: 'Space Grotesk', sans-serif; font-weight: 400;
       font-size: 1.15rem; letter-spacing: 0.01em; text-transform: uppercase;
       height: var(--logo-size); display: inline-flex; align-items: center;
       padding: 0 20px; transition: background 0.2s ease, color 0.2s ease;
     }
-    .nav-links a:hover { background: var(--orange); color: var(--bg); }
-    .nav-links a.active { background: var(--orange); color: var(--bg); }
+    .nav-links a:hover { background: var(--fg); color: var(--bg); }
+    .nav-links a.active { background: var(--fg); color: var(--bg); }
 
     /* ─── NAV RIGHT ─── */
     .nav-right {
@@ -92,7 +71,7 @@
       padding: 0; width: 28px; height: var(--logo-size); flex-shrink: 0;
     }
     .nav-burger span {
-      display: block; width: 100%; height: 4px; background: var(--orange);
+      display: block; width: 100%; height: 4px; background: var(--fg);
       transition: transform 0.25s ease, opacity 0.2s ease;
     }
     .nav-burger.open span:nth-child(1) { transform: translateY(10px) rotate(45deg); }
@@ -101,7 +80,7 @@
 
     /* ─── MOBILE MENU ─── */
     .mobile-menu {
-      display: none; position: fixed; top: var(--header-height);
+      display: none; position: fixed; top: var(--nav-height);
       left: 0; right: 0; bottom: 0; z-index: 99; background: var(--bg);
       flex-direction: column; justify-content: center;
       padding: 0 40px 60px; gap: 12px;
@@ -109,32 +88,175 @@
     .mobile-menu.open { display: flex; }
     .mobile-menu .lang-switch { align-self: flex-start; }
     .mobile-nav-links { list-style: none; display: flex; flex-direction: column; }
-    .mobile-nav-links li { border-top: 1px solid rgba(255,60,0,0.15); }
-    .mobile-nav-links li:last-child { border-bottom: 1px solid rgba(255,60,0,0.15); }
+    .mobile-nav-links li { border-top: 1px solid rgba(34, 34, 34, 0.15); }
+    .mobile-nav-links li:last-child { border-bottom: 1px solid rgba(34, 34, 34, 0.15); }
     .mobile-nav-links a {
-      display: block; padding: 22px 0; color: var(--orange); text-decoration: none;
+      display: block; padding: 22px 0; color: var(--fg); text-decoration: none;
       font-family: 'Space Grotesk', sans-serif; font-weight: 400;
       font-size: 2rem; letter-spacing: 0.01em; text-transform: uppercase;
     }
     .mobile-nav-links a.active {
-      background: var(--orange); color: var(--bg); padding-left: 20px;
+      background: var(--fg); color: var(--bg); padding-left: 20px;
     }
 
     /* ─── LANG SWITCH ─── */
     .lang-switch {
       display: flex; align-items: stretch; height: var(--logo-size);
-      border: 1.5px solid var(--orange); flex-shrink: 0; overflow: hidden;
+      border: 1.5px solid var(--fg); flex-shrink: 0; overflow: hidden;
     }
     .lang-btn {
-      background: transparent; border: none; color: var(--orange);
+      background: transparent; border: none; color: var(--fg);
       font-family: 'Lato', sans-serif; font-weight: 700; font-size: 1rem;
       letter-spacing: 0.04em; cursor: pointer; padding: 0 16px;
       transition: background 0.2s ease, color 0.2s ease;
     }
-    .lang-btn + .lang-btn { border-left: 1.5px solid var(--orange); }
-    .lang-btn.active { background: var(--orange); color: var(--bg); }
-    .lang-btn:hover:not(.active) { opacity: 0.65; }
+    .lang-btn + .lang-btn { border-left: 1.5px solid var(--fg); }
+    .lang-btn.active { background: var(--fg); color: var(--bg); }
+    .lang-btn:hover:not(.active) { opacity: 0.5; }
     .lang-sep { display: none; }
+
+    /* ─── PROJECT PAGE ─── */
+    .project-main {
+      padding-top: calc(var(--nav-height) + 40px);
+      padding-bottom: 80px;
+    }
+
+    .project-title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 3px;
+      margin-bottom: 24px;
+    }
+    .project-title {
+      display: inline-flex;
+      align-items: center;
+      height: var(--logo-size);
+      padding: 0 20px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      background: var(--fg);
+      color: var(--bg);
+    }
+
+    .project-viewer {
+      width: 100%;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+      min-height: 60vh;
+    }
+
+    .carousel-track {
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      will-change: transform;
+    }
+
+    .carousel-side {
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+    }
+    #carousel-left  { left: 0; flex-direction: row-reverse; }
+    #carousel-right { right: 0; flex-direction: row; }
+    .carousel-side img {
+      display: block;
+      height: 100%;
+      width: auto;
+      flex-shrink: 0;
+      filter: grayscale(100%);
+      cursor: pointer;
+      opacity: 0.55;
+      transition: opacity 0.2s;
+    }
+    .carousel-side img:hover { opacity: 0.8; }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: var(--logo-size);
+      height: var(--logo-size);
+      padding: 0;
+      border: none;
+      background: var(--fg);
+      color: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+    }
+    #btn-prev { left: 40px; }
+    #btn-next { right: 40px; }
+    .carousel-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    .carousel-active {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .carousel-active img {
+      display: block;
+      max-height: 60vh;
+      max-width: 90vw;
+      width: auto;
+      cursor: zoom-in;
+    }
+
+    .project-caption {
+      text-align: center;
+      font-family: 'Lato', sans-serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      color: var(--fg);
+      opacity: 0.55;
+      margin: 12px 0 0;
+      padding: 0 40px;
+    }
+
+    /* ─── LIGHTBOX ─── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(0, 0, 0, 0.92);
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 95vw;
+      max-height: 95vh;
+      object-fit: contain;
+    }
+
+    .project-text {
+      max-width: clamp(680px, 72vw, 960px);
+      margin: 56px auto 0;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .project-text p {
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--fg);
+      opacity: 0.85;
+    }
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
@@ -142,6 +264,8 @@
       .nav-burger { display: flex; }
       .nav-right .lang-switch { display: none; }
       nav { padding: 0 24px; }
+      .project-viewer { /* no gap override needed */ }
+      .project-caption { padding: 0 24px; width: 100%; }
     }
 
     /* ─── GRAIN ─── */
@@ -150,139 +274,18 @@
       z-index: 9999; pointer-events: none; opacity: 0.045;
     }
 
-    /* ─── PROJECT HERO ─── */
-    .project-hero {
-      height: 82vh;
-      padding-top: var(--header-height);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .project-title-area {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      padding: 0 40px;
-    }
-    .project-breadcrumb {
-      display: flex; align-items: center; gap: 10px;
-      font-family: 'Space Grotesk', sans-serif; font-weight: 400;
-      font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
-    }
-    .project-breadcrumb a { color: var(--orange); text-decoration: none; opacity: 0.45; transition: opacity 0.2s; }
-    .project-breadcrumb a:hover { opacity: 1; }
-    .project-breadcrumb-sep { color: var(--orange); opacity: 0.45; }
-    .project-breadcrumb-current { color: var(--orange); }
-    .project-title {
-      font-family: 'Anton', sans-serif;
-      font-size: clamp(4rem, 14vw, 12rem);
-      color: var(--orange);
-      text-transform: uppercase;
-      letter-spacing: -0.01em;
-      line-height: 0.92;
-      text-align: center;
-    }
-    .project-photo-area {
-      width: 100%;
-      padding: 40px 40px 60px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .project-slideshow { flex: 1; line-height: 0; display: flex; justify-content: center; }
-    .project-slideshow-img {
-      width: auto;
-      max-width: 100%;
-      max-height: calc(100vh - var(--header-height) - 100px);
-      height: auto;
-      display: block;
-      transition: opacity 0.15s ease;
-    }
-    .project-nav-btn {
-      width: var(--logo-size); height: var(--logo-size);
-      background: var(--orange); border: none; color: var(--bg);
-      cursor: pointer; display: flex; align-items: center;
-      justify-content: center; transition: opacity 0.2s; flex-shrink: 0;
-    }
-    .project-nav-btn svg { width: 20px; height: 20px; }
-    .project-nav-btn:hover { opacity: 0.8; }
-    .project-nav-btn:disabled { opacity: 0; pointer-events: none; }
-
-    /* ─── PROJECT INFO ─── */
-    .project-info {
-      padding: 80px 80px;
-      border-top: 1px solid rgba(255, 60, 0, 0.15);
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 60px;
-      align-items: start;
-    }
-    .project-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-    }
-    .project-meta-item {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .project-meta-label {
-      font-family: 'Space Grotesk', sans-serif; font-weight: 400;
-      font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--orange); opacity: 0.45;
-    }
-    .project-meta-value {
-      font-family: 'Space Grotesk', sans-serif; font-weight: 400;
-      font-size: 0.95rem; letter-spacing: 0.04em; text-transform: uppercase;
-      color: var(--orange);
-    }
-    .project-description {
-      font-family: 'Space Grotesk', sans-serif; font-weight: 400;
-      font-size: 1.05rem; letter-spacing: 0em; line-height: 1.75;
-      color: #ffffff;
-    }
-
-    @media (max-width: 768px) {
-      .project-title-area { padding: 0 24px; }
-      .project-photo-area { padding: 24px 12px 40px; gap: 8px; }
-      .project-info { padding: 60px 24px; grid-template-columns: 1fr; gap: 40px; }
-    }
-
-    /* ─── LIGHTBOX ─── */
-    .lightbox {
-      display: none; position: fixed; inset: 0; z-index: 10000;
-      background: rgba(0,0,0,0.93); align-items: center;
-      justify-content: center; cursor: zoom-out;
-    }
-    .lightbox.open { display: flex; }
-    .lightbox img {
-      max-width: 92vw; max-height: 92vh;
-      width: auto; height: auto; display: block; cursor: default;
-    }
-    .lightbox-close {
-      position: absolute; top: 20px; right: 20px;
-      width: var(--logo-size); height: var(--logo-size);
-      background: var(--orange); color: var(--bg);
-      border: none; cursor: pointer; font-size: 1.1rem;
-      display: flex; align-items: center; justify-content: center;
-    }
-
     /* ─── FOOTER ─── */
     footer {
       padding: 32px 40px;
-      border-top: 1px solid rgba(255, 60, 0, 0.1);
+      border-top: 1px solid rgba(34, 34, 34, 0.1);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .footer-text {
-      font-family: 'Lato', sans-serif; font-weight: 700;
-      font-size: 1rem; letter-spacing: -0.02em;
-      color: var(--orange); opacity: 0.35;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 400;
+      font-size: 1rem; letter-spacing: 0em;
+      color: var(--fg); opacity: 0.35;
     }
     @media (max-width: 768px) {
       footer { padding: 32px 24px; flex-direction: column; gap: 8px; text-align: center; }
@@ -291,27 +294,19 @@
 </head>
 <body>
 
-  <!-- TICKER -->
-  <div class="ticker-bar" aria-hidden="true">
-    <div class="ticker-track">
-      <span class="ticker-text">01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span></span>
-      <span class="ticker-text" aria-hidden="true">01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span>01.05.2026<span class="ticker-sep">/</span>Kraków, Poland<span class="ticker-sep">/</span>Documentary Photography &amp; Art Direction<span class="ticker-sep">/</span></span>
-    </div>
-  </div>
-
   <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-logo" aria-label="Home">
       <svg width="102" height="102" viewBox="0 0 102 102" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M101.272 2.07495C101.251 1.34169 100.664 0.754053 99.9303 0.733252C67.3188 -0.244417 34.6865 -0.244417 2.07495 0.733252C1.34169 0.754053 0.754053 1.34169 0.733252 2.07495C-0.244417 34.6865 -0.244417 67.3188 0.733252 99.9251C0.754053 100.658 1.34169 101.246 2.07495 101.267C34.6865 102.244 67.3136 102.244 99.9251 101.267C100.658 101.246 101.246 100.658 101.267 99.9251C102.244 67.3136 102.244 34.6813 101.267 2.07495H101.272ZM89.1759 52.4925C78.6296 69.2793 64.4742 76.1074 51.0052 76.1074C37.5363 76.1074 23.3757 69.2793 12.8345 52.4925C12.2625 51.5824 12.2625 50.4228 12.8345 49.5179C23.3809 32.7311 37.5363 25.903 51.0052 25.903C64.4742 25.903 78.6348 32.7311 89.1759 49.5179C89.7479 50.428 89.7479 51.5876 89.1759 52.4925Z" fill="#F93B22"/>
-        <path d="M63.8432 39.2097C63.23 39.8229 62.7379 40.5573 62.4295 41.3651C61.5115 43.752 62.0439 45.2832 63.2666 47.1669L64.2764 48.7201L62.7232 47.7104C60.3254 46.1498 57.2336 46.1498 54.8357 47.7105L53.2824 48.7203L54.2923 47.167C55.8529 44.7692 55.8529 41.6773 54.2924 39.2796L53.2826 37.7263L54.8358 38.7361C56.7195 39.9588 58.2471 40.4949 60.6376 39.5732C61.4491 39.2611 62.1798 38.7727 62.7931 38.1595C63.0281 37.9245 63.0207 37.5352 62.771 37.3223C59.4626 34.4765 55.1113 32.8058 50.3708 32.9711C40.9557 33.3017 33.3069 40.98 33.0057 50.395C32.6714 60.8124 41.1866 69.3277 51.6078 68.9971C61.0228 68.6958 68.701 61.047 69.0316 51.632C69.2006 46.8877 67.5299 42.5364 64.6841 39.228C64.4675 38.9746 64.0819 38.971 63.8469 39.206L63.8432 39.2097Z" fill="#F93B22"/>
+        <path d="M101.272 2.07495C101.251 1.34169 100.664 0.754053 99.9303 0.733252C67.3188 -0.244417 34.6865 -0.244417 2.07495 0.733252C1.34169 0.754053 0.754053 1.34169 0.733252 2.07495C-0.244417 34.6865 -0.244417 67.3188 0.733252 99.9251C0.754053 100.658 1.34169 101.246 2.07495 101.267C34.6865 102.244 67.3136 102.244 99.9251 101.267C100.658 101.246 101.246 100.658 101.267 99.9251C102.244 67.3136 102.244 34.6813 101.267 2.07495H101.272ZM89.1759 52.4925C78.6296 69.2793 64.4742 76.1074 51.0052 76.1074C37.5363 76.1074 23.3757 69.2793 12.8345 52.4925C12.2625 51.5824 12.2625 50.4228 12.8345 49.5179C23.3809 32.7311 37.5363 25.903 51.0052 25.903C64.4742 25.903 78.6348 32.7311 89.1759 49.5179C89.7479 50.428 89.7479 51.5876 89.1759 52.4925Z" fill="currentColor"/>
+        <path d="M63.8432 39.2097C63.23 39.8229 62.7379 40.5573 62.4295 41.3651C61.5115 43.752 62.0439 45.2832 63.2666 47.1669L64.2764 48.7201L62.7232 47.7104C60.3254 46.1498 57.2336 46.1498 54.8357 47.7105L53.2824 48.7203L54.2923 47.167C55.8529 44.7692 55.8529 41.6773 54.2924 39.2796L53.2826 37.7263L54.8358 38.7361C56.7195 39.9588 58.2471 40.4949 60.6376 39.5732C61.4491 39.2611 62.1798 38.7727 62.7931 38.1595C63.0281 37.9245 63.0207 37.5352 62.771 37.3223C59.4626 34.4765 55.1113 32.8058 50.3708 32.9711C40.9557 33.3017 33.3069 40.98 33.0057 50.395C32.6714 60.8124 41.1866 69.3277 51.6078 68.9971C61.0228 68.6958 68.701 61.047 69.0316 51.632C69.2006 46.8877 67.5299 42.5364 64.6841 39.228C64.4675 38.9746 64.0819 38.971 63.8469 39.206L63.8432 39.2097Z" fill="currentColor"/>
       </svg>
     </a>
 
     <ul class="nav-links">
-      <li><a href="index.html#work" class="active" data-i18n="nav.work">portfolio</a></li>
-      <li><a href="index.html#about" data-i18n="nav.about">about</a></li>
-      <li><a href="index.html#contact" data-i18n="nav.contact">contact</a></li>
+      <li><a href="index.html#work" class="active">projects</a></li>
+      <li><a href="index.html#about">about</a></li>
+      <li><a href="index.html#contact">contact</a></li>
     </ul>
 
     <div class="nav-right">
@@ -329,9 +324,9 @@
   <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <ul class="mobile-nav-links">
-      <li><a href="index.html#work" class="active" data-i18n="nav.work">portfolio</a></li>
-      <li><a href="index.html#about" data-i18n="nav.about">about</a></li>
-      <li><a href="index.html#contact" data-i18n="nav.contact">contact</a></li>
+      <li><a href="index.html#work" class="active">projects</a></li>
+      <li><a href="index.html#about">about</a></li>
+      <li><a href="index.html#contact">contact</a></li>
     </ul>
     <div class="lang-switch" aria-label="Language switcher">
       <button class="lang-btn active" data-lang="en">EN</button>
@@ -340,112 +335,243 @@
     </div>
   </div>
 
-  <section class="project-hero">
-    <div class="project-title-area">
-      <div class="project-breadcrumb"><a href="index.html#work" data-i18n="nav.portfolio">Portfolio</a><span class="project-breadcrumb-sep"> / </span><span class="project-breadcrumb-current">Shipyard</span></div>
-      <h1 class="project-title">Shipyard</h1>
-    </div>
-  </section>
+  <!-- MAIN -->
+  <main class="project-main">
 
-  <div class="project-photo-area">
-    <button class="project-nav-btn" id="slide-prev" disabled><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13,4 7,10 13,16"/></svg></button>
-    <div class="project-slideshow"><img class="project-slideshow-img" src="Shipyard.jpg" alt="Shipyard"></div>
-    <button class="project-nav-btn" id="slide-next"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,4 13,10 7,16"/></svg></button>
-  </div>
-  <span id="slide-counter" style="display:none">01/04</span>
-
-  <!-- PROJECT INFO -->
-  <div class="project-info">
-    <div class="project-meta">
-      <div class="project-meta-item">
-        <span class="project-meta-label" data-i18n="meta.date.label">Date</span>
-        <span class="project-meta-value" data-i18n="meta.date.value">January 2026</span>
-      </div>
-      <div class="project-meta-item">
-        <span class="project-meta-label" data-i18n="meta.category.label">Category</span>
-        <span class="project-meta-value" data-i18n="meta.category.value">Documentary</span>
-      </div>
-      <div class="project-meta-item">
-        <span class="project-meta-label" data-i18n="meta.location.label">Location</span>
-        <span class="project-meta-value" data-i18n="meta.location.value">Dhaka, Bangladesh</span>
-      </div>
+    <div class="project-title-row">
+      <h1 class="project-title">Shipyards, Dhaka</h1>
+      <span class="project-title">January 2026</span>
     </div>
-    <p class="project-description" data-i18n="project.description">
-      A series documenting the daily rhythm of workers at a traditional shipyard.
-    </p>
-  </div>
+    <div class="project-viewer">
+      <div class="carousel-track">
+        <div class="carousel-side" id="carousel-left"></div>
+        <div class="carousel-active">
+          <img id="img-active" src="" alt="Shipyards, Dhaka">
+        </div>
+        <div class="carousel-side" id="carousel-right"></div>
+      </div>
+      <button class="carousel-btn" id="btn-prev" aria-label="Previous photo">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="carousel-btn" id="btn-next" aria-label="Next photo">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+      </button>
+    </div>
+    <p class="project-caption" id="photo-caption"></p>
+
+    <div class="project-text" data-lang-block="en">
+      <p>The sun had just risen — I deduced this from my watch, as the sky was obscured by a thick haze whose smell initially irritated the lungs but gradually became unremarkable. The street along the banks of the Buriganga River was full of cars, stalls of local vendors, and people moving at a dynamic pace in every possible direction.</p>
+      <p>I stepped out of the van parked in the middle of the commotion and pushed through the crowd up the road, gradually entering narrower and quieter alleyways where, without the help of a local friend, I would surely have gotten lost long ago. Niloy is a photographer born in Bangladesh; when asked about his profession, he proudly answers that he does everything I could need from him. Today he is playing the role of guide and taking me to a place with no address or unified name.</p>
+      <p>After navigating a short brick labyrinth, we reached the waterfront. Before my eyes stretched a riverbank entirely covered by enormous, decaying ships resting directly on the sandy soil. Their great hulls — once coated in bright lacquers during their heyday — were now dominated by rust and peeling paint. Some of the vessels had been stripped of key components some time ago, while the rest still waited in line for demolition.</p>
+      <p>I moved closer to the waterfront, closer to the people who made this unusual yet fascinating place. Spotting a group of men sipping tea against a backdrop of metal giants, I reached for my camera. At that very moment I was surrounded by a cluster of children who appeared out of nowhere. They waved at me energetically, reaching out with visible excitement on their faces. I gave each of them a small gift brought from Poland, as Niloy had advised, and together with my new companions I moved along the shoreline. Among the skeletons of ships, groups of workers laboured to the sounds of saws and welding torches; large, worn-down residential buildings with workshops occupying their ground floors towered over the bustling surroundings. Photographing the area, I met residents who would stop working at the sight of me and ask to have their picture taken. What captivated me about Bangladesh during my brief stay was the fact that the people here seemed driven by curiosity. They rarely hid their faces at the sight of a lens — more often than not they would turn wide smiles toward it. One of the young men making his way through the workshop-lined alleyways stopped me and asked where I was from. After a short exchange consisting mostly of guesswork, I learned that he lived in one of the buildings ahead. He said it with pride, even though the block looked partially abandoned and its better days — if it had ever had any — were long past. He cherished the fact that his entire life revolved around this very place. Probably due to too great a cultural difference, I was unable to understand his enthusiasm — but I was certainly envious of it.</p>
+      <p>The ground-floor premises offered a variety of services — from selling food supplies to the workers there, to small workshops producing tools from recycled metal. From behind one of the tin gates came an intense noise resembling the sound of an aircraft engine. As I approached it, I felt the air growing warmer and my polyester t-shirt increasingly sticking to my body. I walked inside, ducking under a metal curtain. In a room of just a few square metres, two large men were sweeping the workshop floor with the scorching flame of a burner connected to a gas cylinder propped against the wall. I was told the place was used to create moulds that would then be filled with molten metal sourced from ship demolition. In this particular case, the moulds were being prepared for casting propeller screws no more than two metres in diameter. The finished product would likely be used in the construction of a new vessel — and in that way, the material's lifecycle would come full circle.</p>
+      <p>I wanted to look more closely at the actual process of dismantling the machines from which the metal was recovered. Closer to the shore, between the hulls of the grounded ships, work never stopped. Someone crouching on a makeshift scaffold — a swaying plank suspended from a thick rope — was cutting a large sheet of metal with a circular saw; another man was stirring a dark substance resembling motor oil in a rusted barrel with his bare hands. Everything around was seething; the sounds of tools mixed with rhythmic shouts urging men to push heavy components up the embankment. Amid the chaos, I noticed a young man wandering the area dressed in a long orange shawl. He was unusually tall and gave the impression of not belonging to this place — he was not engaged in any activity, but simply observing everything attentively from the sidelines. When asked what his role was here, he did not reply, only smiled subtly. I was curious about his story, and about why he seemed unable to communicate with us other than through gestures, even when addressed in his own language. His image — standing tall against a backdrop of sparks flying off rusty sheets of metal — is what stayed with me most. I never learned his story, even when I later asked the locals about him.</p>
+      <p>In random spots scattered across the site I kept finding more and more holes dug into the ground, serving as casting moulds. One of the alleyways had far more of them — here too, thick smoke hung low between the narrow walls of the buildings. Even some of the locals were covering their airways with thick gamchas — cotton scarves worn daily around the neck. I noticed men beginning to gather around one of the holes; Niloy suggested I move closer to the crowd, as one of the most demanding processes in the area was about to begin. In the middle of the yard stood an older man with a long grey beard, issuing instructions to his assistants. One of them used a long rod to lift the cover off a nearby pit. A vivid orange glow lit up its walls, and thick smoke rose upward, slowly changing colour from dark grey to a muted yellow. The workers gradually tipped the waste stored around the opening into the hole, each time releasing splashes of glowing liquid metal that landed near their bare feet. After a few minutes, when the smoke began to die down and all the raw material had changed its state, they moved it to the next room, where a new life awaited it.</p>
+      <p>Among the many glaring situations I had grown accustomed to, some were still shocking to me. I could not help but marvel at how the locals handled dangerous tools with no safety measures whatsoever. Using a gas cylinder as a step to reach a higher level with a circular saw? Gripping the sharp edge of rusted metal with a bare hand? The aforementioned plank swing serving as scaffolding? At every turn, situations like these — which must have been daily occurrences and likely caused numerous accidents, none of which were of course recorded anywhere. Seeing all of this, it was not difficult to answer the question of why it is precisely this kind of place that ships go to at the end of their lives. Why does a significant portion of the world's fleet finish its course in Bangladesh, India, or Pakistan?</p>
+      <p>The average lifespan of a vessel is usually 25 to 30 years. After that, most of them become too expensive to maintain. When a ship stops turning a profit, it is sent for demolition — but before that happens, it is sold to intermediaries who most commonly change its flag and name, allowing large companies to distance themselves from responsibility and inconvenience. The Indian subcontinent is an ideal location for this type of operation due to costs. Wages there are among the lowest in the world, all work is carried out using simple and inexpensive tools, and it requires almost no infrastructure. Similar operations in Europe or North America are conducted in controlled environments, with safety standards upheld and workers' rights respected, and substances potentially harmful to the environment must be properly disposed of. All of this generates additional costs. International agreements such as the Basel Convention restrict the cross-border movement of hazardous waste — however, through the existence of a so-called grey zone, companies are able to sell their vessels shortly before they are classified as waste, thereby circumventing the restrictions. By the time tonnes of degraded metal reach the country where they are to be dismantled, the original owner has long forgotten about their existence, and any sense of responsibility — if it ever existed — has vanished.</p>
+      <p style="opacity:0.4; font-size:0.85rem;">(automatically translated — original text was written in Polish)</p>
+    </div>
+
+    <div class="project-text" data-lang-block="pl" style="display:none">
+      <p>Słońce dopiero wstało – wywnioskowałem to patrząc na zegarek, ponieważ niebo było przysłonięte gęstą zawiesiną, której zapach początkowo drażnił płuca, lecz z czasem stał się obojętny. Ulica u wybrzeży rzeki Burigangi była pełna aut, straganów lokalnych sprzedawców i ludzi poruszających się w dynamicznym rytmie w każdym możliwym kierunku.</p>
+      <p>Opuściłem vana zaparkowanego pośrodku zgiełku i przecisnąłem się przez tłum w górę drogi, stopniowo wchodząc w węższe i spokojniejsze uliczki, w których bez pomocy lokalnego przyjaciela zapewne dawno bym się zgubił. Niloy jest fotografem urodzonym w Bangladeszu; pytany o zawód, dumnie odpowiada, że zajmuje się wszystkim, czego mogę od niego potrzebować. Dziś akurat pełni rolę przewodnika i zabiera mnie w miejsce bez adresu i ujednoliconej nazwy.</p>
+      <p>Po pokonaniu krótkiego, ceglanego labiryntu dotarliśmy do wybrzeża. Moim oczom ukazał się brzeg rzeki w całości pokryty ogromnymi, niszczejącymi statkami osadzonymi bezpośrednio na piaszczystej glebie. Ich wielkie kadłuby – w latach świetności pokryte lakierami jaskrawych kolorów – zdominowała rdza i odpadające płaty farby. Niektóre z jednostek pozbawiono kluczowych elementów już jakiś czas temu, podczas gdy reszta nadal czekała w kolejce do rozbiórki.</p>
+      <p>Podszedłem bliżej nabrzeża, bliżej ludzi tworzących to nietypowe, aczkolwiek fascynujące dla mnie miejsce. Widząc grupkę mężczyzn popijających herbatę na tle metalowych gigantów, sięgnąłem po aparat. W tym samym momencie zostałem osaczony przez gromadkę dzieci, które pojawiły się jakby znikąd. Energicznie machały do mnie, wyciągając ręce z widoczną ekscytacją na twarzach. Każdemu z nich dałem mały podarunek przywieziony z Polski, zgodnie z zaleceniami Niloya, i wraz z grupką nowych kompanów przemieściłem się wzdłuż wybrzeża. Pośród szkieletów statków grupy robotników pracowały przy dźwięku pił i spawarek; duże, podniszczone budynki mieszkalne z warsztatami zajmującymi pierwsze piętra górowały nad okolicą tętniącą życiem. Fotografując ten rejon, spotkałem się z mieszkańcami, którzy na mój widok przerywali pracę i prosili mnie o zdjęcie. To, co urzekło mnie w Bangladeszu w trakcie mojego krótkiego pobytu, to fakt, że tutejsi ludzie wydawali mi się być napędzani ciekawością. Zazwyczaj nie chowali twarzy w dłoniach na widok obiektywu, a często nawet eksponowali w jego stronę szerokie uśmiechy. Jeden z chłopaków przemierzających uliczki pełne warsztatów zaczepił mnie, pytając, skąd jestem. Po krótkiej dyskusji składającej się przede wszystkim z domysłów wydobyłem od niego informację, że mieszka w jednym z budynków przed nami. Mówiąc to, emanował dumą, mimo że blok wyglądał na częściowo opuszczony, a jego lata świetności – jeśli takowe kiedykolwiek miał – minęły dawno temu. Chwalił sobie fakt, że całe jego życie toczy się dookoła tego właśnie miejsca. Prawdopodobnie z powodu zbyt dużych różnic kulturowych nie byłem w stanie zrozumieć jego entuzjazmu, ale na pewno mu go zazdrościłem.</p>
+      <p>Lokale na dolnych piętrach budynków oferowały różnorakie usługi – od sprzedaży produktów spożywczych, w które zaopatrywali się tutejsi pracownicy, po małe warsztaty wytwarzające narzędzia z przetworzonego metalu. Zza jednej z blaszanych bram dobiegał intensywny hałas przypominający pracę silnika samolotu. Zbliżając się do niego, czułem, że wokół robi się cieplej, a mój poliestrowy t-shirt coraz bardziej przykleja się do ciała. Wszedłem do środka, przechodząc pod metalową kurtyną. W pomieszczeniu o powierzchni zaledwie kilku metrów kwadratowych dwaj masywni mężczyźni smagali podłogę pracowni rozżarzonym ogniem palnika podpiętego do butli gazowej leżącej pod ścianą. Wyjaśniono mi, że miejsce to służy do tworzenia odlewów, które następnie zostaną wypełnione roztopionym metalem pozyskanym z rozbiórki statków. W tym konkretnym przypadku formy przygotowywano do tworzenia śrub napędowych o średnicy nie większej niż dwa metry. Produkt końcowy zapewne zostanie wykorzystany przy budowie nowej jednostki i w ten sposób cykl życia materiału zatoczy koło.</p>
+      <p>Chciałem się dokładniej przyjrzeć samemu procesowi rozbiórki maszyn, z których pozyskiwano metal. Bliżej brzegu, pomiędzy kadłubami osadzonych statków, praca nie ustawała. Osoba kucająca na prowizorycznym rusztowaniu stworzonym z kołyszącej się deski podwieszonej na grubym sznurze przy użyciu piły tarczowej wycinała duży płat metalu; inny mężczyzna gołymi rękami mieszał w zardzewiałej beczce czarną substancję przypominającą olej silnikowy. Całe otoczenie wrzało, odgłos narzędzi mieszał się z rytmicznymi krzykami motywującymi ludzi do wpychania ciężkich elementów pod górę nabrzeża. W tym chaosie zauważyłem jednego młodego chłopaka, który przemierzał okolicę odziany w długi, pomarańczowy szal. Był ponadprzeciętnie wysoki i sprawiał wrażenie, jakby nie należał do tego miejsca – nie brał udziału w żadnej czynności, a jedynie obserwował wszystko uważnie z boku. Spytany o to, jaką pełni tutaj rolę, nie odpowiedział, a jedynie subtelnie się uśmiechnął. Byłem ciekaw jego historii i tego, dlaczego nie jest w stanie się z nami komunikować inaczej niż dzięki gestom, nawet gdy zostaje zagadnięty w swoim ojczystym języku. Jego widok – gdy stał dumnie na tle iskier strzelających z rudych płatów metalu – jest tym, co najbardziej utkwiło w mojej pamięci. Nigdy nie poznałem jego historii, nawet gdy po czasie pytałem o nią tutejszych ludzi.</p>
+      <p>W losowych miejscach rozsianych na terenie placówki znajdowałem coraz więcej dziur wydrążonych w ziemi, służących za formy odlewów. Jedna z alei miała ich znacznie więcej – tutaj też gęsty dym utrzymywał się nisko przy ziemi pomiędzy wąskimi ścianami budynków. Nawet niektórzy z miejscowych przysłaniali swoje drogi oddechowe grubymi gamchami – bawełnianymi chustami noszonymi na co dzień na szyi. Zauważyłem, że wokół jednej z dziur zaczynają gromadzić się mężczyźni; Niloy zasugerował, żebym podszedł bliżej tłumu, bo zaraz rozpocznie się jeden z najbardziej wymagających procesów w okolicy. Pośrodku placu stał starszy mężczyzna z długą, siwą brodą i wydawał polecenia otaczającym go pomocnikom. Jeden z nich przy użyciu długiego pręta uchylił wieko pobliskiej dziury. Jaskrawy, pomarańczowy blask rozświetlił jej ściany, a w górę uniósł się gęsty dym, który powoli zmieniał barwę z ciemnoszarej na przytłumioną żółć. Pracownicy stopniowo wrzucali do otworu składowane wokół odpady, za każdym razem uwalniając bryzgi rozżarzonego, płynnego metalu spadające w pobliżu ich bosych stóp. Po kilku minutach, gdy dym zaczął przygasać, a cały surowiec zmienił swój stan skupienia, przenieśli go do następnego pomieszczenia, gdzie czekało go nowe życie.</p>
+      <p>Pośród wielu rażących sytuacji, do których zdążyłem się przyzwyczaić, niektóre wciąż były dla mnie szokujące. Nie mogłem wyjść z podziwu, jak miejscowi posługują się niebezpiecznymi narzędziami, bez żadnych zabezpieczeń. Używanie butli gazowej jako stopnia, żeby dosięgnąć piłą tarczową wyższego poziomu? Trzymanie się gołą dłonią ostrej krawędzi zardzewiałego metalu? Wspomniana wcześniej huśtawka z deski służąca za rusztowanie? Na każdym kroku podobne sytuacje, które musiały być codziennością i prawdopodobnie doprowadzały do wielu wypadków – których statystyk oczywiście nikt nie prowadził. Widząc to wszystko, nietrudno było sobie odpowiedzieć na pytanie, dlaczego akurat w to miejsce trafiają wszystkie statki kończące swój żywot. Dlaczego znaczna część światowej floty kończy swój kurs w Bangladeszu, Indiach czy Pakistanie?</p>
+      <p>Średni żywot jednostek pływających to zwykle 25–30 lat. Po tym czasie większość z nich staje się zbyt droga w utrzymaniu. Gdy statek przestaje przynosić zyski, zostaje wysłany do rozbiórki, lecz zanim to się stanie, jest sprzedawany pośrednikom, którzy najczęściej zmieniają jego oflagowanie oraz nazwę – w ten sposób duże firmy mogą się zdystansować od odpowiedzialności i zmartwień. Subkontynent indyjski jest idealnym miejscem do tego typu operacji ze względu na koszty. Wynagrodzenia plasują się tutaj pośród jednych z najniższych na świecie, cała praca odbywa się przy użyciu prostych i tanich narzędzi i nie wymaga niemal żadnej infrastruktury. Podobne przedsięwzięcia w Europie czy Ameryce Północnej są przeprowadzane w kontrolowanych środowiskach, z zachowaniem norm bezpieczeństwa i poszanowaniem pracownika, a potencjalnie szkodliwe dla środowiska substancje muszą być utylizowane. To wszystko generuje dodatkowe koszty. Międzynarodowe umowy, takie jak Konwencja Bazylejska, ograniczają transgraniczne przemieszczanie niebezpiecznych odpadów, jednak dzięki istnieniu tak zwanej szarej strefy firmy są w stanie sprzedawać swoje jednostki na chwilę przed tym, nim zostaną one uznane za odpad – omijając w ten sposób restrykcje. Zanim tony zniszczonego metalu dopłyną do kraju, w którym mają zostać rozmontowane, ich oryginalny właściciel już dawno zapomina o ich istnieniu, a poczucie odpowiedzialności – jeśli takowe kiedykolwiek istniało – znika.</p>
+    </div>
+
+  </main>
 
   <!-- FOOTER -->
   <footer>
-    <span class="footer-text" data-i18n="footer.rights">© 2026 Bartech. All rights reserved.</span>
-    <span class="footer-text" data-i18n="footer.tagline">Documentary Photography &amp; Art Direction</span>
+    <span class="footer-text">Bartech.jpg | est. 2020</span>
+    <span class="footer-text">Documentary Photography &amp; Art Direction</span>
   </footer>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <img src="" alt="">
+  </div>
+
   <canvas id="grain-canvas" aria-hidden="true"></canvas>
-
-  <script>
-  // ── Language switcher / i18n ─────────────────────────────────────────────
-  (function () {
-    const T = {
-      en: {
-        'nav.work':        'portfolio',
-        'nav.about':       'about',
-        'nav.contact':     'contact',
-        'nav.portfolio':   'Portfolio',
-        'meta.date.label':     'Date',
-        'meta.date.value':     'January 2026',
-        'meta.category.label': 'Category',
-        'meta.category.value': 'Documentary',
-        'meta.location.label': 'Location',
-        'meta.location.value': 'Dhaka, Bangladesh',
-        'project.description': 'The shipyard occupies a particular place in the geography of Dhaka — a city in permanent motion, always building and dismantling itself. Located along the banks of the Buriganga, these yards are among the last places where labour remains entirely physical, where the body is the primary tool and skill is passed down through proximity rather than instruction.<br><br>I visited the shipyard on several occasions over the course of a few weeks. Each time, I arrived in the early morning, when the light was still low and the workers were already deep in their tasks — cutting steel, welding frames, hauling timber across muddy ground. The pace was relentless, but there was also a kind of rhythm to it, a choreography shaped by necessity and repetition.<br><br>What drew me to this place was not spectacle. It was the ordinary. The way a man pauses to wipe sweat from his face before returning to the grinder. The way two workers move around each other in a narrow passage without a word, their bodies having memorised the space. The way light falls differently each morning, turning rust into something almost warm.<br><br>Bangladesh\'s shipbuilding industry is one of the largest in the world by volume, yet it remains largely invisible to outside eyes. The workers here dismantle ocean-going vessels that have crossed hemispheres, strip them down to raw material, and use those materials to build new vessels for the rivers. It is a circular economy conducted entirely by hand.<br><br>Many of the men I photographed had come to Dhaka from rural districts — Barisal, Faridpur, Mymensingh. For them, the shipyard represents stability, however precarious. A daily wage. A place to sleep nearby. The possibility of sending money home.<br><br>I did not photograph suffering. I photographed work. There is a distinction worth making. These men are not victims of their circumstances so much as they are navigating them with considerable skill and dignity. My intention was to show that — the competence, the concentration, the pride that comes from doing something difficult well.<br><br>The photographs were made over a compressed period, which meant building trust quickly. I worked without an assistant, carrying only what I could manage alone. Many of the images were made at close range, which required patience and a willingness to be present without always raising the camera.<br><br>There is something about the shipyard that resists easy metaphor. It is simply what it is — a place of work, of noise and heat and effort. But in being exactly that, it becomes something else too: a record of how a significant portion of the world\'s labour actually takes place, away from screens and offices and the economy of attention.<br><br>This project is part of a longer investigation into disappearing or underrepresented forms of manual work across South and Southeast Asia. The shipyard was a beginning.',
-        'footer.rights':  '© 2026 Bartech. All rights reserved.',
-        'footer.tagline': 'Documentary Photography &amp; Art Direction',
-      },
-      pl: {
-        'nav.work':        'portfolio',
-        'nav.about':       'o mnie',
-        'nav.contact':     'kontakt',
-        'nav.portfolio':   'Portfolio',
-        'meta.date.label':     'Data',
-        'meta.date.value':     'Styczeń 2026',
-        'meta.category.label': 'Kategoria',
-        'meta.category.value': 'Dokumentalna',
-        'meta.location.label': 'Lokalizacja',
-        'meta.location.value': 'Dhaka, Bangladesz',
-        'project.description': 'Stocznia zajmuje szczególne miejsce w geografii Dhaki — miasta w nieustannym ruchu, które wciąż się buduje i rozbiera. Położone wzdłuż brzegów Burigangi stocznie należą do ostatnich miejsc, gdzie praca pozostaje w całości fizyczna, gdzie ciało jest podstawowym narzędziem, a umiejętności przekazywane są przez bliskość, nie przez instrukcje.<br><br>Odwiedziłem stocznię kilkakrotnie na przestrzeni kilku tygodni. Za każdym razem przychodziłem wczesnym rankiem, kiedy światło było jeszcze niskie, a robotnicy byli już pochłonięci swoją pracą — cięli stal, spawali ramy, przenosili drewno po błotnistym gruncie. Tempo było nieustępliwe, ale towarzyszył mu pewien rytm, choreografia ukształtowana przez konieczność i powtarzalność.<br><br>Przyciągnęło mnie tu nie widowisko. Przyciągnęła mnie codzienność. Sposób, w jaki mężczyzna zatrzymuje się, by otrzeć pot z twarzy, zanim wróci do szlifierki. Sposób, w jaki dwóch robotników mija się w wąskim przejściu bez słowa, ich ciała zapamiętały już tę przestrzeń. Sposób, w jaki światło pada inaczej każdego ranka, zamieniając rdzę w coś niemal ciepłego.<br><br>Bangladeski przemysł stoczniowy jest jednym z największych na świecie pod względem wolumenu, a mimo to pozostaje w dużej mierze niewidoczny dla zewnętrznych oczu. Robotnicy rozbierają tu oceaniczne statki, które przemierzały półkule, demontują je do surowego materiału i z tych materiałów budują nowe jednostki na rzeki. To gospodarka obiegu zamkniętego prowadzona wyłącznie rękami.<br><br>Wielu mężczyzn, których fotografowałem, przybyło do Dhaki z wiejskich dystryktów — Barisal, Faridpur, Mymensingh. Dla nich stocznia oznacza stabilność, choćby i niepewną. Dzienna płaca. Miejsce do spania w pobliżu. Możliwość wysyłania pieniędzy do domu.<br><br>Nie fotografowałem cierpienia. Fotografowałem pracę. To rozróżnienie warto poczynić. Ci mężczyźni nie są ofiarami swoich okoliczności — raczej poruszają się w nich z niezwykłą sprawnością i godnością. Moją intencją było pokazanie właśnie tego — kompetencji, skupienia, dumy płynącej z dobrego wykonania trudnej rzeczy.<br><br>Zdjęcia powstawały w krótkim, intensywnym czasie, co oznaczało szybkie budowanie zaufania. Pracowałem bez asystenta, niosąc tylko tyle, ile mogłem sam unieść. Wiele zdjęć zostało wykonanych z bliskiej odległości, co wymagało cierpliwości i gotowości do bycia obecnym bez ciągłego podnoszenia aparatu.<br><br>Jest coś w stoczni, co opiera się łatwej metaforze. Jest po prostu tym, czym jest — miejscem pracy, hałasu, gorąca i wysiłku. Ale będąc dokładnie tym, staje się też czymś innym: zapisem tego, jak znaczna część światowej pracy naprawdę się odbywa, z dala od ekranów, biur i ekonomii uwagi.<br><br>Ten projekt jest częścią dłuższego badania zanikających lub niedoreprezentowanych form pracy ręcznej w Azji Południowej i Południowo-Wschodniej. Stocznia była początkiem.',
-        'footer.rights':  '© 2026 Bartech. Wszelkie prawa zastrzeżone.',
-        'footer.tagline': 'Fotografia Dokumentalna &amp; Reżyseria Artystyczna',
-      }
-    };
-
-    function applyLang(lang) {
-      const t = T[lang];
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        el.innerHTML = t[el.dataset.i18n] ?? el.innerHTML;
-      });
-      document.documentElement.lang = lang;
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.lang === lang);
-      });
-      localStorage.setItem('lang', lang);
-    }
-
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.addEventListener('click', () => applyLang(btn.dataset.lang));
-    });
-
-    const saved = localStorage.getItem('lang') || 'en';
-    applyLang(saved);
-  }());
-  </script>
 
   <script>
   !function(){var c=document.getElementById('grain-canvas'),x=c.getContext('2d'),o=document.createElement('canvas'),p=o.getContext('2d');function r(){c.width=o.width=Math.ceil(innerWidth/2);c.height=o.height=Math.ceil(innerHeight/2);s()}function s(){var d=p.createImageData(o.width,o.height),a=d.data;for(var i=0;i<a.length;i+=4){var v=Math.random()*255|0;a[i]=a[i+1]=a[i+2]=v;a[i+3]=255}p.putImageData(d,0,0);x.globalAlpha=.45;x.drawImage(o,0,0)}r();addEventListener('resize',r);setInterval(s,80)}();
   !function(){var n=document.querySelector('nav');function u(){n.classList.toggle('scrolled',scrollY>10)}addEventListener('scroll',u,{passive:true});u()}();
   !function(){var b=document.querySelector('.nav-burger'),m=document.getElementById('mobile-menu');function o(){m.classList.add('open');b.classList.add('open');b.setAttribute('aria-expanded','true');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}function c(){m.classList.remove('open');b.classList.remove('open');b.setAttribute('aria-expanded','false');m.setAttribute('aria-hidden','true');document.body.style.overflow=''}b.addEventListener('click',function(){m.classList.contains('open')?c():o()});m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',c)})}();
-  !function(){var lb=document.createElement('div');lb.className='lightbox';lb.innerHTML='<button class="lightbox-close">✕</button><img>';document.body.appendChild(lb);var li=lb.querySelector('img');function cls(){lb.classList.remove('open');document.body.style.overflow='';}document.querySelector('.project-slideshow-img').style.cursor='zoom-in';document.querySelector('.project-slideshow').addEventListener('click',function(){li.src=document.querySelector('.project-slideshow-img').src;lb.classList.add('open');document.body.style.overflow='hidden';});lb.addEventListener('click',cls);lb.querySelector('.lightbox-close').addEventListener('click',cls);li.addEventListener('click',function(e){e.stopPropagation();});document.addEventListener('keydown',function(e){if(e.key==='Escape')cls();});}();
-  !function(){var imgs=['Shipyard.jpg','Shipyard.jpg','Shipyard.jpg','Shipyard.jpg'],cur=0,img=document.querySelector('.project-slideshow-img'),ctr=document.getElementById('slide-counter'),prv=document.getElementById('slide-prev'),nxt=document.getElementById('slide-next');function f(n){return(n<10?'0':'')+n}function go(i){cur=(i%imgs.length+imgs.length)%imgs.length;img.style.opacity=0;setTimeout(function(){img.src=imgs[cur];img.style.opacity=1},150);if(ctr)ctr.textContent=f(cur+1)+' / '+f(imgs.length)}prv.onclick=function(){go(cur-1)};nxt.onclick=function(){go(cur+1)};go(0)}();
+  !function(){
+    var mobileMenu=document.getElementById('mobile-menu'),burger=document.querySelector('.nav-burger');
+    function closeMobile(){mobileMenu.classList.remove('open');burger.classList.remove('open');burger.setAttribute('aria-expanded','false');mobileMenu.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+    function setLang(lang){
+      document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')===lang);});
+      document.querySelectorAll('[data-lang-block]').forEach(function(el){el.style.display=el.getAttribute('data-lang-block')===lang?'':'none';});
+      closeMobile();
+    }
+    document.querySelectorAll('.lang-btn').forEach(function(btn){btn.addEventListener('click',function(){setLang(this.getAttribute('data-lang'));});});
+  }();
+  !function(){
+    var imgs=['images/1. Shipyard/1.jpg','images/1. Shipyard/2.jpg','images/1. Shipyard/3.jpg','images/1. Shipyard/4.jpg','images/1. Shipyard/5.jpg','images/1. Shipyard/6.jpg','images/1. Shipyard/7.jpg','images/1. Shipyard/8.jpg','images/1. Shipyard/9.jpg','images/1. Shipyard/10.jpg','images/1. Shipyard/11.jpg','images/1. Shipyard/12.jpg','images/1. Shipyard/13.jpg','images/1. Shipyard/14.jpg','images/1. Shipyard/15.jpg','images/1. Shipyard/16.jpg','images/1. Shipyard/17.jpg'];
+    var cur=0,n=imgs.length,SIDE=5,animating=false;
+    var activeImg=document.getElementById('img-active');
+    var activeEl=document.querySelector('.carousel-active');
+    var leftEl=document.getElementById('carousel-left');
+    var rightEl=document.getElementById('carousel-right');
+    var trackEl=document.querySelector('.carousel-track');
+    var viewer=document.querySelector('.project-viewer');
+    var lb=document.getElementById('lightbox'),lbImg=lb.querySelector('img');
+    var prevBtn=document.getElementById('btn-prev'),nextBtn=document.getElementById('btn-next');
+    var captionEl=document.getElementById('photo-caption');
+    var currentLang='en';
+    var captions=[
+      'Buriganga riverbank covered with dismantled shipwrecks',
+      'A group of local workers sipping tea against a backdrop of metal giants',
+      'Vendor from one of the workshops situated on the ground floors of residential buildings',
+      'One of the workers of a local workshop',
+      'Residential buildings covering the land side of the shipyard',
+      'Shipyard worker',
+      'Shipyard worker cutting steel on improvised scaffolding',
+      'Young man carrying metal pipes on his shoulders',
+      'Welder working under one of the shipwrecks',
+      'Local man wandering around the workplace',
+      'Worker handling chemicals with his bare hands',
+      'Man burning the mould dug in the ground',
+      'People moving heavy machinery up the shipyard hill',
+      'Portrait of a working man',
+      'Shipyard worker on a dismantled ship',
+      'People moving heavy machinery up the shipyard hill',
+      'Group of men sanding a ship on improvised scaffolding'
+    ];
+    var captionsPL=[
+      'Brzeg Burigangi pokryty wrakami rozbieranych statków',
+      'Grupa robotników pijących herbatę na tle statków',
+      'Sprzedawca z jednego ze sklepów mieszczących się na parterze budynków mieszkalnych',
+      'Pracownik lokalnego warsztatu',
+      'Budynki mieszkalne na terenie stoczni',
+      'Pracownik stoczni',
+      'Pracownik tnący metal na prowizorycznym rusztowaniu',
+      'Młody mężczyzna przenoszący metalowe rury na ramionach',
+      'Spawacz pracujący pod kadłubem statku',
+      'Młody mężczyzna krążący na terenie stoczni',
+      'Pracownik mieszający chemikalia gołymi rękoma',
+      'Mężczyzna wypalający formę wykopaną w ziemi',
+      'Grupa ludzi wciągająca ciężką maszynerię z brzegu rzeki pod górę',
+      'Portret pracownika stoczni',
+      'Robotnik stoczniowy na tle statku',
+      'Ludzie przemieszczający ciężkie maszyny pod górę na terenie stoczni',
+      'Grupa mężczyzn szlifujących statek na prowizorycznym rusztowaniu'
+    ];
+    function updateCaption(){
+      var arr=currentLang==='pl'?captionsPL:captions;
+      var text=arr[cur]||'';
+      captionEl.textContent=text;
+      captionEl.style.visibility=text?'':'hidden';
+    }
+
+    function renderedSize(natW,natH){
+      var maxH=window.innerHeight*0.6,maxW=window.innerWidth*0.9;
+      var scale=Math.min(1,maxH/natH,maxW/natW);
+      return{w:Math.round(natW*scale),h:Math.round(natH*scale)};
+    }
+    function syncAll(){
+      if(!activeImg.naturalWidth)return;
+      var s=renderedSize(activeImg.naturalWidth,activeImg.naturalHeight);
+      activeEl.style.width=s.w+'px';
+      viewer.style.height=s.h+'px';
+      var half=s.w/2+3;
+      leftEl.style.height=s.h+'px';
+      leftEl.style.right='calc(50% + '+half+'px)';
+      rightEl.style.height=s.h+'px';
+      rightEl.style.left='calc(50% + '+half+'px)';
+    }
+    /* Update side panel in-place — never destroys existing <img> nodes */
+    function fillSide(el,indices){
+      for(var j=0;j<indices.length;j++){
+        var img=el.children[j];
+        if(!img){img=document.createElement('img');img.alt='';el.appendChild(img);}
+        img.src=imgs[indices[j]];img.dataset.idx=indices[j];
+      }
+      while(el.children.length>indices.length)el.removeChild(el.lastChild);
+    }
+    function applyState(){
+      activeImg.src=imgs[cur];
+      var L=[],R=[];
+      for(var j=1;j<=SIDE;j++){L.push((cur-j+n)%n);R.push((cur+j)%n);}
+      fillSide(leftEl,L);fillSide(rightEl,R);
+      updateCaption();
+      activeImg.onload=syncAll;
+      if(activeImg.complete)syncAll();
+    }
+    function show(i){
+      if(animating)return;
+      var newCur=(i+n)%n;
+      if(newCur===cur)return;
+      var isNext=newCur===(cur+1)%n,isPrev=newCur===(cur-1+n)%n;
+      if(!isNext&&!isPrev){cur=newCur;applyState();return;}
+
+      var curW=parseInt(activeEl.style.width)||0;
+      if(!curW){cur=newCur;applyState();return;}
+
+      /* Pre-capture incoming image size from the side panel (already decoded) */
+      var sideImg=isNext?rightEl.querySelector('img'):leftEl.querySelector('img');
+      var newW=curW,newH=parseInt(viewer.style.height)||0;
+      if(sideImg&&sideImg.naturalWidth){
+        var ns=renderedSize(sideImg.naturalWidth,sideImg.naturalHeight);
+        newW=ns.w;newH=ns.h;
+      }
+      var step=(curW+newW)/2+3;
+      var tx=isNext?-step:step;
+
+      animating=true;
+      trackEl.style.transition='transform 0.42s cubic-bezier(0.4,0,0.2,1)';
+      trackEl.style.transform='translateX('+tx+'px)';
+
+      function onEnd(e){
+        if(e.propertyName!=='transform')return;
+        trackEl.removeEventListener('transitionend',onEnd);
+        trackEl.style.transition='none';
+
+        /* Apply new state with pre-captured dims — all in one sync block,
+           browser sees a single combined paint with track back at 0 */
+        cur=newCur;
+        updateCaption();
+        activeEl.style.width=newW+'px';
+        activeImg.src=imgs[cur];
+        viewer.style.height=newH+'px';
+        var nh=newW/2+3;
+        leftEl.style.height=newH+'px';
+        leftEl.style.right='calc(50% + '+nh+'px)';
+        rightEl.style.height=newH+'px';
+        rightEl.style.left='calc(50% + '+nh+'px)';
+        var L=[],R=[];
+        for(var j=1;j<=SIDE;j++){L.push((cur-j+n)%n);R.push((cur+j)%n);}
+        fillSide(leftEl,L);
+        fillSide(rightEl,R);
+        trackEl.style.transform='';
+
+        activeImg.onload=syncAll;
+        if(activeImg.complete)syncAll();
+        requestAnimationFrame(function(){animating=false;});
+      }
+      trackEl.addEventListener('transitionend',onEnd);
+    }
+
+    leftEl.addEventListener('click',function(e){var t=e.target.closest('img');if(t)show(parseInt(t.dataset.idx));});
+    rightEl.addEventListener('click',function(e){var t=e.target.closest('img');if(t)show(parseInt(t.dataset.idx));});
+    prevBtn.addEventListener('click',function(){show(cur-1);});
+    nextBtn.addEventListener('click',function(){show(cur+1);});
+    document.querySelectorAll('.lang-btn').forEach(function(btn){btn.addEventListener('click',function(){currentLang=this.getAttribute('data-lang');updateCaption();});});
+    function openLB(){lbImg.src=activeImg.src;lb.classList.add('open');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+    function closeLB(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+    activeImg.addEventListener('click',openLB);
+    lb.addEventListener('click',closeLB);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLB();else if(e.key==='ArrowLeft')show(cur-1);else if(e.key==='ArrowRight')show(cur+1);});
+    window.addEventListener('resize',syncAll);
+    applyState();
+  }();
   </script>
 
 </body>
