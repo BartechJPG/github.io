@@ -264,8 +264,19 @@
       .nav-burger { display: flex; }
       .nav-right .lang-switch { display: none; }
       nav { padding: 0 24px; }
-      .project-viewer { /* no gap override needed */ }
+
+      /* Allow JS to set the viewer height (override the default min-height: 60vh) */
+      .project-viewer { min-height: 0; }
+      /* Cap image height to match the mobile renderedSize maxH (innerWidth * 0.6 = 60vw) */
+      .carousel-active img { max-height: 60vw; }
+      /* Title row: stack vertically, centered, smaller font */
+      .project-title-row { flex-direction: column; align-items: center; gap: 2px; }
+      .project-title { font-size: 0.85rem; }
+
+      #btn-prev { left: 8px; }
+      #btn-next { right: 8px; }
       .project-caption { padding: 0 24px; width: 100%; }
+      .project-text { padding: 0 28px; }
     }
 
     /* ─── GRAIN ─── */
@@ -339,8 +350,8 @@
   <main class="project-main">
 
     <div class="project-title-row">
-      <h1 class="project-title">Shipyards, Dhaka</h1>
-      <span class="project-title">January 2026</span>
+      <h1 class="project-title">Shipyard - Documentary Study</h1>
+      <span class="project-title">January, 2026</span>
     </div>
     <div class="project-viewer">
       <div class="carousel-track">
@@ -472,7 +483,10 @@
     }
 
     function renderedSize(natW,natH){
-      var maxH=window.innerHeight*0.6,maxW=window.innerWidth*0.9;
+      var maxW=window.innerWidth*0.9;
+      var maxH=window.innerHeight*0.6;
+      /* On mobile, cap maxH so landscape images are height-constrained too — keeps viewer height consistent */
+      if(window.innerWidth<768)maxH=Math.min(maxH,maxW*(2/3));
       var scale=Math.min(1,maxH/natH,maxW/natW);
       return{w:Math.round(natW*scale),h:Math.round(natH*scale)};
     }

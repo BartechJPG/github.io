@@ -372,7 +372,7 @@
     .work-grid::-webkit-scrollbar { display: none; }
 
     .work-card {
-      flex: 0 0 25vw;
+      flex: 0 0 27.5vw;
       scroll-snap-align: start;
       display: flex;
       flex-direction: column;
@@ -397,16 +397,48 @@
       object-fit: cover;
       object-position: 50% 50%;
       filter: grayscale(100%);
+      transition: filter 0.4s ease;
+    }
+
+    .work-card:not(.work-in-progress):hover .work-item img {
+      filter: grayscale(0%);
     }
 
     .work-item-title {
+      display: inline-flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 400;
-      font-size: 0.72rem;
+      font-size: 1rem;
       letter-spacing: 0.06em;
-      color: var(--orange);
       text-transform: uppercase;
-      padding: 12px 2px 0;
+      color: var(--orange);
+      padding: 0 16px;
+      height: var(--logo-size);
+      margin-top: 12px;
+      transition: color 0.4s ease;
+    }
+
+    .work-item-title::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--orange);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+      z-index: -1;
+    }
+
+    .work-card:not(.work-in-progress):hover .work-item-title {
+      color: var(--bg);
+    }
+
+    .work-card:not(.work-in-progress):hover .work-item-title::before {
+      transform: scaleX(1);
     }
 
     /* ─── WORK IN PROGRESS CARDS ─── */
@@ -461,7 +493,8 @@
     .about-label {
       display: inline-flex;
       align-items: center;
-      align-self: center;
+      align-self: flex-start;
+      margin-left: 10%;
       height: var(--logo-size);
       padding: 0 20px;
       font-family: 'Space Grotesk', sans-serif;
@@ -582,18 +615,24 @@
       .nav-burger { display: flex; }
       .nav-right .lang-switch { display: none; }
 
-      .parallax-panel { padding-top: var(--header-height); }
-      .work-nav { bottom: 24px; padding: 0 24px; }
+      /* Disable parallax on mobile — show as normal section */
+      .parallax-stage { height: auto; }
+      .parallax-panel { position: relative; height: auto; overflow: visible; padding-top: var(--nav-height); padding-bottom: 24px; }
+      #hero-canvas { position: relative; top: auto; transform: none; height: auto; width: 100%; }
+      .reveal-frame { position: relative; left: auto; bottom: auto; transform: none; width: 100% !important; overflow: visible; margin-top: 48px; }
+
+      /* Horizontal swipe carousel — card centered with peek of adjacent cards */
+      .work-grid { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding: 0 8vw; gap: 12px; }
+      .work-card { flex: 0 0 84vw; scroll-snap-align: center; opacity: 1 !important; }
       .work-item-title { text-align: center; }
-      .work-card { flex: 0 0 72vw; }
-      .work-grid { padding: 0 14vw 0 14vw; }
       .mobile-nav-links a { padding-left: 16px; padding-right: 16px; }
 
-      #about .section-inner  { padding-left: 24px; padding-right: 24px; }
+      #about .section-inner  { padding-left: 10vw; padding-right: 10vw; }
+      .about-label { margin-left: 0; align-self: center; }
       .about-content { width: 100%; padding: 0; }
       .about-body { font-size: 0.9rem; }
 
-      #contact .section-inner { padding-left: 24px; padding-right: 24px; }
+      #contact .section-inner { padding-left: 10vw; padding-right: 10vw; }
 
       footer { flex-direction: column; gap: 6px; padding: 24px; text-align: center; }
     }
@@ -655,12 +694,12 @@
 
           <a href="shipyard.html" class="work-card">
             <div class="work-item"><img src="images/1. Shipyard/15.jpg" alt="Shipyard"></div>
-            <span class="work-item-title">Shipyards, Dhaka</span>
+            <span class="work-item-title">Shipyard - Documentary Study</span>
           </a>
 
-          <a href="clayfactory.html" class="work-card work-in-progress">
-            <div class="work-item"><img src="ClayFactory.jpg" alt="Clay Factory"></div>
-            <span class="work-item-title">work in progress</span>
+          <a href="clayfactory.html" class="work-card">
+            <div class="work-item"><img src="images/2. Clay Factory/1.jpg" alt="Clay Factory"></div>
+            <span class="work-item-title">Clay Factory</span>
           </a>
 
           <a href="biker.html" class="work-card work-in-progress">
@@ -683,7 +722,7 @@
   <!-- ABOUT -->
   <section id="about">
     <div class="section-inner">
-      <span class="about-label" data-i18n="about.heading">ABOUT</span>
+      <span class="about-label" data-i18n="about.heading">WHO I AM</span>
       <div class="about-content">
         <p class="about-body" data-i18n="about.body1">
           I'm a documentary photographer from Poland, working on visual stories about cultures, traditions, and professions disappearing under economic and industrial change. I have traveled to many places around the world, documenting the lives of local people and their environments. I pair photography with written reportage, so each story carries the context behind the images.
@@ -732,7 +771,7 @@
           'nav.contact':     'contact',
           'hero.subtitle':   'MY WORKS',
           'work.label':      'Selected Work',
-          'about.heading':   'ABOUT',
+          'about.heading':   'WHO I AM',
           'about.label':     'About',
           'about.body1':     'I\'m a documentary photographer from Poland, working on visual stories about cultures, traditions, and professions disappearing under economic and industrial change. I have traveled to many places around the world, documenting the lives of local people and their environments. I pair photography with written reportage, so each story carries the context behind the images.',
           'about.body2':     'I hold a Master\'s Degree in Graphic Design from the Academy of Fine Arts in Katowice. I worked in the field as a design advisor, building data-driven dashboards for major brands including Pfizer, Lamborghini, and Gucci. This background shaped how I see and portray things, as well as how I understand people\'s needs and help solve their problems. My move toward documenting reality came from realizing that making an impact matters more than making money.',
@@ -748,7 +787,7 @@
           'nav.contact':     'kontakt',
           'hero.subtitle':   'MOJE PRACE',
           'work.label':      'Wybrane Prace',
-          'about.heading':   'O MNIE',
+          'about.heading':   'KIM JESTEM',
           'about.label':     'O mnie',
           'about.body1':     'Jestem fotografem dokumentalnym z Polski, tworzącym wizualne historie o kulturach, tradycjach i zawodach znikających pod wpływem przemian ekonomicznych i industrialnych. Podróżowałem do wielu miejsc na świecie, dokumentując życie lokalnych ludzi i ich środowiska. Łączę fotografię z reportażem pisanym, dzięki czemu każda historia niesie ze sobą kontekst stojący za zdjęciami.',
           'about.body2':     'Posiadam tytuł magistra projektowania graficznego Akademii Sztuk Pięknych w Katowicach. Pracowałem w branży jako doradca ds. designu, tworząc oparte na danych dashboardy dla największych marek, w tym Pfizer, Lamborghini i Gucci. To doświadczenie ukształtowało sposób, w jaki widzę i przedstawiam rzeczy, a także to, jak rozumiem potrzeby ludzi i pomagam im rozwiązywać problemy. Moje zwrócenie się ku dokumentowaniu rzeczywistości wynikło z uświadomienia sobie, że wywieranie wpływu jest ważniejsze niż zarabianie pieniędzy.',
@@ -1226,15 +1265,26 @@
   <script>
     // Scroll "portfolio" links to the fully-open carousel position
     (function () {
+      function scrollToWork(smooth) {
+        var stage = document.getElementById('work');
+        if (window.innerWidth < 768) {
+          window.scrollTo({ top: stage.offsetTop, behavior: smooth ? 'smooth' : 'instant' });
+          return;
+        }
+        var target = stage.offsetTop + 0.42 * (stage.scrollHeight - window.innerHeight);
+        window.scrollTo({ top: target, behavior: smooth ? 'smooth' : 'instant' });
+      }
+
       document.querySelectorAll('a[href="#work"]').forEach(function (link) {
         link.addEventListener('click', function (e) {
           e.preventDefault();
-          var stage  = document.getElementById('work');
-          // Land at 42% — clearly inside dwell so all cards are visible
-          var target = stage.offsetTop + 0.42 * (stage.scrollHeight - window.innerHeight);
-          window.scrollTo({ top: target, behavior: 'smooth' });
+          scrollToWork(true);
         });
       });
+
+      if (window.location.hash === '#work') {
+        window.addEventListener('load', function () { scrollToWork(false); });
+      }
     }());
   </script>
 
@@ -1295,8 +1345,14 @@
     const heroCanvas = document.getElementById('hero-canvas');
     const grid       = document.getElementById('work-grid');
     const isMobile = window.innerWidth < 768;
-    const MIN_W = isMobile ? 60 : 25, MAX_W = 100;
     const allCards = Array.from(grid.querySelectorAll('.work-card'));
+
+    if (isMobile) {
+      allCards.forEach(function(card) { card.style.opacity = '1'; });
+      return;
+    }
+
+    const MIN_W = 25, MAX_W = 100;
     const MIN_SLIVER_VH = 5;
     const GROW_END  = 0.38;
     const DWELL_END = 1.0;
