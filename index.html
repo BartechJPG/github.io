@@ -694,12 +694,12 @@
 
           <a href="shipyard.html" class="work-card">
             <div class="work-item"><img src="images/1. Shipyard/15.jpg" alt="Shipyard"></div>
-            <span class="work-item-title">Shipyard - Documentary Study</span>
+            <span class="work-item-title" data-i18n="card.shipyard">Shipyard - Documentary Study</span>
           </a>
 
           <a href="clayfactory.html" class="work-card">
             <div class="work-item"><img src="images/2. Clay Factory/1.jpg" alt="Clay Factory"></div>
-            <span class="work-item-title">Clay Factory</span>
+            <span class="work-item-title" data-i18n="card.clayfactory">Clay Factory</span>
           </a>
 
           <a href="biker.html" class="work-card work-in-progress">
@@ -733,6 +733,7 @@
         <p class="about-body" data-i18n="about.body3">
           I'm available for editorial assignments, NGO field documentation, and collaborations with organizations working on issues around the world. Get in touch with me below.
         </p>
+        <p class="about-body" data-lang-block="pl" style="display:none">Realizuję fotoreportaże, projekty dokumentalne oraz sesje dla firm i organizacji pozarządowych, jednocześnie chętnie angażując się w wolontariat i działania charytatywne. W celu nawiązania współpracy, skontaktuj się ze mną.</p>
       </div>
     </div>
     <div class="about-profile">
@@ -780,6 +781,8 @@
           'footer.rights':   'Bartech.jpg | est. 2020',
           'footer.tagline':  'Documentary Photography &amp; Art Direction',
           'ticker':          'Documentary Photography &amp; Art Direction',
+          'card.shipyard':   'Shipyard - Documentary Study',
+          'card.clayfactory':'Clay Factory',
         },
         pl: {
           'nav.work':        'projekty',
@@ -789,13 +792,16 @@
           'work.label':      'Wybrane Prace',
           'about.heading':   'KIM JESTEM',
           'about.label':     'O mnie',
-          'about.body1':     'Jestem fotografem dokumentalnym z Polski, tworzącym wizualne historie o kulturach, tradycjach i zawodach znikających pod wpływem przemian ekonomicznych i industrialnych. Podróżowałem do wielu miejsc na świecie, dokumentując życie lokalnych ludzi i ich środowiska. Łączę fotografię z reportażem pisanym, dzięki czemu każda historia niesie ze sobą kontekst stojący za zdjęciami.',
-          'about.body2':     'Posiadam tytuł magistra projektowania graficznego Akademii Sztuk Pięknych w Katowicach. Pracowałem w branży jako doradca ds. designu, tworząc oparte na danych dashboardy dla największych marek, w tym Pfizer, Lamborghini i Gucci. To doświadczenie ukształtowało sposób, w jaki widzę i przedstawiam rzeczy, a także to, jak rozumiem potrzeby ludzi i pomagam im rozwiązywać problemy. Moje zwrócenie się ku dokumentowaniu rzeczywistości wynikło z uświadomienia sobie, że wywieranie wpływu jest ważniejsze niż zarabianie pieniędzy.',
-          'about.body3':     'Jestem dostępny do zleceń redakcyjnych, dokumentacji terenowej dla NGO oraz współpracy z organizacjami działającymi na rzecz ważnych spraw na całym świecie. Skontaktuj się ze mną poniżej.',
+          'about.body1':     'Jestem fotografem urodzonym w Polsce, skupiającym się na dokumentowaniu kultur, tradycji i zawodów zanikających pod wpływem globalnych przemian. Podróżuję po świecie, dokumentując życia lokalnych ludzi oraz otaczające ich środowiska. Często łączę fotografię z reportażem tekstowym i oprawą graficzną, dodając im w ten sposób dodatkowe warstwy opowieści.',
+          'about.body2':     'Z wykształcenia jestem magistrem projektowania graficznego Akademii Sztuk Pięknych w Katowicach, którą ukończyłem z wyróżnieniem, realizując projekt poświęcony dystopiom w popkulturze. Pracowałem w branży jako doradca do spraw designu i interfejsu użytkownika dla największych firm, takich jak Pfizer, Lamborghini czy Gucci.',
+          'about.body3':     'Artystyczne wykształcenie i analityczne doświadczenia zawodowe ukształtowały sposób, w jaki postrzegam, ale też to, jak przedstawiam świat. Przy każdym projekcie staram się zrozumieć zarówno problem, jak i potrzeby ludzi.',
+          'about.body4':     'Realizuję fotoreportaże, projekty dokumentalne oraz sesje dla firm i organizacji pozarządowych, jednocześnie chętnie angażując się w wolontariat i działania charytatywne. W celu nawiązania współpracy, skontaktuj się ze mną.',
           'contact.heading': 'POROZMAWIAJMY.',
           'footer.rights':   'Bartech.jpg | est. 2020',
           'footer.tagline':  'Fotografia Dokumentalna &amp; Reżyseria Artystyczna',
           'ticker':          'Fotografia Dokumentalna &amp; Reżyseria Artystyczna',
+          'card.shipyard':   'Stocznia - Projekt Dokumentalny',
+          'card.clayfactory':'Cegielnia - Dhaka',
         }
       };
 
@@ -808,6 +814,9 @@
         const t = T[lang];
         document.querySelectorAll('[data-i18n]').forEach(el => {
           el.innerHTML = t[el.dataset.i18n] ?? el.innerHTML;
+        });
+        document.querySelectorAll('[data-lang-block]').forEach(function(el) {
+          el.style.display = el.getAttribute('data-lang-block') === lang ? '' : 'none';
         });
         document.querySelectorAll('.ticker-text').forEach(el => {
           el.innerHTML = buildTicker(t);
@@ -1100,7 +1109,7 @@
       // Measure tile width with current font before canvas resize clears context state
       tctx.font = `400 ${fontSize}px Anton, sans-serif`;
       if ('letterSpacing' in tctx) tctx.letterSpacing = `${-0.02 * fontSize}px`;
-      tileW = tctx.measureText(TEXT).width + fontSize * 0.4;
+      tileW = tctx.measureText(TEXT).width;
       speed = tileW / DURATION;
       const w = Math.ceil(window.innerWidth);
       tc.width = canvas.width  = w;
@@ -1441,6 +1450,14 @@
     window.addEventListener('scroll', () => {
       if (!ticking) { requestAnimationFrame(update); ticking = true; }
     }, { passive: true });
+
+    // Convert horizontal trackpad swipes into vertical scroll to drive the parallax
+    stage.addEventListener('wheel', function(e) {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        e.preventDefault();
+        window.scrollBy(0, e.deltaX * 6);
+      }
+    }, { passive: false });
 
     window.addEventListener('load', update);
     update();
