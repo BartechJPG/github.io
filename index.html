@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
   <title>B.jpg — Documentary Photography & Art Direction</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -491,24 +492,25 @@
     }
 
     .about-label {
-      display: inline-flex;
-      align-items: center;
-      align-self: flex-start;
-      margin-left: 10%;
-      height: var(--logo-size);
-      padding: 0 20px;
+      display: block;
+      width: 100%;
+      max-width: clamp(680px, 72vw, 960px);
+      margin: 0 auto;
+      text-align: center;
       font-family: 'Space Grotesk', sans-serif;
-      font-weight: 400;
-      font-size: 1.1rem;
-      letter-spacing: 0.01em;
+      font-weight: 700;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      letter-spacing: 0.03em;
       text-transform: uppercase;
-      background: var(--orange);
-      color: var(--bg);
+      color: var(--orange);
+      /* reset h2 browser defaults */
+      padding: 0;
     }
 
     .about-content {
       padding-top: 0;
-      width: 80%;
+      width: 100%;
+      max-width: clamp(680px, 72vw, 960px);
       margin: 0 auto;
     }
 
@@ -532,8 +534,7 @@
     }
 
     #contact .contact-label {
-      background: var(--bg);
-      color: var(--orange);
+      color: var(--bg);
     }
 
     #contact .contact-row {
@@ -554,18 +555,37 @@
     }
 
     .contact-label {
-      display: inline-flex;
-      align-items: center;
-      height: var(--logo-size);
-      padding: 0 20px;
+      display: inline-block;
       font-family: 'Space Grotesk', sans-serif;
-      font-weight: 400;
-      font-size: 1.1rem;
-      letter-spacing: 0.01em;
+      font-weight: 700;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      letter-spacing: 0.03em;
       text-transform: uppercase;
+      color: var(--orange);
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ── Accessibility ── */
+    :focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 3px;
+    }
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 0;
+      z-index: 99999;
+      padding: 8px 20px;
       background: var(--orange);
       color: var(--bg);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
+    .skip-link:focus { top: 0; }
 
     .contact-details {
       display: flex;
@@ -628,7 +648,7 @@
       .mobile-nav-links a { padding-left: 16px; padding-right: 16px; }
 
       #about .section-inner  { padding-left: 10vw; padding-right: 10vw; }
-      .about-label { margin-left: 0; align-self: center; }
+      .about-label { text-align: center; }
       .about-content { width: 100%; padding: 0; }
       .about-body { font-size: 0.9rem; }
 
@@ -637,8 +657,19 @@
       footer { flex-direction: column; gap: 6px; padding: 24px; text-align: center; }
     }
   </style>
+  <noscript><style>
+    .parallax-stage { height: auto !important; }
+    .parallax-panel { position: relative !important; height: auto !important; overflow: visible !important; padding-top: var(--nav-height); padding-bottom: 40px; }
+    #hero-canvas { display: none !important; }
+    .reveal-frame { position: relative !important; left: auto !important; bottom: auto !important; transform: none !important; width: 100% !important; overflow: visible !important; margin-top: 48px; }
+    .work-grid { overflow-x: auto !important; }
+    .work-card { opacity: 1 !important; flex: 0 0 27.5vw; }
+    .nav-burger { display: none !important; }
+    .nav-links { display: flex !important; }
+  </style></noscript>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
   <!-- NAV -->
   <nav>
@@ -657,9 +688,9 @@
 
     <div class="nav-right">
       <div class="lang-switch" aria-label="Language switcher">
-        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
         <span class="lang-sep">/</span>
-        <button class="lang-btn" data-lang="pl">PL</button>
+        <button class="lang-btn" data-lang="pl" aria-pressed="false">PL</button>
       </div>
       <button class="nav-burger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -675,18 +706,19 @@
       <li><a href="#contact" data-i18n="nav.contact">contact</a></li>
     </ul>
     <div class="lang-switch" aria-label="Language switcher">
-      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
       <span class="lang-sep">/</span>
-      <button class="lang-btn" data-lang="pl">PL</button>
+      <button class="lang-btn" data-lang="pl" aria-pressed="false">PL</button>
     </div>
   </div>
 
+  <main id="main-content">
   <!-- PARALLAX CAROUSEL STAGE -->
   <div class="parallax-stage" id="work">
     <div class="parallax-panel" id="parallax-panel">
 
       <!-- Background text animation -->
-      <canvas id="hero-canvas" aria-label="B.JPG / PHOTOGRAPHY / DESIGN"></canvas>
+      <canvas id="hero-canvas" role="img" aria-label="B.JPG / PHOTOGRAPHY / DESIGN"></canvas>
 
       <!-- Growing image frame -->
       <div class="reveal-frame" id="reveal-frame">
@@ -702,12 +734,12 @@
             <span class="work-item-title" data-i18n="card.clayfactory">Clay Factory</span>
           </a>
 
-          <a href="biker.html" class="work-card work-in-progress">
+          <a href="biker.html" class="work-card work-in-progress" aria-disabled="true" tabindex="-1">
             <div class="work-item"><img src="Biker.jpg" alt="Biker"></div>
             <span class="work-item-title">work in progress</span>
           </a>
 
-          <a href="chickenmarket.html" class="work-card work-in-progress">
+          <a href="chickenmarket.html" class="work-card work-in-progress" aria-disabled="true" tabindex="-1">
             <div class="work-item"><img src="ChickenMarket.jpg" alt="Chicken Market"></div>
             <span class="work-item-title">work in progress</span>
           </a>
@@ -722,7 +754,7 @@
   <!-- ABOUT -->
   <section id="about">
     <div class="section-inner">
-      <span class="about-label" data-i18n="about.heading">WHO I AM</span>
+      <h2 class="about-label" data-i18n="about.heading">WHO I AM</h2>
       <div class="about-content">
         <p class="about-body" data-i18n="about.body1">
           I'm a documentary photographer from Poland, working on visual stories about cultures, traditions, and professions disappearing under economic and industrial change. I have traveled to many places around the world, documenting the lives of local people and their environments. I pair photography with written reportage, so each story carries the context behind the images.
@@ -744,7 +776,7 @@
   <!-- CONTACT -->
   <section id="contact">
     <div class="section-inner">
-      <span class="contact-label" data-i18n="nav.contact">contact</span>
+      <h2 class="contact-label" data-i18n="nav.contact">contact</h2>
       <div class="contact-details">
         <a href="mailto:bartech.jpg@gmail.com" class="contact-row">EMAIL: bartech.jpg@gmail.com</a>
         <span class="contact-row">PHONE/WHATSAPP: (+48) 530 741 809</span>
@@ -753,6 +785,8 @@
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- FOOTER -->
   <footer>
@@ -822,6 +856,9 @@
           el.innerHTML = buildTicker(t);
         });
         document.documentElement.lang = lang;
+        document.querySelectorAll('.lang-btn').forEach(b => {
+          b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false');
+        });
         document.title = T[lang]['footer.tagline'].replace(/&amp;/g, '&')
                        .replace('Documentary Photography', 'B.jpg — Documentary Photography')
                        .replace('Fotografia Dokumentalna', 'B.jpg — Fotografia Dokumentalna');
@@ -889,6 +926,8 @@
         burger.setAttribute('aria-label', 'Close menu');
         menu.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+        const firstLink = menu.querySelector('a, button');
+        if (firstLink) firstLink.focus();
       }
 
       function closeMenu() {
