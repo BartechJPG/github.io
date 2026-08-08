@@ -50,8 +50,8 @@
     .nav-links { display: flex; gap: 72px; list-style: none; }
     .nav-links a {
       color: var(--fg); text-decoration: none;
-      font-family: 'Space Grotesk', sans-serif; font-weight: 400;
-      font-size: 1.15rem; letter-spacing: 0.01em; text-transform: uppercase;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400;
+      font-size: 1.15rem; letter-spacing: 0.01em; text-transform: none;
       height: var(--logo-size); display: inline-flex; align-items: center;
       padding: 0 20px; transition: background 0.2s ease, color 0.2s ease;
     }
@@ -92,8 +92,8 @@
     .mobile-nav-links li:last-child { border-bottom: 1px solid rgba(34, 34, 34, 0.15); }
     .mobile-nav-links a {
       display: block; padding: 22px 0; color: var(--fg); text-decoration: none;
-      font-family: 'Space Grotesk', sans-serif; font-weight: 400;
-      font-size: 2rem; letter-spacing: 0.01em; text-transform: uppercase;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 400;
+      font-size: 2rem; letter-spacing: 0.01em; text-transform: none;
     }
     .mobile-nav-links a.active {
       background: var(--fg); color: var(--bg); padding-left: 20px;
@@ -106,7 +106,7 @@
     }
     .lang-btn {
       background: transparent; border: none; color: var(--fg);
-      font-family: 'Lato', sans-serif; font-weight: 700; font-size: 1rem;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 700; font-size: 1rem;
       letter-spacing: 0.04em; cursor: pointer; padding: 0 16px;
       transition: background 0.2s ease, color 0.2s ease;
     }
@@ -119,109 +119,105 @@
     .project-main {
       padding-top: calc(var(--nav-height) + 40px);
       padding-bottom: 80px;
+      padding-left: 20%;
+      padding-right: 20%;
     }
 
-    .project-title-row {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      gap: 3px;
+    /* ─── ARTICLE HEADER ─── */
+    .cf-header {
+      padding: 0;
+      margin-bottom: 48px;
+    }
+    .cf-breadcrumb {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--fg);
+      opacity: 0.4;
+      text-decoration: none;
+      display: inline-block;
       margin-bottom: 24px;
     }
-    .project-title {
-      display: inline-flex;
-      align-items: center;
-      height: var(--logo-size);
-      padding: 0 20px;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 400;
-      letter-spacing: 0.01em;
-      text-transform: uppercase;
-      background: var(--fg);
-      color: var(--bg);
-    }
-
-    .project-viewer {
-      width: 100%;
-      box-sizing: border-box;
-      position: relative;
-      overflow: hidden;
-      min-height: 60vh;
-    }
-
-    .carousel-track {
-      position: absolute;
-      top: 0; right: 0; bottom: 0; left: 0;
-      will-change: transform;
-    }
-
-    .carousel-side {
-      position: absolute;
-      bottom: 0;
+    .cf-breadcrumb:hover { opacity: 0.65; }
+    .cf-title-row {
       display: flex;
       align-items: flex-end;
-      gap: 3px;
+      justify-content: space-between;
+      gap: 40px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(34, 34, 34, 0.1);
+      margin-bottom: 0;
     }
-    #carousel-left  { left: 0; flex-direction: row-reverse; }
-    #carousel-right { right: 0; flex-direction: row; }
-    .carousel-side img {
-      display: block;
-      height: 100%;
-      width: auto;
-      flex-shrink: 0;
-      filter: grayscale(100%);
-      cursor: pointer;
-      opacity: 0.55;
-      transition: opacity 0.2s;
+    .cf-title {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: var(--fg);
     }
-    .carousel-side img:hover { opacity: 0.8; }
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: var(--logo-size);
-      height: var(--logo-size);
-      padding: 0;
-      border: none;
-      background: var(--fg);
-      color: var(--bg);
+    .cf-meta {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 10;
+      gap: 40px;
+      flex-shrink: 0;
+      align-items: flex-end;
     }
-    #btn-prev { left: 40px; }
-    #btn-next { right: 40px; }
-    .carousel-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .cf-meta-item { display: flex; flex-direction: column; }
+    .cf-meta-label {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--fg);
+      opacity: 0.4;
+      margin-bottom: 5px;
+    }
+    .cf-meta-value {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.85rem;
+      color: var(--fg);
+      opacity: 0.65;
+    }
 
-    .carousel-active {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
+    /* ─── ARTICLE LAYOUT ─── */
+    .cf-hero {
+      width: 100%;
+      display: block;
+      margin-top: 32px;
+      margin-bottom: 64px;
+    }
+    .article-text {
+      margin-bottom: 64px;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      gap: 24px;
     }
-    .carousel-active img {
+    .article-text p {
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--fg);
+      opacity: 0.85;
+    }
+    /* Single grid with spacing after */
+    .img-grid {
+      display: grid;
+      gap: 3px;
+      align-items: start;
+    }
+    .img-grid-2 { grid-template-columns: 1fr 1fr; }
+    .img-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .article-img {
+      width: 100%;
+      height: auto;
       display: block;
-      max-height: 60vh;
-      max-width: 90vw;
-      width: auto;
       cursor: zoom-in;
     }
-
-    .project-caption {
-      text-align: center;
-      font-family: 'Lato', sans-serif;
-      font-style: italic;
-      font-size: 0.9rem;
-      letter-spacing: 0.02em;
-      color: var(--fg);
-      opacity: 0.7;
-      margin: 12px 0 0;
-      padding: 0 40px;
+    /* Wrapper for one visual image block (may contain multiple grids stacked 3px apart) */
+    .img-block {
+      margin-bottom: 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
     }
 
     /* ─── LIGHTBOX ─── */
@@ -262,22 +258,6 @@
     .lb-prev { left: 40px; }
     .lb-next { right: 40px; }
 
-    .project-text {
-      max-width: clamp(680px, 72vw, 960px);
-      margin: 56px auto 0;
-      padding: 0 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-    .project-text p {
-      font-family: 'Lato', sans-serif;
-      font-size: 1rem;
-      line-height: 1.75;
-      color: var(--fg);
-      opacity: 0.85;
-    }
-
     /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
       .nav-links  { display: none; }
@@ -285,17 +265,16 @@
       .nav-right .lang-switch { display: none; }
       nav { padding: 0 24px; }
 
-      /* Allow JS to set the viewer height (override the default min-height: 60vh) */
-      .project-viewer { min-height: 0; }
-      /* Cap image height to match the mobile renderedSize maxH (innerWidth * 0.6 = 60vw) */
-      .carousel-active img { max-height: 60vw; }
-      /* Title row: stack vertically, centered, smaller font */
-      .project-title-row { flex-direction: column; align-items: center; gap: 2px; }
-      .project-title { font-size: 0.85rem; }
+      .project-main { padding-left: 24px; padding-right: 24px; }
+      .cf-title-row { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .cf-meta { gap: 20px; flex-wrap: wrap; }
+      .lb-prev { left: 16px; }
+      .lb-next { right: 16px; }
+      footer { padding: 32px 24px; flex-direction: column; gap: 8px; text-align: center; }
+    }
 
-      #btn-prev { left: 8px; }
-      #btn-next { right: 8px; }
-      .project-caption { padding: 0 24px; width: 100%; }
+    @media (max-width: 480px) {
+      .img-grid-2 { grid-template-columns: 1fr; }
     }
 
     /* ─── ACCESSIBILITY ─── */
@@ -307,7 +286,6 @@
       text-decoration: none; text-transform: uppercase; letter-spacing: 0.05em;
     }
     .skip-link:focus { top: 0; }
-    #img-active { cursor: zoom-in; }
 
     /* ─── GRAIN ─── */
     #grain-canvas {
@@ -328,16 +306,8 @@
       font-size: 1rem; letter-spacing: 0em;
       color: var(--fg); opacity: 0.35;
     }
-    @media (max-width: 768px) {
-      footer { padding: 32px 24px; flex-direction: column; gap: 8px; text-align: center; }
-    }
   </style>
   <noscript><style>
-    .project-viewer { min-height: 0 !important; height: auto !important; }
-    .carousel-track { position: relative !important; }
-    .carousel-side { display: none !important; }
-    .carousel-active { position: relative !important; width: 100% !important; max-width: 900px; margin: 0 auto; }
-    #btn-prev, #btn-next { display: none !important; }
     .nav-burger { display: none !important; }
     .nav-links { display: flex !important; }
   </style></noscript>
@@ -355,9 +325,9 @@
     </a>
 
     <ul class="nav-links">
-      <li><a href="index.html#work" class="active">projects</a></li>
-      <li><a href="index.html#about">about</a></li>
-      <li><a href="index.html#contact">contact</a></li>
+      <li><a href="index.html#work" class="active" data-i18n="nav.work">Projects</a></li>
+      <li><a href="index.html#about" data-i18n="nav.about">About</a></li>
+      <li><a href="index.html#contact" data-i18n="nav.contact">Contact</a></li>
     </ul>
 
     <div class="nav-right">
@@ -375,9 +345,9 @@
   <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <ul class="mobile-nav-links">
-      <li><a href="index.html#work" class="active">projects</a></li>
-      <li><a href="index.html#about">about</a></li>
-      <li><a href="index.html#contact">contact</a></li>
+      <li><a href="index.html#work" class="active" data-i18n="nav.work">Projects</a></li>
+      <li><a href="index.html#about" data-i18n="nav.about">About</a></li>
+      <li><a href="index.html#contact" data-i18n="nav.contact">Contact</a></li>
     </ul>
     <div class="lang-switch" aria-label="Language switcher">
       <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
@@ -389,56 +359,121 @@
   <!-- MAIN -->
   <main class="project-main" id="project-main">
 
-    <div class="project-title-row" data-lang-block="en">
-      <h1 class="project-title">Clay Factory - Dhaka</h1>
-      <span class="project-title">January 2026</span>
-    </div>
-    <div class="project-title-row" data-lang-block="pl" style="display:none">
-      <h1 class="project-title">Cegielnia - Dhaka</h1>
-      <span class="project-title">Styczeń 2026</span>
-    </div>
-    <div class="project-viewer">
-      <div class="carousel-track">
-        <div class="carousel-side" id="carousel-left"></div>
-        <div class="carousel-active">
-          <img id="img-active" src="images/2. Clay Factory/1.jpg" alt="Clay Factory" tabindex="0" role="button" aria-label="View full size">
+    <div class="cf-header">
+      <a href="index.html#work" class="cf-breadcrumb" data-i18n="breadcrumb">Projects</a>
+      <div class="cf-title-row">
+        <h1 class="cf-title" data-i18n="title">Clay Factory</h1>
+        <div class="cf-meta">
+          <div class="cf-meta-item">
+            <div class="cf-meta-label" data-i18n="meta.type_label">Project Type</div>
+            <div class="cf-meta-value" data-i18n="meta.type">Documentary Photography</div>
+          </div>
+          <div class="cf-meta-item">
+            <div class="cf-meta-label" data-i18n="meta.date_label">Date</div>
+            <div class="cf-meta-value" data-i18n="meta.date">January 2026</div>
+          </div>
+          <div class="cf-meta-item">
+            <div class="cf-meta-label" data-i18n="meta.loc_label">Location</div>
+            <div class="cf-meta-value" data-i18n="meta.loc">Bangladesh, Dhaka</div>
+          </div>
         </div>
-        <div class="carousel-side" id="carousel-right"></div>
       </div>
-      <button class="carousel-btn" id="btn-prev" aria-label="Previous photo">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
-      <button class="carousel-btn" id="btn-next" aria-label="Next photo">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-      </button>
     </div>
-    <p class="project-caption" id="photo-caption" style="visibility:hidden"></p>
 
-    <div class="project-text" data-lang-block="en">
+    <!-- Hero -->
+    <img class="cf-hero article-img" src="images/2. Clay Factory/1.jpg" alt="Clay Factory" data-idx="0" tabindex="0">
+
+    <!-- Text A: 4 paragraphs before first image grid -->
+    <div class="article-text" data-lang-block="en">
       <p>In my youth, I often visited old, abandoned buildings. Growing up in a region with a rich industrial history, I had plenty of potential locations to choose from — from former hospitals to shuttered mines. Of all these places, the one that left the deepest impression on me was an abandoned brick factory I visited in 2013 — a majestic complex of enormous silos with long corridors and a labyrinth of underground passages. I cannot say what drew me to such places at the time, but I know I never lost that fascination.</p>
       <p>Thirteen years later, in January 2026, I had the chance to visit a brick factory again. A different one this time — roughly 6,700 kilometres away in a straight line from the first, and unlike it, still in operation. It was located on the outskirts of Dhaka in Bangladesh and was one of many working in the area. Much smaller in scale — beyond a few tall chimneys and rows of bricks arranged across its grounds, it could have gone unnoticed.</p>
       <p>I arrived early in the morning. The site was not fenced off in any way and anyone could enter without any checks, except for the piercing looks of the workers. I approached the brick wall where people had gathered and, before reaching for my camera, made sure they had no objections to having their work documented. My most persuasive argument was, in all likelihood, a <em>taka</em>*.</p>
       <p>The brick-loading process itself, though labour-intensive, appeared straightforward — which was reflected in the wide demographic range of those taking part. Women passed clay blocks hand to hand to their husbands, who stacked them onto trailers attached to modified bicycles and transported them to the next stage of the production chain. Through all of this, between the working family members, their children moved around them. Their skin, like that of everyone around them, was coated in orange dust. It was everywhere — forcing its way into nostrils and eye sockets. On the face of one working boy, I watched a drop of sweat carve its way down through a layer of vivid sediment.</p>
-      <p>One of the frequently raised topics regarding Bangladesh is the issue of child labour. The exploitation of the working class itself is not as jarring to outside observers as the fact that minors are also part of this cheap labour force. During my visit, I repeatedly witnessed situations in which young children, often just a few years old, assisted adults — mostly moving around them or carrying out simple tasks. Here, however, the problem was more exposed. Young boys were working — or at least trying to — on equal terms with their parents, hauling clay bricks with considerable effort.</p>
-      <p>Further into the production area, rows of bricks stretching to the horizon were waiting to be fired in one of the many kilns on site. Each of them rose upward with a chimney several metres tall, exhaling thick smoke. Each could be heated to around 900°C and turn raw clay into a hard, finished product. I walked several hundred metres through the brick labyrinth and reached the far edge of the site — a cluster of low shacks from which a loud mechanical sound was coming.</p>
-      <p>The yard was covered in piles of white sacks filled with contents I could not identify, which served as an improvised playground for the children. At the entrance to one of the shacks stood a man with his face wrapped in a cloth. Up close, his gaze was piercing. He had beautiful blue-grey eyes, laced with blood vessels burst by the surrounding pollution. He was operating the machine that was the source of the relentless noise. Into a large opening at the top of the device he was pushing, with his bare hands, plastic bottles, carrier bags and all manner of packaging, which moments later emerged as fine, colourful shavings — identical to those spilling out of the sacks being kneaded by the feet of the playing children.</p>
-      <p>I asked one of my local companions what the people here use the ground plastic particles for.</p>
-      <p>"Something has to keep the kilns burning," he said.</p>
-      <p style="opacity:0.4; font-size:0.85rem;">* taka — the official currency of Bangladesh</p>
-      <p style="opacity:0.4; font-size:0.85rem;">(automatically translated — original text was written in Polish)</p>
     </div>
-
-    <div class="project-text" data-lang-block="pl" style="display:none">
+    <div class="article-text" data-lang-block="pl" style="display:none">
       <p>W młodości często odwiedzałem stare, opuszczone budynki. Wychowując się w regionie mającym bogatą, industrialną historię, mogłem przebierać w potencjalnych lokacjach do odwiedzenia — od dawnych szpitali po upadłe kopalnie. Spośród wszystkich miejsc najbardziej zapadła mi w pamięć odwiedzona w 2013 roku opuszczona cegielnia — majestatyczny kompleks ogromnych silosów z długimi korytarzami i labiryntem podziemnych przejść. Nie potrafię powiedzieć, co w tamtym czasie przyciągało mnie do tego typu miejsc, ale wiem, że nigdy nie wyzbyłem się tej fascynacji.</p>
       <p>13 lat później, w styczniu 2026 roku, ponownie miałem okazję odwiedzić cegielnię. Tym razem inną, oddaloną w linii prostej o około 6700 km od poprzedniej i w odróżnieniu od tamtej, nadal aktywną. Znajdowała się ona na obrzeżach Dhaki w Bangladeszu i była jedną z wielu działających w tej okolicy. Dużo mniejsza w skali, bo oprócz kilku wysokich kominów i rzędów cegieł rozstawionych na jej terenie mogłaby pozostać niezauważona.</p>
       <p>Dotarłem do niej wczesnym porankiem. Teren nie był w żaden sposób ogrodzony i każdy mógł na niego wejść bez żadnej kontroli, jeśli nie liczyć przenikliwych spojrzeń pracowników. Podszedłem do ceglanego muru, przy którym zbierali się ludzie, i zanim sięgnąłem po aparat, upewniłem się, czy nie mają nic przeciwko dokumentowaniu ich pracy. Najbardziej przekonującym z moich argumentów była najprawdopodobniej <em>taka</em>*.</p>
       <p>Sam proces przeładunku cegieł, choć pracochłonny, wydawał się niezłożony, co wpływało na fakt, że brali w nim udział ludzie o bardzo zróżnicowanym profilu demograficznym. Kobiety przerzucały ceglane bloczki do rąk swoich mężów. Ci układali je na przyczepach zmodyfikowanych rowerów i transportowali do następnego etapu łańcucha produkcyjnego. W tym wszystkim, pomiędzy pracującymi członkami rodzin, krzątały się ich dzieci. Ich skóry, podobnie jak skóry wszystkich osób w okolicy, były pokryte pomarańczowym pyłem. Był wszechobecny — wdzierał się w nozdrza i oczodoły. Na twarzy jednego z pracujących chłopców dostrzegłem, jak kropla potu przedziera się w dół przez warstwę jaskrawego osadu.</p>
+    </div>
+
+    <!-- 3-col: 15.jpg | 8.jpg | 14.jpg -->
+    <div class="img-block">
+      <div class="img-grid img-grid-3">
+        <img class="article-img" src="images/2. Clay Factory/15.jpg" alt="Clay Factory" data-idx="1" tabindex="0">
+        <img class="article-img" src="images/2. Clay Factory/8.jpg" alt="Clay Factory" data-idx="2" tabindex="0">
+        <img class="article-img" src="images/2. Clay Factory/14.jpg" alt="Clay Factory" data-idx="3" tabindex="0">
+      </div>
+    </div>
+
+    <!-- Text B: child labour -->
+    <div class="article-text" data-lang-block="en">
+      <p>One of the frequently raised topics regarding Bangladesh is the issue of child labour. The exploitation of the working class itself is not as jarring to outside observers as the fact that minors are also part of this cheap labour force. During my visit, I repeatedly witnessed situations in which young children, often just a few years old, assisted adults — mostly moving around them or carrying out simple tasks. Here, however, the problem was more exposed. Young boys were working — or at least trying to — on equal terms with their parents, hauling clay bricks with considerable effort.</p>
+    </div>
+    <div class="article-text" data-lang-block="pl" style="display:none">
       <p>Jednym z często poruszanych tematów dotyczących Bangladeszu jest kwestia pracujących dzieci. Sam wyzysk klasy robotniczej nie jest tak rażący dla odbiorców z zewnątrz jak fakt, że częścią tej taniej siły roboczej są również osoby nieletnie. Podczas mojej wizyty wielokrotnie byłem świadkiem sytuacji, w których kilkuletnie dzieci asystowały dorosłym najczęściej krążąc wokół nich lub wykonując proste zadania. Tutaj jednak ten problem był bardziej wyeksponowany. Młodzi chłopcy pracowali — lub przynajmniej próbowali — na równi ze swoimi opiekunami, w pocie czoła przenosząc gliniane cegły.</p>
+    </div>
+
+    <!-- 2-col: 2.jpg | 7.jpg -->
+    <div class="img-block">
+      <div class="img-grid img-grid-2">
+        <img class="article-img" src="images/2. Clay Factory/2.jpg" alt="Clay Factory" data-idx="4" tabindex="0">
+        <img class="article-img" src="images/2. Clay Factory/7.jpg" alt="Clay Factory" data-idx="5" tabindex="0">
+      </div>
+    </div>
+
+    <!-- Text C: kilns -->
+    <div class="article-text" data-lang-block="en">
+      <p>Further into the production area, rows of bricks stretching to the horizon were waiting to be fired in one of the many kilns on site. Each of them rose upward with a chimney several metres tall, exhaling thick smoke. Each could be heated to around 900°C and turn raw clay into a hard, finished product. I walked several hundred metres through the brick labyrinth and reached the far edge of the site — a cluster of low shacks from which a loud mechanical sound was coming.</p>
+    </div>
+    <div class="article-text" data-lang-block="pl" style="display:none">
       <p>W dalszej części terenu produkcyjnego można było dostrzec rozciągające się po horyzont rzędy cegieł czekających na wypalenie w jednym z wielu tutejszych pieców. Każdy z nich wyrastał w górę wysokim na kilkanaście metrów kominem, sączącym gęsty dym. Każdy z nich mógł zostać rozgrzany do około 900 stopni Celsjusza i zamienić plastyczny surowiec w twardy, gotowy produkt. Przeszedłem kilkaset metrów przez ceglany labirynt i dotarłem na obrzeża — do niskich chat, z których dobiegał głośny, mechaniczny dźwięk.</p>
+    </div>
+
+    <!-- Complex grid: 3.jpg + 9.jpg stacked (left) | 4.jpg tall (right) -->
+    <div class="img-block" style="margin-bottom:24px;">
+      <div class="img-grid img-grid-2">
+        <div id="complex-left" style="display:flex;flex-direction:column;gap:3px;">
+          <img class="article-img" src="images/2. Clay Factory/3.jpg" alt="Clay Factory" data-idx="6" tabindex="0">
+          <img class="article-img" src="images/2. Clay Factory/9.jpg" alt="Clay Factory" data-idx="7" tabindex="0">
+        </div>
+        <img id="complex-right" class="article-img" src="images/2. Clay Factory/4.jpg" alt="Clay Factory" data-idx="8" tabindex="0" style="object-fit:cover;object-position:center;">
+      </div>
+    </div>
+
+    <!-- Text D: white sacks, cloth-faced man, quote -->
+    <div class="article-text" data-lang-block="en">
+      <p>The yard was covered in piles of white sacks filled with contents I could not identify, which served as an improvised playground for the children. At the entrance to one of the shacks stood a man with his face wrapped in a cloth. Up close, his gaze was piercing. He had beautiful blue-grey eyes, laced with blood vessels burst by the surrounding pollution. He was operating the machine that was the source of the relentless noise. Into a large opening at the top of the device he was pushing, with his bare hands, plastic bottles, carrier bags and all manner of packaging, which moments later emerged as fine, colourful shavings — identical to those spilling out of the sacks being kneaded by the feet of the playing children.</p>
+      <p>I asked one of my local companions what the people here use the ground plastic particles for.</p>
+      <p>"Something has to keep the kilns burning," he said.</p>
+    </div>
+    <div class="article-text" data-lang-block="pl" style="display:none">
       <p>Podwórze pokryte było stosami białych worków wypełnionych nieznaną mi zawartością, które dla dzieci tworzyły prowizoryczny plac zabaw. U progu jednej z chat stał mężczyzna z twarzą okrytą chustą. Z bliska jego spojrzenie było przeszywające. Miał piękne lazurowo-szare oczy, pokryte popękanymi od zanieczyszczeń naczynkami krwionośnymi.</p>
       <p>Obsługiwał maszynę będącą źródłem dręczącego hałasu. Do dużego otworu na górze urządzenia upychał gołymi rękoma plastikowe butelki, foliowe reklamówki i wszelkiego rodzaju opakowania, które po chwili zamieniały się w drobne, kolorowe wióry. Wióry identyczne z tymi, które wydobywały się z worków ugniatanych stopami bawiących się dzieci.</p>
       <p>Spytałem jednego z moich lokalnych towarzyszy, do czego tutejsi ludzie wykorzystują drobinki zmielonego plastiku.</p>
       <p>„Dzięki niemu pracują te piece" — odrzekł.</p>
+    </div>
+
+    <!-- Full-width: 5.jpg (cloth-faced man) -->
+    <div class="img-block" style="margin-bottom:3px;">
+      <img class="article-img" src="images/2. Clay Factory/5.jpg" alt="Clay Factory" data-idx="9" tabindex="0">
+    </div>
+
+    <!-- Final 3-col: 13.jpg | 12.jpg | 10.jpg -->
+    <div class="img-block">
+      <div class="img-grid img-grid-3">
+        <img class="article-img" src="images/2. Clay Factory/13.jpg" alt="Clay Factory" data-idx="10" tabindex="0">
+        <img class="article-img" src="images/2. Clay Factory/12.jpg" alt="Clay Factory" data-idx="11" tabindex="0">
+        <img class="article-img" src="images/2. Clay Factory/10.jpg" alt="Clay Factory" data-idx="12" tabindex="0">
+      </div>
+    </div>
+
+    <!-- Footnotes -->
+    <div class="article-text" data-lang-block="en">
+      <p style="opacity:0.4; font-size:0.85rem;">* taka — the official currency of Bangladesh</p>
+      <p style="opacity:0.4; font-size:0.85rem;">(automatically translated — original text was written in Polish)</p>
+    </div>
+    <div class="article-text" data-lang-block="pl" style="display:none">
       <p style="opacity:0.4; font-size:0.85rem;">* taka — oficjalna jednostka walutowa Bangladeszu</p>
     </div>
 
@@ -469,144 +504,68 @@
   !function(){var b=document.querySelector('.nav-burger'),m=document.getElementById('mobile-menu');function o(){m.classList.add('open');b.classList.add('open');b.setAttribute('aria-expanded','true');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}function c(){m.classList.remove('open');b.classList.remove('open');b.setAttribute('aria-expanded','false');m.setAttribute('aria-hidden','true');document.body.style.overflow=''}b.addEventListener('click',function(){m.classList.contains('open')?c():o()});m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',c)})}();
   !function(){
     var mobileMenu=document.getElementById('mobile-menu'),burger=document.querySelector('.nav-burger');
+    var T={
+      en:{'nav.work':'Projects','nav.about':'About','nav.contact':'Contact','breadcrumb':'Projects','title':'Clay Factory','meta.type_label':'Project Type','meta.type':'Documentary Photography','meta.date_label':'Date','meta.date':'January 2026','meta.loc_label':'Location','meta.loc':'Bangladesh, Dhaka'},
+      pl:{'nav.work':'Projekty','nav.about':'O mnie','nav.contact':'Kontakt','breadcrumb':'Projekty','title':'Cegielnia','meta.type_label':'Rodzaj projektu','meta.type':'Fotografia dokumentalna','meta.date_label':'Data','meta.date':'Styczeń 2026','meta.loc_label':'Lokalizacja','meta.loc':'Bangladesz, Dhaka'}
+    };
     function closeMobile(){mobileMenu.classList.remove('open');burger.classList.remove('open');burger.setAttribute('aria-expanded','false');mobileMenu.setAttribute('aria-hidden','true');document.body.style.overflow='';}
-    function setLang(lang){
+    function applyLang(lang){
+      var t=T[lang]||T.en;
       document.querySelectorAll('.lang-btn').forEach(function(b){
         b.classList.toggle('active',b.getAttribute('data-lang')===lang);
         b.setAttribute('aria-pressed',b.getAttribute('data-lang')===lang?'true':'false');
       });
       document.querySelectorAll('[data-lang-block]').forEach(function(el){el.style.display=el.getAttribute('data-lang-block')===lang?'':'none';});
-      closeMobile();
+      document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(t[k]!==undefined)el.textContent=t[k];});
     }
     document.querySelectorAll('.lang-btn').forEach(function(btn){
       btn.addEventListener('click',function(){
         var lang=this.getAttribute('data-lang');
         localStorage.setItem('lang',lang);
-        setLang(lang);
+        applyLang(lang);
+        closeMobile();
       });
     });
-    var savedLang=localStorage.getItem('lang');
-    if(savedLang&&savedLang!=='en')setLang(savedLang);
+    applyLang(localStorage.getItem('lang')||'en');
   }();
   !function(){
     var imgs=[
-      'images/2. Clay Factory/1.jpg','images/2. Clay Factory/2.jpg','images/2. Clay Factory/3.jpg',
-      'images/2. Clay Factory/4.jpg','images/2. Clay Factory/5.jpg','images/2. Clay Factory/6.jpg',
-      'images/2. Clay Factory/7.jpg','images/2. Clay Factory/8.jpg','images/2. Clay Factory/9.jpg',
-      'images/2. Clay Factory/10.jpg','images/2. Clay Factory/11.jpg','images/2. Clay Factory/12.jpg',
-      'images/2. Clay Factory/13.jpg','images/2. Clay Factory/14.jpg','images/2. Clay Factory/15.jpg'
+      'images/2. Clay Factory/1.jpg',
+      'images/2. Clay Factory/15.jpg',
+      'images/2. Clay Factory/8.jpg',
+      'images/2. Clay Factory/14.jpg',
+      'images/2. Clay Factory/2.jpg',
+      'images/2. Clay Factory/7.jpg',
+      'images/2. Clay Factory/3.jpg',
+      'images/2. Clay Factory/9.jpg',
+      'images/2. Clay Factory/4.jpg',
+      'images/2. Clay Factory/5.jpg',
+      'images/2. Clay Factory/13.jpg',
+      'images/2. Clay Factory/12.jpg',
+      'images/2. Clay Factory/10.jpg'
     ];
-    var cur=0,n=imgs.length,SIDE=5,animating=false;
-    var activeImg=document.getElementById('img-active');
-    var activeEl=document.querySelector('.carousel-active');
-    var leftEl=document.getElementById('carousel-left');
-    var rightEl=document.getElementById('carousel-right');
-    var trackEl=document.querySelector('.carousel-track');
-    var viewer=document.querySelector('.project-viewer');
+    var n=imgs.length,lbIdx=0,lastFocused=null;
     var lb=document.getElementById('lightbox'),lbImg=lb.querySelector('img');
-    var prevBtn=document.getElementById('btn-prev'),nextBtn=document.getElementById('btn-next');
-
-    function renderedSize(natW,natH){
-      var maxW=window.innerWidth*0.9;
-      var maxH=window.innerHeight*0.6;
-      /* On mobile, cap maxH so landscape images are height-constrained too — keeps viewer height consistent */
-      if(window.innerWidth<768)maxH=Math.min(maxH,maxW*(2/3));
-      var scale=Math.min(1,maxH/natH,maxW/natW);
-      return{w:Math.round(natW*scale),h:Math.round(natH*scale)};
-    }
-    function syncAll(){
-      if(!activeImg.naturalWidth)return;
-      var s=renderedSize(activeImg.naturalWidth,activeImg.naturalHeight);
-      activeEl.style.width=s.w+'px';
-      viewer.style.height=s.h+'px';
-      var half=s.w/2+3;
-      leftEl.style.height=s.h+'px';
-      leftEl.style.right='calc(50% + '+half+'px)';
-      rightEl.style.height=s.h+'px';
-      rightEl.style.left='calc(50% + '+half+'px)';
-    }
-    function fillSide(el,indices){
-      for(var j=0;j<indices.length;j++){
-        var img=el.children[j];
-        if(!img){img=document.createElement('img');img.alt='';el.appendChild(img);}
-        img.src=imgs[indices[j]];img.dataset.idx=indices[j];
-      }
-      while(el.children.length>indices.length)el.removeChild(el.lastChild);
-    }
-    function applyState(){
-      activeImg.src=imgs[cur];
-      var L=[],R=[];
-      for(var j=1;j<=SIDE;j++){L.push((cur-j+n)%n);R.push((cur+j)%n);}
-      fillSide(leftEl,L);fillSide(rightEl,R);
-      activeImg.onload=syncAll;
-      if(activeImg.complete)syncAll();
-    }
-    function show(i){
-      if(animating)return;
-      var newCur=(i+n)%n;
-      if(newCur===cur)return;
-      var isNext=newCur===(cur+1)%n,isPrev=newCur===(cur-1+n)%n;
-      if(!isNext&&!isPrev){cur=newCur;applyState();return;}
-
-      var curW=parseInt(activeEl.style.width)||0;
-      if(!curW){cur=newCur;applyState();return;}
-
-      var sideImg=isNext?rightEl.querySelector('img'):leftEl.querySelector('img');
-      var newW=curW,newH=parseInt(viewer.style.height)||0;
-      if(sideImg&&sideImg.naturalWidth){
-        var ns=renderedSize(sideImg.naturalWidth,sideImg.naturalHeight);
-        newW=ns.w;newH=ns.h;
-      }
-      var step=(curW+newW)/2+3;
-      var tx=isNext?-step:step;
-
-      animating=true;
-      trackEl.style.transition='transform 0.42s cubic-bezier(0.4,0,0.2,1)';
-      trackEl.style.transform='translateX('+tx+'px)';
-
-      function onEnd(e){
-        if(e.propertyName!=='transform')return;
-        trackEl.removeEventListener('transitionend',onEnd);
-        trackEl.style.transition='none';
-        cur=newCur;
-        activeEl.style.width=newW+'px';
-        activeImg.src=imgs[cur];
-        viewer.style.height=newH+'px';
-        var nh=newW/2+3;
-        leftEl.style.height=newH+'px';
-        leftEl.style.right='calc(50% + '+nh+'px)';
-        rightEl.style.height=newH+'px';
-        rightEl.style.left='calc(50% + '+nh+'px)';
-        var L=[],R=[];
-        for(var j=1;j<=SIDE;j++){L.push((cur-j+n)%n);R.push((cur+j)%n);}
-        fillSide(leftEl,L);
-        fillSide(rightEl,R);
-        trackEl.style.transform='';
-        activeImg.onload=syncAll;
-        if(activeImg.complete)syncAll();
-        requestAnimationFrame(function(){animating=false;});
-      }
-      trackEl.addEventListener('transitionend',onEnd);
-    }
-
-    leftEl.addEventListener('click',function(e){var t=e.target.closest('img');if(t)show(parseInt(t.dataset.idx));});
-    rightEl.addEventListener('click',function(e){var t=e.target.closest('img');if(t)show(parseInt(t.dataset.idx));});
-    prevBtn.addEventListener('click',function(){show(cur-1);});
-    nextBtn.addEventListener('click',function(){show(cur+1);});
-    var lbIdx=0;
     var lbPrevBtn=document.getElementById('lb-prev');
-    function openLB(){
-      lbIdx=cur;lbImg.src=imgs[lbIdx];lbImg.alt='Clay Factory photo '+(lbIdx+1);
+
+    function openLB(idx,trigger){
+      lbIdx=idx;lastFocused=trigger||null;
+      lbImg.src=imgs[lbIdx];lbImg.alt='Clay Factory photo '+(lbIdx+1);
       lb.classList.add('open');lb.setAttribute('aria-hidden','false');
       document.body.style.overflow='hidden';lbPrevBtn.focus();
     }
     function closeLB(){
       lb.classList.remove('open');lb.setAttribute('aria-hidden','true');
-      document.body.style.overflow='';activeImg.focus();
+      document.body.style.overflow='';
+      if(lastFocused)lastFocused.focus();
     }
     function lbShow(i){lbIdx=((i%n)+n)%n;lbImg.src=imgs[lbIdx];lbImg.alt='Clay Factory photo '+(lbIdx+1);}
-    activeImg.addEventListener('click',openLB);
-    activeImg.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openLB();}});
+
+    document.querySelectorAll('.article-img').forEach(function(img){
+      img.addEventListener('click',function(){openLB(parseInt(img.dataset.idx),img);});
+      img.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openLB(parseInt(img.dataset.idx),img);}});
+    });
+
     lb.addEventListener('click',closeLB);
     document.getElementById('lb-prev').addEventListener('click',function(e){e.stopPropagation();lbShow(lbIdx-1);});
     document.getElementById('lb-next').addEventListener('click',function(e){e.stopPropagation();lbShow(lbIdx+1);});
@@ -623,7 +582,6 @@
         }
         return;
       }
-      if(e.key==='ArrowLeft')show(cur-1);else if(e.key==='ArrowRight')show(cur+1);
     });
     (function(){var sx=0,sy=0;
       lb.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
@@ -633,16 +591,18 @@
         else if(Math.abs(dy)>60&&Math.abs(dy)>Math.abs(dx)){closeLB();}
       });
     }());
-    window.addEventListener('resize',syncAll);
-    (function(){
-      var sx=0,sy=0;
-      viewer.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
-      viewer.addEventListener('touchend',function(e){
-        var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;
-        if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40){show(dx<0?cur+1:cur-1);}
-      });
-    }());
-    applyState();
+  }();
+  !function(){
+    function eqGrid(){
+      var l=document.getElementById('complex-left');
+      var r=document.getElementById('complex-right');
+      if(!l||!r)return;
+      r.style.height='';
+      r.style.height=l.offsetHeight+'px';
+    }
+    if(document.readyState==='complete'){eqGrid();}
+    else{window.addEventListener('load',eqGrid);}
+    window.addEventListener('resize',eqGrid);
   }();
   </script>
 

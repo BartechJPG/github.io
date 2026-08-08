@@ -47,15 +47,12 @@
       align-items: center;
       padding: 0 40px;
       background-color: var(--bg);
-      box-shadow: none;
-      transition: box-shadow 0.4s ease;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.4s ease;
     }
 
     nav.scrolled {
-      box-shadow:
-        0 1px 0 rgba(249, 59, 34, 0.07),
-        0 2px 12px rgba(0, 0, 0, 0.35),
-        0 6px 32px rgba(0, 0, 0, 0.2);
+      border-bottom-color: rgba(34, 34, 34, 0.1);
     }
 
     .nav-logo {
@@ -81,11 +78,11 @@
     .nav-links a {
       color: var(--orange);
       text-decoration: none;
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-weight: 400;
       font-size: 1.15rem;
       letter-spacing: 0.01em;
-      text-transform: uppercase;
+      text-transform: none;
       height: var(--logo-size);
       display: inline-flex;
       align-items: center;
@@ -183,11 +180,11 @@
       padding: 22px 0;
       color: var(--orange);
       text-decoration: none;
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-weight: 400;
       font-size: 2rem;
       letter-spacing: 0.01em;
-      text-transform: uppercase;
+      text-transform: none;
       transition: opacity 0.2s ease;
     }
 
@@ -208,7 +205,7 @@
       background: transparent;
       border: none;
       color: var(--orange);
-      font-family: 'Lato', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-weight: 700;
       font-size: 1rem;
       letter-spacing: 0.04em;
@@ -288,12 +285,12 @@
       bottom: var(--ticker-height);
       left: 50%;
       transform: translateX(-50%);
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-weight: 400;
       font-size: 1.1rem;
       letter-spacing: 0.01em;
       color: var(--orange);
-      text-transform: uppercase;
+      text-transform: none;
       white-space: nowrap;
       text-align: center;
       animation: subtitle-bounce 1.8s ease-in-out infinite;
@@ -411,11 +408,11 @@
       position: relative;
       overflow: hidden;
       isolation: isolate;
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-weight: 400;
       font-size: 1rem;
       letter-spacing: 0.06em;
-      text-transform: uppercase;
+      text-transform: none;
       color: var(--orange);
       padding: 0 16px;
       height: var(--logo-size);
@@ -497,12 +494,13 @@
       max-width: clamp(680px, 72vw, 960px);
       margin: 0 auto;
       text-align: center;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: clamp(1.4rem, 2.5vw, 2rem);
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      color: var(--orange);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      font-size: clamp(36px, 5vw, 64px);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      text-transform: none;
+      color: var(--fg);
       /* reset h2 browser defaults */
       padding: 0;
     }
@@ -546,22 +544,21 @@
     }
 
     #contact .section-inner {
-      min-height: 60vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 40px;
+      gap: 64px;
     }
 
     .contact-label {
       display: inline-block;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: clamp(1.4rem, 2.5vw, 2rem);
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      color: var(--orange);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      font-size: clamp(36px, 5vw, 64px);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      text-transform: none;
+      color: var(--fg);
       margin: 0;
       padding: 0;
     }
@@ -579,31 +576,39 @@
       padding: 8px 20px;
       background: var(--orange);
       color: var(--bg);
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 0.9rem;
       text-decoration: none;
-      text-transform: uppercase;
+      text-transform: none;
       letter-spacing: 0.05em;
     }
     .skip-link:focus { top: 0; }
 
     .contact-details {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      text-align: center;
+      justify-content: center;
+    }
+
+    .contact-table {
+      display: grid;
+      grid-template-columns: auto auto;
+      column-gap: clamp(60px, 10vw, 160px);
+      row-gap: 10px;
     }
 
     .contact-row {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-weight: 400;
       font-size: clamp(0.95rem, 1.8vw, 1.2rem);
       letter-spacing: 0.02em;
-      text-transform: uppercase;
+      text-transform: none;
       color: var(--orange);
       text-decoration: none;
       transition: opacity 0.2s ease;
+    }
+
+    .contact-value {
+      text-align: right;
     }
 
     a.contact-row:hover {
@@ -620,7 +625,7 @@
     }
 
     .footer-text {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-weight: 400;
       font-size: 1rem;
       letter-spacing: 0em;
@@ -681,9 +686,9 @@
     </a>
 
     <ul class="nav-links">
-      <li><a href="#work"    data-i18n="nav.work">projects</a></li>
-      <li><a href="#about"   data-i18n="nav.about">about</a></li>
-      <li><a href="#contact" data-i18n="nav.contact">contact</a></li>
+      <li><a href="#work"    data-i18n="nav.work">Projects</a></li>
+      <li><a href="#about"   data-i18n="nav.about">About</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
     </ul>
 
     <div class="nav-right">
@@ -701,9 +706,9 @@
   <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <ul class="mobile-nav-links">
-      <li><a href="#work"    data-i18n="nav.work">projects</a></li>
-      <li><a href="#about"   data-i18n="nav.about">about</a></li>
-      <li><a href="#contact" data-i18n="nav.contact">contact</a></li>
+      <li><a href="#work"    data-i18n="nav.work">Projects</a></li>
+      <li><a href="#about"   data-i18n="nav.about">About</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
     </ul>
     <div class="lang-switch" aria-label="Language switcher">
       <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
@@ -754,7 +759,7 @@
   <!-- ABOUT -->
   <section id="about">
     <div class="section-inner">
-      <h2 class="about-label" data-i18n="about.heading">WHO I AM</h2>
+      <h2 class="about-label" data-i18n="about.heading">About Me</h2>
       <div class="about-content">
         <p class="about-body" data-i18n="about.body1">
           I'm a documentary photographer from Poland, working on visual stories about cultures, traditions, and professions disappearing under economic and industrial change. I have traveled to many places around the world, documenting the lives of local people and their environments. I pair photography with written reportage, so each story carries the context behind the images.
@@ -776,12 +781,18 @@
   <!-- CONTACT -->
   <section id="contact">
     <div class="section-inner">
-      <h2 class="contact-label" data-i18n="nav.contact">contact</h2>
+      <h2 class="contact-label" data-i18n="nav.contact">Contact</h2>
       <div class="contact-details">
-        <a href="mailto:bartech.jpg@gmail.com" class="contact-row">EMAIL: bartech.jpg@gmail.com</a>
-        <span class="contact-row">PHONE/WHATSAPP: (+48) 530 741 809</span>
-        <a href="https://instagram.com/bartech.jpg" target="_blank" class="contact-row" style="text-decoration:underline">INSTAGRAM</a>
-        <a href="https://substack.com/@bartechjpg" target="_blank" class="contact-row" style="text-decoration:underline">SUBSTACK</a>
+        <div class="contact-table">
+          <span class="contact-row">Email</span>
+          <a href="mailto:bartech.jpg@gmail.com" class="contact-row contact-value">bartech.jpg@gmail.com</a>
+          <span class="contact-row">Phone/WhatsApp</span>
+          <span class="contact-row contact-value">(+48) 530 741 809</span>
+          <span class="contact-row">Instagram</span>
+          <a href="https://instagram.com/bartech.jpg" target="_blank" class="contact-row contact-value" style="text-decoration:underline">@Bartech.jpg</a>
+          <span class="contact-row">Substack</span>
+          <a href="https://substack.com/@bartechjpg" target="_blank" class="contact-row contact-value" style="text-decoration:underline">https://substack.com/@bartechjpg</a>
+        </div>
       </div>
     </div>
   </section>
@@ -801,12 +812,12 @@
     (function () {
       const T = {
         en: {
-          'nav.work':        'projects',
-          'nav.about':       'about',
-          'nav.contact':     'contact',
+          'nav.work':        'Projects',
+          'nav.about':       'About',
+          'nav.contact':     'Contact',
           'hero.subtitle':   'MY WORKS',
           'work.label':      'Selected Work',
-          'about.heading':   'WHO I AM',
+          'about.heading':   'About Me',
           'about.label':     'About',
           'about.body1':     'I\'m a documentary photographer from Poland, working on visual stories about cultures, traditions, and professions disappearing under economic and industrial change. I have traveled to many places around the world, documenting the lives of local people and their environments. I pair photography with written reportage, so each story carries the context behind the images.',
           'about.body2':     'I hold a Master\'s Degree in Graphic Design from the Academy of Fine Arts in Katowice. I worked in the field as a design advisor, building data-driven dashboards for major brands including Pfizer, Lamborghini, and Gucci. This background shaped how I see and portray things, as well as how I understand people\'s needs and help solve their problems. My move toward documenting reality came from realizing that making an impact matters more than making money.',
@@ -819,12 +830,12 @@
           'card.clayfactory':'Clay Factory',
         },
         pl: {
-          'nav.work':        'projekty',
-          'nav.about':       'o mnie',
-          'nav.contact':     'kontakt',
+          'nav.work':        'Projekty',
+          'nav.about':       'O mnie',
+          'nav.contact':     'Kontakt',
           'hero.subtitle':   'MOJE PRACE',
           'work.label':      'Wybrane Prace',
-          'about.heading':   'KIM JESTEM',
+          'about.heading':   'O mnie',
           'about.label':     'O mnie',
           'about.body1':     'Jestem fotografem urodzonym w Polsce, skupiającym się na dokumentowaniu kultur, tradycji i zawodów zanikających pod wpływem globalnych przemian. Podróżuję po świecie, dokumentując życia lokalnych ludzi oraz otaczające ich środowiska. Często łączę fotografię z reportażem tekstowym i oprawą graficzną, dodając im w ten sposób dodatkowe warstwy opowieści.',
           'about.body2':     'Z wykształcenia jestem magistrem projektowania graficznego Akademii Sztuk Pięknych w Katowicach, którą ukończyłem z wyróżnieniem, realizując projekt poświęcony dystopiom w popkulturze. Pracowałem w branży jako doradca do spraw designu i interfejsu użytkownika dla największych firm, takich jak Pfizer, Lamborghini czy Gucci.',
@@ -905,13 +916,20 @@
         btn.addEventListener('click', () => {
           playKeyClick();
           const lang = btn.dataset.lang;
-          // Sync active state across every lang button (nav + mobile)
+          localStorage.setItem('lang', lang);
           document.querySelectorAll('.lang-btn').forEach(b => {
             b.classList.toggle('active', b.dataset.lang === lang);
           });
           applyLang(lang);
         });
       });
+
+      // Restore saved language on page load (default: en)
+      const savedLang = localStorage.getItem('lang') || 'en';
+      document.querySelectorAll('.lang-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.lang === savedLang);
+      });
+      applyLang(savedLang);
     }());
 
     // ── Mobile burger menu ────────────────────────────────────────────────────
