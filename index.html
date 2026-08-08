@@ -658,6 +658,16 @@
       .about-body { font-size: 0.9rem; }
 
       #contact .section-inner { padding-left: 10vw; padding-right: 10vw; }
+      .contact-table {
+        grid-template-columns: 1fr;
+        row-gap: 0;
+      }
+      .contact-table .contact-row:nth-child(odd) {
+        opacity: 0.5;
+        margin-top: 20px;
+      }
+      .contact-table .contact-row:first-child { margin-top: 0; }
+      .contact-value { text-align: left; }
 
       footer { flex-direction: column; gap: 6px; padding: 24px; text-align: center; }
     }
